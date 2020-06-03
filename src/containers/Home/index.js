@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
+import Dashboard from '../Dashboard'
 import {Compare, ProductList} from '../../components'
 import * as productActions from '../../actions/product'
 import {connect} from 'react-redux'
@@ -20,10 +21,11 @@ class Home extends Component {
             <h2 className="mb-3">Compare Products</h2>
           </div>
         </div>
-        <ProductList products={products} compare={actions.compare}/>
+        {/* <ProductList products={products} compare={actions.compare}/>
         {compareProducts.length >= 2 &&
           <Compare products={compareProducts}/>
-        }
+        } */}
+        <Dashboard />
       </div>
     )
   }
