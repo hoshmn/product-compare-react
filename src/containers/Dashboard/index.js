@@ -1,5 +1,9 @@
 import React, {Component} from 'react'
+import {bindActionCreators} from 'redux'
+import * as chartActions from '../../actions/chart'
+import {connect} from 'react-redux'
 const ReactHighcharts = require('react-highcharts')
+
 
 const config = {
   xAxis: {
@@ -11,6 +15,10 @@ const config = {
 }
 
 class Dashboard extends Component {
+  componentWillMount() {
+    this.props.actions.getChartData()
+  }
+
   render() {
     return (
       <div className="dashboard">
@@ -23,4 +31,11 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard
+export default connect(
+  state => ({
+    data: state.chart.chartData
+  }),
+  dispatch => ({
+    actions: bindActionCreators(chartActions, dispatch)
+  })
+)(Dashboard)
