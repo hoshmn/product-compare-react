@@ -25,7 +25,7 @@ class Home extends Component {
         {compareProducts.length >= 2 &&
           <Compare products={compareProducts}/>
         } */}
-        <Dashboard />
+        <Dashboard country='Kenya' />
       </div>
     )
   }

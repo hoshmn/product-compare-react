@@ -39,14 +39,14 @@ class Dashboard extends Component {
   constructor() {
     super()
     this.state = { alertOn: false }
-    fields.forEach(f => this.state[f] = false)
+    // fields.forEach(f => this.state[f] = false)
 
     this.updateField = this.updateField.bind(this)
     this.updateAlert = this.updateAlert.bind(this)
     this.submit = this.submit.bind(this)
   }
   componentWillMount() {
-    this.props.actions.getChartData()
+    this.props.actions.getChartData(this.props.country)
   }
 
   updateField(e) {
@@ -79,6 +79,7 @@ class Dashboard extends Component {
   }
 
   render() {
+    // console.log('NNNNNNN',this.props.chartData)
     const inputs = fields.map(f => {
       return <label key={f}>{f}<input data-field={f} onChange={this.updateField}></input></label>
     })
@@ -97,7 +98,7 @@ class Dashboard extends Component {
 
 export default connect(
   state => ({
-    data: state.chart.chartData
+    chartData: state.chart.chartData
   }),
   dispatch => ({
     actions: bindActionCreators(chartActions, dispatch)
