@@ -1,0 +1,25 @@
+@import '../../styles/_variables.scss';
+
+.homepage {
+  .who-logo {
+    max-width: 200px;
+  }
+
+  h1, h2 {
+    color: $accent-blue-dark;
+  }
+  
+  .input-group {
+    max-width: 500px;
+    padding-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  section {
+    padding-top: 50px;
+    padding-bottom: 75px;
+    border-bottom: solid 1px $accent-blue-dark;
+    margin-bottom: 75px;
+  }
+}

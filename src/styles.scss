@@ -5,3 +5,16 @@ body {
   background: #f6f7f8;
   color: #393c45;
 }
+
+#root {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #F9F8EF;
+
+  .container-lg {
+    padding-top: 15px;
+  }
+}

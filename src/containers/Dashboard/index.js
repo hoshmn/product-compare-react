@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import * as chartActions from '../../actions/chart'
 import {connect} from 'react-redux'
+import './styles.css'
 const ReactHighcharts = require('react-highcharts')
 
 
@@ -49,7 +50,28 @@ class Dashboard extends Component {
     // console.log('hi', this.props.country)
     this.props.actions.getChartData(this.props.country)
   }
+  
+  render() {
+    // console.log('NNNNNNN',this.props.chartData)
+    const inputs = fields.map(f => {
+      return <label key={f}>{f}<input data-field={f} onChange={this.updateField}></input></label>
+    })
+    
+    return (
+      <div className='dashboard'>
+        <a onClick={this.props.setCountry.bind(null, null)} action='#' title='go home'>
+          <img className='who-logo' src='images/who_logo.png' alt='WHO logo' />
+        </a>
+        <div className='container mt-4'>
+          <ReactHighcharts config={config}/>
+          {inputs}
+          <button onClick={this.submit} action='#'>go fetch</button>
+        </div>
+      </div>
+    )
+  }
 
+  // dev form
   updateField(e) {
     this.setState({ [e.target.dataset.field]: e.target.value })
   }
@@ -77,23 +99,6 @@ class Dashboard extends Component {
           console.log(response)
         }
       })
-  }
-
-  render() {
-    // console.log('NNNNNNN',this.props.chartData)
-    const inputs = fields.map(f => {
-      return <label key={f}>{f}<input data-field={f} onChange={this.updateField}></input></label>
-    })
-    
-    return (
-      <div className="dashboard">
-        <div className="container mt-4">
-          {inputs}
-          <button onClick={this.submit} action='#'>go fetch</button>
-          <ReactHighcharts config={config}/>
-        </div>
-      </div>
-    )
   }
 }
 
