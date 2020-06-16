@@ -59,9 +59,14 @@ class Dashboard extends Component {
     
     return (
       <div className='dashboard'>
-        <a onClick={this.props.setCountry.bind(null, null)} action='#' title='go home'>
-          <img className='who-logo' src='images/who_logo.png' alt='WHO logo' />
-        </a>
+        <div className='nav'>
+          <a onClick={this.props.setCountry.bind(null, null)} action='#' title='go home'>
+            <img className='who-logo' src='images/who_logo.png' alt='WHO logo' />
+          </a>
+          <span className='title text-center'>
+            HIV Testing Services Dashboard
+          </span>
+        </div>
         <div className='container mt-4'>
           <ReactHighcharts config={config}/>
           {inputs}

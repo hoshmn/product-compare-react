@@ -8,13 +8,12 @@ body {
 
 #root {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  min-height: 100%;
+  min-width: 100%;
   background: #F9F8EF;
-
+  
   .container-lg {
     padding-top: 15px;
+    background: #F9F8EF;
   }
 }
