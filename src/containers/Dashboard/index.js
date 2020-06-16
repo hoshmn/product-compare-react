@@ -46,6 +46,7 @@ class Dashboard extends Component {
     this.submit = this.submit.bind(this)
   }
   componentWillMount() {
+    // console.log('hi', this.props.country)
     this.props.actions.getChartData(this.props.country)
   }
 
