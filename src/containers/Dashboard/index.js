@@ -113,6 +113,7 @@ class Dashboard extends Component {
           <br />
           <span>{URLBase}indicator=</span><input id='direct-query'></input>
           <button onClick={this.submitDQ} action='#'>direct query</button>
+          <button onClick={this.submitDQ.bind(this, true)} action='#'>dbug</button>
         </div>
       </div>
     )
@@ -127,19 +128,22 @@ class Dashboard extends Component {
     this.setState({ alertOn: e.target.value === 'on' })
   }
 
-  submitDQ() {
+  submitDQ(e, dbug) {
     const v = document.querySelector('#direct-query')
     // debugger
     const url = URLBase + 'indicator=' + v.value || ''
     console.log('url: ', url)
     fetch(url)
     .then(response => response.json())
-    .then(response => {
-      console.log(response)
+    .then(r => {
+      console.log(r)
+      if (dbug) {
+        debugger
+      }
     })
   }
 
-  submit(dbug) {
+  submit(e, dbug) {
     let url = URLBase
     let char = ''
     fields.forEach(f => {
@@ -151,8 +155,8 @@ class Dashboard extends Component {
     console.log('URL: ', url)
     fetch(url)
       .then(response => response.json())
-      .then(response => {
-        console.log(response)
+      .then(r => {
+        console.log(r)
         if (dbug) {
           debugger
         }
