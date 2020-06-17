@@ -1,8 +1,11 @@
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import * as chartActions from '../../actions/chart'
+import baseStyle from './baseStyle'
 import {connect} from 'react-redux'
+import _ from 'lodash'
 import './styles.css'
+import { getColumn } from './configs'
 const ReactHighcharts = require('react-highcharts')
 
 
@@ -13,6 +16,70 @@ const config = {
   series: [{
     data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 295.6, 454.4]
   }]
+}
+
+const bar = {
+  chart: {
+    type: 'bar'
+  },
+  title: {
+    text: 'Historic World Population by Region'
+  },
+  subtitle: {
+    text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
+  },
+  xAxis: {
+    categories: ['Men', 'Women'],
+    title: {
+      text: null
+    }
+  },
+  yAxis: {
+    min: 0,
+    title: {
+      text: 'Total tests',
+      align: 'high'
+    },
+    labels: {
+      overflow: 'justify'
+    }
+  },
+  tooltip: {
+    // valueSuffix: ' millions'
+  },
+  plotOptions: {
+    bar: {
+      dataLabels: {
+        enabled: true
+      }
+    }
+  },
+  // legend: {
+  //   layout: 'vertical',
+  //   align: 'right',
+  //   verticalAlign: 'top',
+  //   x: -40,
+  //   y: 80,
+  //   floating: true,
+  //   borderWidth: 1,
+  // },
+  credits: {
+    enabled: false
+  },
+  series: [12, 14]
+  // [{
+  //   name: 'Year 1800',
+  //   data: [107, 31, 635, 203, 2]
+  // }, {
+  //   name: 'Year 1900',
+  //   data: [133, 156, 947, 408, 6]
+  // }, {
+  //   name: 'Year 2000',
+  //   data: [814, 841, 3714, 727, 31]
+  // }, {
+  //   name: 'Year 2016',
+  //   data: [1216, 1001, 4436, 738, 40]
+  // }]
 }
 
 const URLBase = 'https://status.y-x.ch/query?'
@@ -74,12 +141,35 @@ class Dashboard extends Component {
     })
     console.log(this.configs)
   }
+
+  getAdults() {
+    const title = 'Adults'
+    const series = [
+      {
+        name: 'Total Tests',
+        data: [
+          ['Women', 234],
+          ['Men', 238],
+        ],
+      },
+      {
+        name: 'Positivity',
+        data: [
+          ['Women', 2.234322],
+          ['Men', 30.234328],
+        ],
+      }
+    ]
+    return _.merge(baseStyle, getColumn({title, series}))
+  }
   
   render() {
     // console.log('NNNNNNN',this.props.chartData)
     const inputs = fields.map(f => {
       return <label key={f}>{f}<input data-field={f} onChange={this.updateField}></input></label>
     })
+
+    const config1 = this.getAdults()
     
     return (
       <div className='dashboard'>
@@ -102,7 +192,12 @@ class Dashboard extends Component {
             <div><span>World Bank classification:</span><span> Low income</span></div>
           </div>
 
-          <ReactHighcharts config={config}/>
+          <div>
+            <div><ReactHighcharts config={config1}/></div>
+            <div><ReactHighcharts config={config1}/></div>
+            <div><ReactHighcharts config={config1}/></div>
+            <div><ReactHighcharts config={config1}/></div>
+          </div>
           <br />
           <br />
           <br />

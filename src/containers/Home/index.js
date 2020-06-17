@@ -9,8 +9,8 @@ import Homepage from '../../components/Homepage'
 class Home extends Component {
   constructor() {
     super()
-    // this.state = { country: 'kenya' }
-    this.state = { country: null }
+    this.state = { country: 'Kenya' }
+    // this.state = { country: null }
 
     this.setCountry = this.setCountry.bind(this)
   }
