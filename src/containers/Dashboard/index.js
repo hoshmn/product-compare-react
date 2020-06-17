@@ -9,6 +9,9 @@ import { getColumn } from './configs'
 import colors from './colors'
 const ReactHighcharts = require('react-highcharts')
 
+ReactHighcharts.Highcharts.theme = baseStyle
+ReactHighcharts.Highcharts.setOptions(ReactHighcharts.Highcharts.theme)
+
 
 const config = {
   xAxis: {
@@ -161,7 +164,7 @@ class Dashboard extends Component {
         ],
       }
     ]
-    return _.merge({}, baseStyle, getColumn({title, series}))
+    return _.merge({}, getColumn({title, series}))
   }
 
   getCommunity() {
@@ -184,7 +187,7 @@ class Dashboard extends Component {
         ],
       }
     ]
-    return _.merge({}, baseStyle, getColumn({title, series}))
+    return _.merge({}, getColumn({title, series}))
   }
 
   getFacility() {
@@ -211,7 +214,7 @@ class Dashboard extends Component {
         ],
       }
     ]
-    return _.merge({}, baseStyle, getColumn({title, series}))
+    return _.merge({}, getColumn({title, series}))
   }
 
   getIndex() {
@@ -232,7 +235,7 @@ class Dashboard extends Component {
         ],
       }
     ]
-    return _.merge({}, baseStyle, getColumn({title, series}))
+    return _.merge({}, getColumn({title, series}))
   }
   
   render() {
@@ -268,10 +271,10 @@ class Dashboard extends Component {
           </div>
 
           <div className='row no-gutters'>
-            <div className='col-lg-3 col-md-6 col-sm-12'><ReactHighcharts config={configAdults}/></div>
-            <div className='col-lg-3 col-md-6 col-sm-12'><ReactHighcharts config={configCommunity}/></div>
-            <div className='col-lg-3 col-md-6 col-sm-12'><ReactHighcharts config={configFacility}/></div>
-            <div className='col-lg-3 col-md-6 col-sm-12'><ReactHighcharts config={configIndex}/></div>
+            <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configAdults}/></div>
+            <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configCommunity}/></div>
+            <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configFacility}/></div>
+            <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configIndex}/></div>
           </div>
           <br />
           <br />

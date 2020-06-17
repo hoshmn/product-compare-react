@@ -8,8 +8,7 @@ const column = {
     type: 'column'
   },
   title: {
-    text: '$TITLE', // 'Adults'
-    tooltip: 'hihihi'
+    text: '$TITLE',
   },
   subtitle: {
     // text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
@@ -17,7 +16,7 @@ const column = {
   xAxis: {
     type: 'category',
     labels: {
-      // rotation: -45,
+      rotation: 0,
       style: {
         fontSize: '10px',
         fontFamily: 'Verdana, sans-serif'
@@ -47,10 +46,6 @@ const column = {
   series: [
     {
       name: '$L-TITLE',
-      data: [
-        ['Women', 24.2],
-        ['Men', 20.8],
-      ],
     },
     {
       name: '$R-TITLE',
@@ -61,10 +56,6 @@ const column = {
         //   debugger
         // }
       },
-      data: [
-        ['Women', 2.234322],
-        ['Men', 30.234328],
-      ],
       type: 'scatter',
       yAxis: 1
     },

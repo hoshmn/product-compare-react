@@ -3,7 +3,8 @@ import colors, { subtleWheat } from "./colors";
 export default {
   "plotOptions": { 
     "scatter": { "marker": { "radius": 5 }},
-    "column": { "maxPointWidth": 40 },
+    "column": { "pointWidth": 30 },
+    // "column": { "maxPointWidth": 40 },
     // "series": { "yAxis": { "stackLabels": { enabled: true } } },
   },
   "chart": {
@@ -16,6 +17,7 @@ export default {
   },
   "colors": colors,
   "xAxis": {
+    "stackLabels": { "enabled": true, "style": { "fontWeight": "bold", "color": "gray" } },
     "labels": {
       "style": {
         "color": "#666666"
@@ -38,6 +40,7 @@ export default {
     "minorGridLineWidth": 0.5
   },
   "yAxis": {
+    "stackLabels": { "enabled": true, "style": { "fontWeight": "bold", "color": "gray" } },
     "labels": {
       "style": {
         "color": "#666666"
