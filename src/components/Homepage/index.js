@@ -5,7 +5,7 @@ const Homepage = ({setCountry}) =>
   <div className='homepage'>
     <img className='who-logo' src='images/who_logo.png' alt='WHO logo' />
     <section className='text-center'>
-      <div className='container'>
+      <div className='container-fluid'>
         <h1>HIV Country Intelligence</h1>
         <h2>HIV Testing Services Dashboard</h2>
         <div className='input-group'>

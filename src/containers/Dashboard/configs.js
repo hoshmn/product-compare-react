@@ -1,12 +1,15 @@
 import colors from "./colors"
 import _ from 'lodash'
 
+// custom label https://jsfiddle.net/BlackLabel/37h8kqdL/
+
 const column = {
   chart: {
     type: 'column'
   },
   title: {
-    text: '$TITLE' // 'Adults'
+    text: '$TITLE', // 'Adults'
+    tooltip: 'hihihi'
   },
   subtitle: {
     // text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
@@ -16,7 +19,7 @@ const column = {
     labels: {
       // rotation: -45,
       style: {
-        fontSize: '13px',
+        fontSize: '10px',
         fontFamily: 'Verdana, sans-serif'
       }
     }
@@ -43,16 +46,16 @@ const column = {
 
   series: [
     {
-      name: 'Total Tests',
+      name: '$L-TITLE',
       data: [
         ['Women', 24.2],
         ['Men', 20.8],
       ],
     },
     {
-      name: 'Positivity',
+      name: '$R-TITLE',
       tooltip: {
-        pointFormat: '<b>{point.y:.1f}%</b>',
+        pointFormat: '<b>{point.y:.1f}</b>',
         // formatter: function(point) {
         //   console.log(point)
         //   debugger
@@ -74,7 +77,7 @@ const getColumn = ({title, series}) => {
     yAxis: [{ title: { text: series[0].name }}, { title: { text: series[1].name }}],
     series: series
   }
-  return _.merge(column, specifics)
+  return _.merge({}, column, specifics)
 }
 
 export {

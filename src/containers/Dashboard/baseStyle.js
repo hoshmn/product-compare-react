@@ -1,7 +1,13 @@
-import colors from "./colors";
+import colors, { subtleWheat } from "./colors";
 
 export default {
+  "plotOptions": { 
+    "scatter": { "marker": { "radius": 5 }},
+    "column": { "maxPointWidth": 40 },
+    // "series": { "yAxis": { "stackLabels": { enabled: true } } },
+  },
   "chart": {
+    "backgroundColor": "#FFFFFF",
     "plotBackgroundColor": "#F8F8F8",
     "style": {
       "color": "#000000",

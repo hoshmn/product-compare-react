@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import _ from 'lodash'
 import './styles.css'
 import { getColumn } from './configs'
+import colors from './colors'
 const ReactHighcharts = require('react-highcharts')
 
 
@@ -153,14 +154,85 @@ class Dashboard extends Component {
         ],
       },
       {
-        name: 'Positivity',
+        name: 'Positivity (%)',
         data: [
           ['Women', 2.234322],
           ['Men', 30.234328],
         ],
       }
     ]
-    return _.merge(baseStyle, getColumn({title, series}))
+    return _.merge({}, baseStyle, getColumn({title, series}))
+  }
+
+  getCommunity() {
+    const title = 'Community Testing Modalities'
+    const series = [
+      {
+        name: 'Total Tests',
+        data: [
+          ['Mobile Testing', 234],
+          ['VCT', 238],
+          ['Other', 2],
+        ],
+      },
+      {
+        name: 'Positivity (%)',
+        data: [
+          ['Mobile Testing', 2.234322],
+          ['VCT', 30.234328],
+          ['Other', 30.2343],
+        ],
+      }
+    ]
+    return _.merge({}, baseStyle, getColumn({title, series}))
+  }
+
+  getFacility() {
+    const title = 'Facility Testing Modalities'
+    const series = [
+      {
+        name: 'Total Tests',
+        data: [
+          ['PITC', 234],
+          ['ANC', 238],
+          ['VCT', 223],
+          ['Family Planning Clinic', 243],
+          ['Other', 122],
+        ],
+      },
+      {
+        name: 'Positivity (%)',
+        data: [
+          ['PITC', 2.234322],
+          ['ANC', 30.234328],
+          ['VCT', 35.2343],
+          ['Family Planning Clinic', 20.2343],
+          ['Other', 10.2343],
+        ],
+      }
+    ]
+    return _.merge({}, baseStyle, getColumn({title, series}))
+  }
+
+  getIndex() {
+    const title = 'Index'
+    const series = [
+      {
+        name: 'Total Tests',
+        data: [
+          ['Community', 123],
+          ['Facility', 232],
+        ],
+      },
+      {
+        name: 'Positivity (%)',
+        data: [
+          ['Community', 21.34],
+          ['Facility', 34],
+        ],
+      }
+    ]
+    return _.merge({}, baseStyle, getColumn({title, series}))
   }
   
   render() {
@@ -169,7 +241,10 @@ class Dashboard extends Component {
       return <label key={f}>{f}<input data-field={f} onChange={this.updateField}></input></label>
     })
 
-    const config1 = this.getAdults()
+    const configAdults = this.getAdults()
+    const configCommunity = this.getCommunity()
+    const configFacility = this.getFacility()
+    const configIndex = this.getIndex()
     
     return (
       <div className='dashboard'>
@@ -183,7 +258,7 @@ class Dashboard extends Component {
           </span>
         </div>
 
-        <div className='container mt-4'>
+        <div className='container-fluid mt-4'>
           <div className='country-name'>
             <h1> {this.props.country}</h1>
           </div>
@@ -192,16 +267,22 @@ class Dashboard extends Component {
             <div><span>World Bank classification:</span><span> Low income</span></div>
           </div>
 
-          <div>
-            <div><ReactHighcharts config={config1}/></div>
-            <div><ReactHighcharts config={config1}/></div>
-            <div><ReactHighcharts config={config1}/></div>
-            <div><ReactHighcharts config={config1}/></div>
+          <div className='row no-gutters'>
+            <div className='col-lg-3 col-md-6 col-sm-12'><ReactHighcharts config={configAdults}/></div>
+            <div className='col-lg-3 col-md-6 col-sm-12'><ReactHighcharts config={configCommunity}/></div>
+            <div className='col-lg-3 col-md-6 col-sm-12'><ReactHighcharts config={configFacility}/></div>
+            <div className='col-lg-3 col-md-6 col-sm-12'><ReactHighcharts config={configIndex}/></div>
           </div>
           <br />
           <br />
           <br />
-          <h5>for development (query API, results -> devTools console)</h5>
+        
+          <h5 className='text-center'>~ FOR DEVELOPMENT ~</h5>
+          <h5>Color Palette</h5>
+          {colors.map((c, i) => {
+            return <span style={{background: c, width: '100px', height: '80px', color: 'white', display: 'inline-block'}}>{i+1}</span>
+          })}
+          <h5>Query API, results -> devTools console</h5>
           {inputs}
           <button onClick={this.submit} action='#'>go fetch</button>
           <button onClick={this.submit.bind(this, true)} action='#'>dbug</button>
