@@ -52,6 +52,7 @@ const baseUrl = 'https://status.y-x.ch/query?'
 
 export const getChartData = (country) =>
   dispatch => {
+    console.log('GETCHARTDATA DISPATCH')
     const allChartQueryPs = chartNames.map(chartName => {
       let url = baseUrl
       let char = ''
@@ -75,18 +76,25 @@ export const getChartData = (country) =>
         method: 'GET',
         headers: myHeaders,
       }
+      console.log('GETCHARTDATA FETCH')
       return fetch(url, myInit)
         .then(r => r.json())
         .then(data => ({ chartName, data }))
+        .catch(e => console.error('DATA FETCH FAILED FOR ', chartName, ' : ', e))
     })
 
     Promise.all(allChartQueryPs)
     .then(results => {
       const allChartData = {}
-      results.forEach(chartData => {
-        allChartData[chartData.chartName] = chartData.data
+      results.forEach(result => {
+        if (!result) {
+          console.error('RESULT UNDEFINED')
+          return
+        }
+        allChartData[result.chartName] = result.data
       })
-
+      
+      console.log('GETCHARTDATA COMPLETE')
       dispatch({
         type: types.FETCH_CHART_DATA,
         payload: allChartData

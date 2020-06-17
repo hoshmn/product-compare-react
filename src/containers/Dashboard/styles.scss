@@ -4,6 +4,14 @@ $nav-height: 70px;
 .dashboard {
   padding-top: $nav-height;
 
+  .country-name, .country-details {
+    color: $who-complement;
+  }
+  .country-details {
+    font-weight: 300;
+    // padding-bottom: 25px;
+  }
+
   .nav {
     position: fixed;
     flex-wrap: nowrap;

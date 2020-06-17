@@ -15,6 +15,8 @@ const config = {
   }]
 }
 
+const URLBase = 'https://status.y-x.ch/query?'
+
 const fields = ['indicator',
 'indicator_description',
 'contry_iso_code',
@@ -36,6 +38,8 @@ const fields = ['indicator',
 'modality',
 'modality_category']
 
+const chartNames = ['chart1', 'chart2']
+
 class Dashboard extends Component {
   constructor() {
     super()
@@ -45,10 +49,30 @@ class Dashboard extends Component {
     this.updateField = this.updateField.bind(this)
     this.updateAlert = this.updateAlert.bind(this)
     this.submit = this.submit.bind(this)
+    this.submitDQ = this.submitDQ.bind(this)
   }
   componentWillMount() {
     // console.log('hi', this.props.country)
     this.props.actions.getChartData(this.props.country)
+  }
+
+  componentDidMount() {
+    console.log('mtd', this.props)
+  }
+
+  componentWillReceiveProps(newProps) {
+    // TODO lodash / deep equal
+    if (newProps.chartData === this.props.chartData) {
+      console.error('what changed?')
+      return
+    }
+    console.log('Configuring charts: ')
+    this.configs = {}
+    chartNames.forEach(c => {
+      const rows = newProps.chartData[c]
+      this.configs[c] = rows
+    })
+    console.log(this.configs)
   }
   
   render() {
@@ -59,6 +83,7 @@ class Dashboard extends Component {
     
     return (
       <div className='dashboard'>
+
         <div className='nav'>
           <a onClick={this.props.setCountry.bind(null, null)} action='#' title='go home'>
             <img className='who-logo' src='images/who_logo.png' alt='WHO logo' />
@@ -67,10 +92,27 @@ class Dashboard extends Component {
             HIV Testing Services Dashboard
           </span>
         </div>
+
         <div className='container mt-4'>
+          <div className='country-name'>
+            <h1> {this.props.country}</h1>
+          </div>
+          <div className='country-details pb-3'>
+            <div><span>Population:</span><span> 51.4 million</span></div>
+            <div><span>World Bank classification:</span><span> Low income</span></div>
+          </div>
+
           <ReactHighcharts config={config}/>
+          <br />
+          <br />
+          <br />
+          <h5>for development (query API, results -> devTools console)</h5>
           {inputs}
           <button onClick={this.submit} action='#'>go fetch</button>
+          <button onClick={this.submit.bind(this, true)} action='#'>dbug</button>
+          <br />
+          <span>{URLBase}indicator=</span><input id='direct-query'></input>
+          <button onClick={this.submitDQ} action='#'>direct query</button>
         </div>
       </div>
     )
@@ -85,8 +127,20 @@ class Dashboard extends Component {
     this.setState({ alertOn: e.target.value === 'on' })
   }
 
-  submit() {
-    let url = 'https://status.y-x.ch/query?'
+  submitDQ() {
+    const v = document.querySelector('#direct-query')
+    // debugger
+    const url = URLBase + 'indicator=' + v.value || ''
+    console.log('url: ', url)
+    fetch(url)
+    .then(response => response.json())
+    .then(response => {
+      console.log(response)
+    })
+  }
+
+  submit(dbug) {
+    let url = URLBase
     let char = ''
     fields.forEach(f => {
       if (this.state[f]) {
@@ -98,10 +152,9 @@ class Dashboard extends Component {
     fetch(url)
       .then(response => response.json())
       .then(response => {
-        if (this.state.alertOn) {
-          alert(response)
-        } else {
-          console.log(response)
+        console.log(response)
+        if (dbug) {
+          debugger
         }
       })
   }

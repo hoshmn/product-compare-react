@@ -16,7 +16,7 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    this.props.actions.getProducts()
+    // this.props.actions.getProducts()
   }
 
   setCountry(country) {
