@@ -43,4 +43,21 @@ $nav-height: 70px;
       }
     }
   }
+
+  .charts {
+    .info-box {
+      position: absolute;
+      display: flex;
+      left: 15%;
+      top: 13%;
+      width: 210px;
+      height: 90px;
+      border: solid gray .1px;
+      z-index: 1;
+      background: white;
+      p {
+        margin: auto;
+      }
+    }
+  }
 }

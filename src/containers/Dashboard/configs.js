@@ -47,7 +47,7 @@ const column = {
       name: '$R-TITLE',
         color: colors[1],
       tooltip: {
-        pointFormat: '<b>{point.y:.1f}</b>',
+        pointFormat: '<b>{point.y:.1f}%</b>',
       },
       type: 'scatter',
       yAxis: 1
@@ -81,14 +81,14 @@ const getColumn = ({title, series}) => {
   return _.merge({}, column, specifics)
 }
 
-const getArea = ({title, categories, series}) => {
+const getArea = ({title, categories, series, options={}}) => {
   const specifics = {
     title: { text: title },
     xAxis: { categories },
     // yAxis: [{ title: { text: series[0].name }}, { title: { text: series[1].name }}],
     series
   }
-  return _.merge({}, area, specifics)
+  return _.merge({}, area, specifics, options)
 }
 
 export {

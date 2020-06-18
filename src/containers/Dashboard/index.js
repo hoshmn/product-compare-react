@@ -12,6 +12,10 @@ const ReactHighcharts = require('react-highcharts')
 ReactHighcharts.Highcharts.theme = baseStyle
 ReactHighcharts.Highcharts.setOptions(ReactHighcharts.Highcharts.theme)
 
+// fix legend markers
+ReactHighcharts.Highcharts.seriesTypes.area.prototype.drawLegendSymbol = 
+  ReactHighcharts.Highcharts.seriesTypes.line.prototype.drawLegendSymbol
+
 const URLBase = 'https://status.y-x.ch/query?'
 
 const fields = ['indicator',
@@ -78,7 +82,7 @@ class Dashboard extends Component {
     const series = [
       {
         name: 'HIV Negative',
-        color: colors[4]+'90',
+        color: colors[4]+'97',
         data: [
           123,132,149,153,163,
           178,191,199,201,212,
@@ -103,18 +107,23 @@ class Dashboard extends Component {
   getCascade() {
     const title = 'Treatment Cascade'
     const categories = _.range(2010,2020)
+    const options = { 
+      yAxis: { title: { text: 'Adults 15+ (millions)' }, max: 58*2 },
+      tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
+      // yAxis: { max: 58*2 },
+     }
     const series = [
       {
         name: 'Undiagnosed PLHIV',
-        color: colors[1]+'90',
+        color: colors[1]+'97',
         data: [
           61,62,62,64,64,
           65,66,67,67,68
         ],
       },
       {
-        name: 'Aware of HIV status',
-        color: colors[2]+'90',
+        name: 'Diagnosed HIV positive but not on ART',
+        color: colors[2]+'97',
         data: [
           38,40,41,44,45,
           45,48,50,53,55
@@ -122,14 +131,60 @@ class Dashboard extends Component {
       },
       {
         name: 'On ART',
-        color: colors[0]+'90',
+        color: colors[0]+'97',
         data: [
           16,19,22,24,27,
           32,35,39,42,44
         ],
       },
     ]
-    return _.merge({}, getArea({title, categories, series}))
+    return _.merge({}, getArea({title, categories, series, options}))
+  }
+
+  getDistribution() {
+    const title = 'Distribution of HIV+ Tests by Awareness and ART Status'
+    const categories = _.range(2000,2020)
+    const options = { 
+      yAxis: { title: { text: 'Adults 15+ (millions)' }, max: 58*2 },
+      tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
+      // yAxis: { max: 58*2 },
+     }
+    const series = [
+      {
+        name: 'Retests - PLHIV on ART',
+        color: colors[1]+'97',
+        data: [
+          1,2,4,10,16,
+          31,39,46,64,78,
+          84,81,80,89,94,
+          84,86,82,83,84,
+          77,72,68,61,54
+        ],
+      },
+      {
+        name: 'Retests - Aware but not on ART',
+        color: colors[2]+'97',
+        data: [
+          1,2,4,9,15,
+          26,37,42,59,69,
+          62,65,64,54,53,
+          43,36,33,31,20,
+          18,15,9,11,8,
+        ],
+      },
+      {
+        name: 'New Diagnoses',
+        color: colors[0]+'97',
+        data: [
+          1,2,4,5,5,
+          6,7,7,9,9,
+          12,15,14,14,13,
+          13,12,13,11,10,
+          10,11,9,9,8,
+        ],
+      },
+    ]
+    return _.merge({}, getArea({title, categories, series, options}))
   }
 
   getAdults() {
@@ -232,6 +287,7 @@ class Dashboard extends Component {
 
     const configConducted = this.getConducted()
     const configCascade = this.getCascade()
+    const configDistribution = this.getDistribution()
     const configAdults = this.getAdults()
     const configCommunity = this.getCommunity()
     const configFacility = this.getFacility()
@@ -249,7 +305,7 @@ class Dashboard extends Component {
           </span>
         </div>
 
-        <div className='container-fluid mt-4'>
+        <div className='charts container-fluid mt-4'>
           <div className='country-name'>
             <h1> {this.props.country}</h1>
           </div>
@@ -259,9 +315,13 @@ class Dashboard extends Component {
           </div>
 
           <div className='row no-gutters'>
+            <div className='col-xl-4 col-md-6 col-sm-12'>
+              <span className='info-box'><p>[ boxes ]</p></span>
+              {/* MAKE AN APPEARING GRAPHIC ON HOVER. EXPERIMENT WITH data-tooltip FOR SIMPLER TEXT / HOVER */}
+              <ReactHighcharts config={configCascade}/>
+            </div>
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configConducted}/></div>
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configCascade}/></div>
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configConducted}/></div>
+            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configDistribution}/></div>
           </div>
 
           <div className='row no-gutters'>
