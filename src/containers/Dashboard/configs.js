@@ -10,16 +10,13 @@ const column = {
   title: {
     text: '$TITLE',
   },
-  subtitle: {
-    // text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
-  },
+  // subtitle: { text },
   xAxis: {
     type: 'category',
     labels: {
       rotation: 0,
       style: {
         fontSize: '10px',
-        fontFamily: 'Verdana, sans-serif'
       }
     }
   },
@@ -40,8 +37,6 @@ const column = {
       opposite: true
     }
   ],
-  legend: { enabled: false },
-  credits: { enabled: false },
 
   series: [
     {
@@ -51,15 +46,28 @@ const column = {
       name: '$R-TITLE',
       tooltip: {
         pointFormat: '<b>{point.y:.1f}</b>',
-        // formatter: function(point) {
-        //   console.log(point)
-        //   debugger
-        // }
       },
       type: 'scatter',
       yAxis: 1
     },
   ]
+}
+
+const area = {
+  chart: {
+      type: 'area'
+  },
+  legend: { enabled: true },
+  xAxis: {
+      categories: '$[CATEGORIES]'
+  },
+  yAxis: { title: { text: null } }, //, labels: { enabled: false } },
+
+  series: [{
+      color: colors[4]+'90'
+  },{
+      color: colors[9]+'90'
+  }]
 }
 
 const getColumn = ({title, series}) => {
@@ -71,6 +79,17 @@ const getColumn = ({title, series}) => {
   return _.merge({}, column, specifics)
 }
 
+const getArea = ({title, categories, series}) => {
+  const specifics = {
+    title: { text: title },
+    xAxis: { categories },
+    // yAxis: [{ title: { text: series[0].name }}, { title: { text: series[1].name }}],
+    series
+  }
+  return _.merge({}, area, specifics)
+}
+
 export {
+  getArea,
   getColumn
 }

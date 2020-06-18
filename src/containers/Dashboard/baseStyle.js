@@ -13,8 +13,11 @@ export default {
     "style": {
       "color": "#000000",
       "fontFamily": "Arial, sans-serif"
+      // "fontFamily": "Verdana, sans-serif"
     }
   },
+  "legend": { "enabled": false },
+  "credits": { "enabled": false },
   "colors": colors,
   "xAxis": {
     "stackLabels": { "enabled": true, "style": { "fontWeight": "bold", "color": "gray" } },

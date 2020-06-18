@@ -5,86 +5,12 @@ import baseStyle from './baseStyle'
 import {connect} from 'react-redux'
 import _ from 'lodash'
 import './styles.css'
-import { getColumn } from './configs'
+import { getArea, getColumn } from './configs'
 import colors from './colors'
 const ReactHighcharts = require('react-highcharts')
 
 ReactHighcharts.Highcharts.theme = baseStyle
 ReactHighcharts.Highcharts.setOptions(ReactHighcharts.Highcharts.theme)
-
-
-const config = {
-  xAxis: {
-    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  },
-  series: [{
-    data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 295.6, 454.4]
-  }]
-}
-
-const bar = {
-  chart: {
-    type: 'bar'
-  },
-  title: {
-    text: 'Historic World Population by Region'
-  },
-  subtitle: {
-    text: 'Source: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
-  },
-  xAxis: {
-    categories: ['Men', 'Women'],
-    title: {
-      text: null
-    }
-  },
-  yAxis: {
-    min: 0,
-    title: {
-      text: 'Total tests',
-      align: 'high'
-    },
-    labels: {
-      overflow: 'justify'
-    }
-  },
-  tooltip: {
-    // valueSuffix: ' millions'
-  },
-  plotOptions: {
-    bar: {
-      dataLabels: {
-        enabled: true
-      }
-    }
-  },
-  // legend: {
-  //   layout: 'vertical',
-  //   align: 'right',
-  //   verticalAlign: 'top',
-  //   x: -40,
-  //   y: 80,
-  //   floating: true,
-  //   borderWidth: 1,
-  // },
-  credits: {
-    enabled: false
-  },
-  series: [12, 14]
-  // [{
-  //   name: 'Year 1800',
-  //   data: [107, 31, 635, 203, 2]
-  // }, {
-  //   name: 'Year 1900',
-  //   data: [133, 156, 947, 408, 6]
-  // }, {
-  //   name: 'Year 2000',
-  //   data: [814, 841, 3714, 727, 31]
-  // }, {
-  //   name: 'Year 2016',
-  //   data: [1216, 1001, 4436, 738, 40]
-  // }]
-}
 
 const URLBase = 'https://status.y-x.ch/query?'
 
@@ -144,6 +70,32 @@ class Dashboard extends Component {
       this.configs[c] = rows
     })
     console.log(this.configs)
+  }
+
+  getConducted() {
+    const title = 'HIV Tests Conducted'
+    const categories = _.range(2000,2020)
+    const series = [
+      {
+        name: 'HIV Negative',
+        data: [
+          123,132,149,153,163,
+          178,191,199,201,212,
+          214,223,231,238,244,
+          251,255,257,258,258
+        ],
+      },
+      {
+        name: 'HIV Positive',
+        data: [
+          29,31,31,32,33,
+          33,33,34,34,35,
+          36,36,36,37,37,
+          38,38,39,39,39
+        ],
+      },
+    ]
+    return _.merge({}, getArea({title, categories, series}))
   }
 
   getAdults() {
@@ -244,6 +196,7 @@ class Dashboard extends Component {
       return <label key={f}>{f}<input data-field={f} onChange={this.updateField}></input></label>
     })
 
+    const configConducted = this.getConducted()
     const configAdults = this.getAdults()
     const configCommunity = this.getCommunity()
     const configFacility = this.getFacility()
@@ -268,6 +221,10 @@ class Dashboard extends Component {
           <div className='country-details pb-3'>
             <div><span>Population:</span><span> 51.4 million</span></div>
             <div><span>World Bank classification:</span><span> Low income</span></div>
+          </div>
+
+          <div className='row no-gutters'>
+            <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configConducted}/></div>
           </div>
 
           <div className='row no-gutters'>
