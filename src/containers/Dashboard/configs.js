@@ -41,9 +41,11 @@ const column = {
   series: [
     {
       name: '$L-TITLE',
+      color: colors[0]+'98',
     },
     {
       name: '$R-TITLE',
+        color: colors[1],
       tooltip: {
         pointFormat: '<b>{point.y:.1f}</b>',
       },
@@ -63,11 +65,11 @@ const area = {
   },
   yAxis: { title: { text: null } }, //, labels: { enabled: false } },
 
-  series: [{
-      color: colors[4]+'90'
-  },{
-      color: colors[9]+'90'
-  }]
+  // series: [{
+  //     color: colors[4]+'90'
+  // },{
+  //     color: colors[9]+'90'
+  // }]
 }
 
 const getColumn = ({title, series}) => {
