@@ -327,7 +327,16 @@ class Dashboard extends Component {
               <ReactHighcharts config={configCascade}/>
             </div>
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configConducted}/></div>
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configDistribution}/></div>
+            <div className='col-xl-4 col-md-6 col-sm-12'>
+              <Tooltip> 
+                <div>
+                  <div><b>Retests - PLHIV on ART:</b><span> Number of positive tests conducted in PLHIV already on ART. This is calculated by… Potential reasons for this type of testing include…</span></div>
+                  <div><b>Retests - Aware but not on ART:</b><span> Number of positive tests conducted in PLHIV aware of their HIV infection but not on ART. This is calculated by… Potential reasons for this type of testing include…</span></div>
+                  <div><b>New Diagnoses:</b><span> Number of positive tests returned that represent a newly identified HIV infection. This [does/does not] include retesting for verification prior to ART initiation as recommended by WHO. </span></div>
+                </div>
+              </Tooltip>
+              <ReactHighcharts config={configDistribution}/>
+            </div>
           </div>
 
           <div className='row no-gutters'>
