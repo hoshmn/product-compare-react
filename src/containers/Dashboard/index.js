@@ -5,7 +5,7 @@ import baseStyle from './baseStyle'
 import {connect} from 'react-redux'
 import _ from 'lodash'
 import './styles.css'
-import { getArea, getColumn } from './configs'
+import { getArea, getColumn, getLine } from './configs'
 import colors from './colors'
 import Tooltip from '../../components/Tooltip'
 const ReactHighcharts = require('react-highcharts')
@@ -42,6 +42,10 @@ const fields = ['indicator',
 
 const chartNames = ['chart1', 'chart2']
 
+const dataHelper = (baseArray, variance=10, shift=0) => {
+  return baseArray.map(n => n + shift + Math.floor(Math.random()*variance)-5)
+}
+
 class Dashboard extends Component {
   constructor() {
     super()
@@ -77,6 +81,112 @@ class Dashboard extends Component {
     console.log(this.configs)
   }
 
+  getPLHIVWomen() {
+    const title = 'Women'
+    const categories = _.range(2000,2020)
+    // const options = { plotOptions: { series: { pointStart: 2000 }}}
+    const series = [
+      {
+        name: '15 - 24',
+        // color: colors[4]+'97',
+        dashStyle: 'ShortDot',
+        data: [
+          2, 3, 3, 5, 6,
+          9, 11,14,17,21,
+          25,26,29,36,43,
+          53,59,65,67,73,
+        ],
+      },
+      {
+        name: '25 - 34',
+        // color: colors[4]+'97',
+        dashStyle: 'DashDot',
+        data: dataHelper([
+          2, 3, 3, 5, 6,
+          9, 11,14,17,21,
+          25,26,29,36,43,
+          53,59,65,67,73,
+        ], 8, 5),
+      },
+      {
+        name: '35 - 49',
+        // color: colors[4]+'97',
+        dashStyle: 'LongDash',
+        data: dataHelper([
+          2, 3, 3, 5, 6,
+          9, 11,14,17,21,
+          25,26,29,36,43,
+          53,59,65,67,73,
+        ], 6, 8),
+      },
+      {
+        name: '50 - 99',
+        color: colors[8],
+        dashStyle: 'Solid',
+        data: dataHelper([
+          2, 3, 3, 5, 6,
+          9, 11,14,17,21,
+          25,26,29,36,43,
+          53,59,65,67,73,
+        ], 4, 12),
+      },
+    ]
+    return _.merge({}, getLine({title, series, categories, spline:false}))
+  }
+
+  getPLHIVMen() {
+    const title = 'Men'
+    const categories = _.range(2000,2020)
+    // const options = { plotOptions: { series: { pointStart: 2000 }}}
+    const series = [
+      {
+        name: '15 - 24',
+        // color: colors[4]+'97',
+        dashStyle: 'ShortDot',
+        data: [
+          2, 3, 3, 5, 6,
+          9, 11,14,17,21,
+          25,26,29,36,43,
+          53,59,65,67,73,
+        ],
+      },
+      {
+        name: '25 - 34',
+        // color: colors[4]+'97',
+        dashStyle: 'DashDot',
+        data: dataHelper([
+          2, 3, 3, 5, 6,
+          9, 11,14,17,21,
+          25,26,29,36,43,
+          53,59,65,67,73,
+        ], 8, 5),
+      },
+      {
+        name: '35 - 49',
+        // color: colors[4]+'97',
+        dashStyle: 'LongDash',
+        data: dataHelper([
+          2, 3, 3, 5, 6,
+          9, 11,14,17,21,
+          25,26,29,36,43,
+          53,59,65,67,73,
+        ], 6, 8),
+      },
+      {
+        name: '50 - 99',
+        color: colors[8],
+        dashStyle: 'Solid',
+        data: dataHelper([
+          2, 3, 3, 5, 6,
+          9, 11,14,17,21,
+          25,26,29,36,43,
+          53,59,65,67,73,
+        ], 4, 12),
+      },
+    ]
+    return _.merge({}, getLine({title, series, categories, spline:true}))
+  }
+
   getConducted() {
     const title = 'HIV Tests Conducted'
     const categories = _.range(2000,2020)
@@ -109,7 +219,7 @@ class Dashboard extends Component {
     const title = 'Treatment Cascade'
     const categories = _.range(2010,2020)
     const options = { 
-      yAxis: { title: { text: 'Adults 15+ (millions)' }, max: 58*2 },
+      yAxis: { title: { text: 'Adults 15+ (millions)' } },
       tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
       // yAxis: { max: 58*2 },
      }
@@ -146,7 +256,7 @@ class Dashboard extends Component {
     const title = 'Distribution of HIV+ Tests by Awareness and ART Status'
     const categories = _.range(2000,2020)
     const options = { 
-      yAxis: { title: { text: 'Adults 15+ (millions)' }, max: 58*2 },
+      yAxis: { title: { text: 'Adults 15+ (millions)' } },
       tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
       // yAxis: { max: 58*2 },
      }
@@ -158,7 +268,7 @@ class Dashboard extends Component {
           1,2,4,10,16,
           31,39,46,64,78,
           84,81,80,89,94,
-          84,86,82,83,84,
+          // 84,86,82,83,84,
           77,72,68,61,54
         ],
       },
@@ -169,7 +279,7 @@ class Dashboard extends Component {
           1,2,4,9,15,
           26,37,42,59,69,
           62,65,64,54,53,
-          43,36,33,31,20,
+          // 43,36,33,31,20,
           18,15,9,11,8,
         ],
       },
@@ -180,7 +290,7 @@ class Dashboard extends Component {
           1,2,4,5,5,
           6,7,7,9,9,
           12,15,14,14,13,
-          13,12,13,11,10,
+          // 13,12,13,11,10,
           10,11,9,9,8,
         ],
       },
@@ -286,6 +396,8 @@ class Dashboard extends Component {
       return <label key={f}>{f}<input data-field={f} onChange={this.updateField}></input></label>
     })
 
+    const configPLHIVWomen = this.getPLHIVWomen()
+    const configPLHIVMen = this.getPLHIVMen()
     const configConducted = this.getConducted()
     const configCascade = this.getCascade()
     const configDistribution = this.getDistribution()
@@ -313,6 +425,11 @@ class Dashboard extends Component {
           <div className='country-details pb-3'>
             <div><span>Population:</span><span> 51.4 million</span></div>
             <div><span>World Bank classification:</span><span> Low income</span></div>
+          </div>
+
+          <div className='row no-gutters'>
+            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVWomen}/></div>
+            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVMen}/></div>
           </div>
 
           <div className='row no-gutters'>

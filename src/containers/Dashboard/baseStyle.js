@@ -3,6 +3,8 @@ import colors, { subtleWheat } from "./colors";
 export default {
   "plotOptions": { 
     "scatter": { "marker": { "radius": 5 }},
+    "area": { "marker": { "radius": 3 }},
+    "line": { "marker": { "radius": 3 }},
     "column": { "pointWidth": 30 },
     // "column": { "maxPointWidth": 40 },
     // "series": { "yAxis": { "stackLabels": { enabled: true } } },
@@ -16,7 +18,7 @@ export default {
       // "fontFamily": "Verdana, sans-serif"
     }
   },
-  "legend": { "enabled": false },
+  "legend": { "enabled": true },
   "credits": { "enabled": false },
   "colors": colors,
   "xAxis": {

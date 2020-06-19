@@ -2,11 +2,10 @@ import colors from "./colors"
 import _ from 'lodash'
 
 // custom label https://jsfiddle.net/BlackLabel/37h8kqdL/
+// responsive rules https://jsfiddle.net/alphalpha/rxvjh8y3/
 
 const column = {
-  chart: {
-    type: 'column'
-  },
+  chart: { type: 'column' },
   title: {
     text: '$TITLE',
   },
@@ -55,30 +54,57 @@ const column = {
   ]
 }
 
-const area = {
-  chart: {
-      type: 'area'
+const line = {
+  chart: { type: 'line' },
+  title: {
+      text: 'Solar Employment Growth by Sector, 2010-2016'
   },
-  legend: { enabled: true },
+
+  yAxis: {
+      title: {
+          text: 'Number of Employees'
+      }
+  },
+
+  plotOptions: {
+      series: {
+          label: {
+              connectorAllowed: false
+          },
+          marker: { radius: 0 }
+      }
+  },
+}
+
+const area = {
+  chart: { type: 'area' },
   xAxis: {
       categories: '$[CATEGORIES]'
   },
   yAxis: { title: { text: null } }, //, labels: { enabled: false } },
-
-  // series: [{
-  //     color: colors[4]+'90'
-  // },{
-  //     color: colors[9]+'90'
-  // }]
 }
 
 const getColumn = ({title, series}) => {
   const specifics = {
     title: { text: title },
+    legend: { enabled: false },
     yAxis: [{ title: { text: series[0].name }}, { title: { text: series[1].name }}],
     series: series
   }
   return _.merge({}, column, specifics)
+}
+
+const getLine = ({title, series, categories, spline=false, options={}}) => {
+  const specifics = {
+    chart: { type: spline ? 'spline' : 'line' },
+    title: { text: title },
+    legend: { layout: 'proximate', symbolWidth: 40 },
+    yAxis: { title: { text: null } },
+    xAxis: { categories },
+    // yAxis: [{ title: { text: series[0].name }}, { title: { text: series[1].name }}],
+    series
+  }
+  return _.merge({}, line, specifics, options)
 }
 
 const getArea = ({title, categories, series, options={}}) => {
@@ -93,5 +119,6 @@ const getArea = ({title, categories, series, options={}}) => {
 
 export {
   getArea,
-  getColumn
+  getColumn,
+  getLine
 }
