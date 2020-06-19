@@ -490,12 +490,7 @@ class Dashboard extends Component {
           </div>
 
           <div className='row no-gutters'>
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVWomen}/></div>
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVMen}/></div>
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrevalence}/></div>
-          </div>
 
-          <div className='row no-gutters'>
             <div className='col-xl-4 col-md-6 col-sm-12'>
               {/* MAKE AN APPEARING GRAPHIC ON HOVER. EXPERIMENT WITH data-tooltip FOR SIMPLER TEXT / HOVER */}
               <Tooltip> 
@@ -506,6 +501,9 @@ class Dashboard extends Component {
               </Tooltip>
               <ReactHighcharts config={configCascade}/>
             </div>
+            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVWomen}/></div>
+            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVMen}/></div>
+
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configConducted}/></div>
             <div className='col-xl-4 col-md-6 col-sm-12'>
               <Tooltip> 
@@ -517,6 +515,7 @@ class Dashboard extends Component {
               </Tooltip>
               <ReactHighcharts config={configDistribution}/>
             </div>
+            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrevalence}/></div>
           </div>
 
           <div className='row no-gutters'>
