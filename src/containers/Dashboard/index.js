@@ -7,6 +7,7 @@ import _ from 'lodash'
 import './styles.css'
 import { getArea, getColumn } from './configs'
 import colors from './colors'
+import Tooltip from '../../components/Tooltip'
 const ReactHighcharts = require('react-highcharts')
 
 ReactHighcharts.Highcharts.theme = baseStyle
@@ -316,8 +317,13 @@ class Dashboard extends Component {
 
           <div className='row no-gutters'>
             <div className='col-xl-4 col-md-6 col-sm-12'>
-              <span className='info-box'><p>[ boxes ]</p></span>
               {/* MAKE AN APPEARING GRAPHIC ON HOVER. EXPERIMENT WITH data-tooltip FOR SIMPLER TEXT / HOVER */}
+              <Tooltip> 
+                <span>
+                  <p>[ boxes ]</p>
+                  <em>visual demonstrating nesting percentages</em>
+                </span>
+              </Tooltip>
               <ReactHighcharts config={configCascade}/>
             </div>
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configConducted}/></div>

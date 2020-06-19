@@ -45,18 +45,28 @@ $nav-height: 70px;
   }
 
   .charts {
-    .info-box {
+    .tooltip-container {
       position: absolute;
-      display: flex;
-      left: 15%;
-      top: 13%;
-      width: 210px;
-      height: 90px;
-      border: solid gray .1px;
+      left: 10px;
+      top: 8px;
       z-index: 1;
-      background: white;
-      p {
-        margin: auto;
+      &.open {
+        width: 240px;
+        height: 120px;
+        border: solid gray .1px;
+        background: white;
+        .contents {
+          display: flex;
+          text-align: center;
+          * {
+            margin: auto;
+          }
+        }
+      }
+      svg {
+        cursor: pointer;
+        margin: 3px;
+        width: 22px;
       }
     }
   }
