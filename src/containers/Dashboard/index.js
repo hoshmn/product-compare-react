@@ -85,6 +85,9 @@ class Dashboard extends Component {
     const title = 'Women'
     const categories = _.range(2000,2020)
     // const options = { plotOptions: { series: { pointStart: 2000 }}}
+    const options = {
+      legend: { layout: 'proximate', symbolWidth: 40 },
+    }
     const series = [
       {
         name: '15 - 24',
@@ -131,13 +134,16 @@ class Dashboard extends Component {
         ], 4, 12),
       },
     ]
-    return _.merge({}, getLine({title, series, categories, spline:false}))
+    return _.merge({}, getLine({title, series, categories, options}))
   }
 
   getPLHIVMen() {
     const title = 'Men'
     const categories = _.range(2000,2020)
     // const options = { plotOptions: { series: { pointStart: 2000 }}}
+    const options = {
+      legend: { layout: 'proximate', symbolWidth: 40 },
+    }
     const series = [
       {
         name: '15 - 24',
@@ -169,7 +175,7 @@ class Dashboard extends Component {
           2, 3, 3, 5, 6,
           9, 11,14,17,21,
           25,26,29,36,43,
-          53,59,65,67,73,
+          53,59,65,67,84,
         ], 6, 8),
       },
       {
@@ -184,7 +190,62 @@ class Dashboard extends Component {
         ], 4, 12),
       },
     ]
-    return _.merge({}, getLine({title, series, categories, spline:true}))
+    return _.merge({}, getLine({title, series, categories, options}))
+  }
+
+  getPrevalence() {
+    // const title = 'Men'
+    const categories = _.range(2000,2020)
+    const options = { plotOptions: { series: { marker: { radius: 3 }}}}
+    const series = [
+      {
+        name: 'HIV Prevalence',
+        // color: colors[4]+'97',
+        dashStyle: 'ShortDot',
+        marker: { radius: 0 },
+        lineType: 'line',
+        data: [
+          43,43,42,42,42,
+          41,41,41,41,40,
+          40,39,39,39,38,
+          38,38,37,37,36,
+        ],
+      },
+      {
+        name: 'Positivity',
+        // color: colors[4]+'97',
+        // dashStyle: 'ShortDot',
+        data: [
+          2, 3, 3, 5, 6,
+          9, 11,14,17,21,
+          25,26,29,36,43,
+          53,59,65,67,73,
+        ].reverse(),
+      },
+      {
+        name: 'Diagnostic Yield',
+        // color: colors[4]+'97',
+        // dashStyle: 'DashDot',
+        data: dataHelper([
+          2, 3, 3, 5, 6,
+          9, 11,14,17,21,
+          25,26,29,36,43,
+          53,59,65,67,73,
+        ], 8, 5).reverse(),
+      },
+      {
+        name: 'Treatment Adjusted Prevalence',
+        color: colors[9],
+        // dashStyle: 'LongDash',
+        data: dataHelper([
+          2, 3, 3, 5, 6,
+          9, 11,14,17,21,
+          25,26,29,36,43,
+          53,59,65,67,73,
+        ], 6, 8).reverse(),
+      },
+    ]
+    return _.merge({}, getLine({series, categories, options, spline:true}))
   }
 
   getConducted() {
@@ -398,6 +459,7 @@ class Dashboard extends Component {
 
     const configPLHIVWomen = this.getPLHIVWomen()
     const configPLHIVMen = this.getPLHIVMen()
+    const configPrevalence = this.getPrevalence()
     const configConducted = this.getConducted()
     const configCascade = this.getCascade()
     const configDistribution = this.getDistribution()
@@ -430,13 +492,14 @@ class Dashboard extends Component {
           <div className='row no-gutters'>
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVWomen}/></div>
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVMen}/></div>
+            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrevalence}/></div>
           </div>
 
           <div className='row no-gutters'>
             <div className='col-xl-4 col-md-6 col-sm-12'>
               {/* MAKE AN APPEARING GRAPHIC ON HOVER. EXPERIMENT WITH data-tooltip FOR SIMPLER TEXT / HOVER */}
               <Tooltip> 
-                <span>
+                <span className='text-center'>
                   <p>[ boxes ]</p>
                   <em>visual demonstrating nesting percentages</em>
                 </span>

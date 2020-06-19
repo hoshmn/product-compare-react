@@ -58,13 +58,13 @@ $nav-height: 70px;
         font-size: 12px;
         border: solid gray .1px;
         background: white;
-        .contents {
-          display: flex;
-          text-align: center;
-          * {
-            margin: auto;
-          }
-        }
+        // .contents {
+          // display: flex;
+          // text-align: center;
+          // * {
+            // margin: auto;
+          // }
+        // }
       }
       svg {
         cursor: pointer;

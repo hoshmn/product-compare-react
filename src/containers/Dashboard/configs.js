@@ -3,6 +3,7 @@ import _ from 'lodash'
 
 // custom label https://jsfiddle.net/BlackLabel/37h8kqdL/
 // responsive rules https://jsfiddle.net/alphalpha/rxvjh8y3/
+// legend mouseover event https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-events-legenditemclick/
 
 const column = {
   chart: { type: 'column' },
@@ -56,16 +57,7 @@ const column = {
 
 const line = {
   chart: { type: 'line' },
-  title: {
-      text: 'Solar Employment Growth by Sector, 2010-2016'
-  },
-
-  yAxis: {
-      title: {
-          text: 'Number of Employees'
-      }
-  },
-
+  yAxis: { title: { text: null } },
   plotOptions: {
       series: {
           label: {
@@ -98,10 +90,8 @@ const getLine = ({title, series, categories, spline=false, options={}}) => {
   const specifics = {
     chart: { type: spline ? 'spline' : 'line' },
     title: { text: title },
-    legend: { layout: 'proximate', symbolWidth: 40 },
-    yAxis: { title: { text: null } },
     xAxis: { categories },
-    // yAxis: [{ title: { text: series[0].name }}, { title: { text: series[1].name }}],
+    yAxis: { title: { text: 'Percent' }},
     series
   }
   return _.merge({}, line, specifics, options)

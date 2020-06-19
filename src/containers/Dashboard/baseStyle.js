@@ -6,10 +6,12 @@ export default {
     "area": { "marker": { "radius": 3 }},
     "line": { "marker": { "radius": 3 }},
     "column": { "pointWidth": 30 },
+    "series": { "stickyTracking": false },
     // "column": { "maxPointWidth": 40 },
     // "series": { "yAxis": { "stackLabels": { enabled: true } } },
   },
   "chart": {
+    // "height": 400,
     "backgroundColor": "#FFFFFF",
     "plotBackgroundColor": "#F8F8F8",
     "style": {
