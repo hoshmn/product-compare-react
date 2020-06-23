@@ -58,6 +58,7 @@ const column = {
 const line = {
   chart: { type: 'line' },
   yAxis: { title: { text: null }, labels: { format: '{value}%' } },
+  tooltip: { valueSuffix: '%' },
   plotOptions: {
       series: {
           label: {
@@ -70,10 +71,34 @@ const line = {
 
 const area = {
   chart: { type: 'area' },
+  plotOptions: {
+    area: {
+      stacking: 'normal',
+      // lineColor: '#666666',
+      // lineWidth: 1,
+      marker: {
+        // lineWidth: 1,
+        enabled: false
+        // lineColor: '#666666'
+      }
+    }
+  },
+  legend: {
+    symbolHeight: 11,
+    symbolWidth: 11,
+    symbolRadius: 0,
+    symbolHeight: 12,
+    marker: { symbolHeight: 12 }
+  },
+  tooltip: {
+    // split: true,
+    valueSuffix: ' million'
+  },
   xAxis: {
       categories: '$[CATEGORIES]'
   },
   yAxis: { title: { text: null } }, //, labels: { enabled: false } },
+  marker : {symbol : 'square',radius : 12 }
 }
 
 const getColumn = ({title, series}) => {

@@ -14,8 +14,8 @@ ReactHighcharts.Highcharts.theme = baseStyle
 ReactHighcharts.Highcharts.setOptions(ReactHighcharts.Highcharts.theme)
 
 // fix legend markers
-ReactHighcharts.Highcharts.seriesTypes.area.prototype.drawLegendSymbol = 
-  ReactHighcharts.Highcharts.seriesTypes.line.prototype.drawLegendSymbol
+// ReactHighcharts.Highcharts.seriesTypes.area.prototype.drawLegendSymbol = 
+  // ReactHighcharts.Highcharts.seriesTypes.line.prototype.drawLegendSymbol
 
 
 // percentage marks on axis instead of yaxis label
@@ -92,50 +92,36 @@ class Dashboard extends Component {
     const options = {
       legend: { layout: 'proximate', symbolWidth: 40 },
     }
+    const baseSeries = [
+      2, 3, 6,
+      9,14,17,
+      25,29,36,
+      53,
+    ]
     const series = [
       {
         name: '15 - 24',
         // color: colors[4]+'97',
         dashStyle: 'ShortDot',
-        data: [
-          2, 3, 3, 5, 6,
-          9, 11,14,17,21,
-          25,26,29,36,43,
-          53,59,65,67,73,
-        ],
+        data: baseSeries,
       },
       {
         name: '25 - 34',
         // color: colors[4]+'97',
         dashStyle: 'DashDot',
-        data: dataHelper([
-          2, 3, 3, 5, 6,
-          9, 11,14,17,21,
-          25,26,29,36,43,
-          53,59,65,67,73,
-        ], 8, 5),
+        data: dataHelper(baseSeries, 8, 5),
       },
       {
         name: '35 - 49',
         // color: colors[4]+'97',
         dashStyle: 'LongDash',
-        data: dataHelper([
-          2, 3, 3, 5, 6,
-          9, 11,14,17,21,
-          25,26,29,36,43,
-          53,59,65,67,73,
-        ], 6, 8),
+        data: dataHelper(baseSeries, 6, 8),
       },
       {
         name: '50 - 99',
         color: colors[8],
         dashStyle: 'Solid',
-        data: dataHelper([
-          2, 3, 3, 5, 6,
-          9, 11,14,17,21,
-          25,26,29,36,43,
-          53,59,65,67,73,
-        ], 4, 12),
+        data: dataHelper(baseSeries, 4, 12),
       },
     ]
     return _.merge({}, getLine({title, series, categories, options}))
@@ -143,62 +129,48 @@ class Dashboard extends Component {
 
   getPLHIVMen() {
     const title = 'Men'
-    const categories = _.range(2000,2020)
+    const categories = _.range(2010,2020)
     // const options = { plotOptions: { series: { pointStart: 2000 }}}
     const options = {
       legend: { layout: 'proximate', symbolWidth: 40 },
     }
+    const baseSeries = [
+      2, 3, 6,
+      9,14,17,
+      25,29,36,
+      53,
+    ]
     const series = [
       {
         name: '15 - 24',
         // color: colors[4]+'97',
         dashStyle: 'ShortDot',
-        data: [
-          2, 3, 3, 5, 6,
-          9, 11,14,17,21,
-          25,26,29,36,43,
-          53,59,65,67,73,
-        ],
+        data: baseSeries,
       },
       {
         name: '25 - 34',
         // color: colors[4]+'97',
         dashStyle: 'DashDot',
-        data: dataHelper([
-          2, 3, 3, 5, 6,
-          9, 11,14,17,21,
-          25,26,29,36,43,
-          53,59,65,67,73,
-        ], 8, 5),
+        data: dataHelper(baseSeries, 8, 5),
       },
       {
         name: '35 - 49',
         // color: colors[4]+'97',
         dashStyle: 'LongDash',
-        data: dataHelper([
-          2, 3, 3, 5, 6,
-          9, 11,14,17,21,
-          25,26,29,36,43,
-          53,59,65,67,84,
-        ], 6, 8),
+        data: dataHelper(baseSeries, 6, 8),
       },
       {
         name: '50 - 99',
         color: colors[8],
         dashStyle: 'Solid',
-        data: dataHelper([
-          2, 3, 3, 5, 6,
-          9, 11,14,17,21,
-          25,26,29,36,43,
-          53,59,65,67,73,
-        ], 4, 12),
+        data: dataHelper(baseSeries, 4, 12),
       },
     ]
     return _.merge({}, getLine({title, series, categories, options}))
   }
 
   getPrevalence() {
-    // const title = 'Men'
+    const title = 'Prevalence, Positivity & Diagnosis Yield'
     const categories = _.range(2000,2020)
     const options = { plotOptions: { series: { marker: { radius: 3 }}}}
     const series = [
@@ -249,7 +221,7 @@ class Dashboard extends Component {
         ], 6, 8).reverse(),
       },
     ]
-    return _.merge({}, getLine({series, categories, options, spline:true}))
+    return _.merge({}, getLine({series, categories, options, title, spline:true}))
   }
 
   getConducted() {
@@ -277,7 +249,10 @@ class Dashboard extends Component {
         ],
       },
     ]
-    return _.merge({}, getArea({title, categories, series}))
+    const options = {
+      yAxis: { title: { text: 'Adults 15+ (millions)' } },
+    }
+    return _.merge({}, getArea({title, categories, series, options}))
   }
 
   getCascade() {
@@ -285,7 +260,8 @@ class Dashboard extends Component {
     const categories = _.range(2010,2020)
     const options = { 
       yAxis: { labels: { format: '{value}%' } },
-      tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
+      tooltip: { valueSuffix: '%' },
+      // tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
       // yAxis: { max: 58*2 },
      }
     const series = [
@@ -293,8 +269,8 @@ class Dashboard extends Component {
         name: 'Undiagnosed PLHIV',
         color: colors[1]+'97',
         data: [
-          61,62,62,64,64,
-          65,66,67,67,68
+          14,13,13,12,12,
+          12,11,10, 9, 9
         ],
       },
       {
@@ -303,7 +279,7 @@ class Dashboard extends Component {
         data: [
           38,40,41,44,45,
           45,48,50,53,55
-        ],
+        ].map(n => n-10),
       },
       {
         name: 'On ART',
@@ -311,14 +287,14 @@ class Dashboard extends Component {
         data: [
           16,19,22,24,27,
           32,35,39,42,44
-        ],
+        ].map(n => n-6),
       },
     ]
     return _.merge({}, getArea({title, categories, series, options}))
   }
 
   getDistribution() {
-    const title = 'Distribution of HIV+ Tests by Awareness and ART Status'
+    const title = 'Distribution of HIV+ Tests by Awareness & ART Status'
     const categories = _.range(2000,2020)
     const options = { 
       yAxis: { title: { text: 'Adults 15+ (millions)' } },
