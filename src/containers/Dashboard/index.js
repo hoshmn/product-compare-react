@@ -16,6 +16,8 @@ ReactHighcharts.Highcharts.setOptions(ReactHighcharts.Highcharts.theme)
 // fix legend markers
 // ReactHighcharts.Highcharts.seriesTypes.area.prototype.drawLegendSymbol = 
   // ReactHighcharts.Highcharts.seriesTypes.line.prototype.drawLegendSymbol
+// ReactHighcharts.Highcharts.seriesTypes.scatter.prototype.drawDatalabels = 
+  // ReactHighcharts.Highcharts.seriesTypes.line.prototype.drawDatalabels
 
 
 // percentage marks on axis instead of yaxis label
@@ -171,7 +173,7 @@ class Dashboard extends Component {
 
   getPrevalence() {
     const title = 'Prevalence, Positivity & Diagnosis Yield'
-    const categories = _.range(2000,2020)
+    const categories = _.range(2010,2020)
     const options = { plotOptions: { series: { marker: { radius: 3 }}}}
     const series = [
       {
@@ -183,9 +185,9 @@ class Dashboard extends Component {
         data: [
           43,43,42,42,42,
           41,41,41,41,40,
-          40,39,39,39,38,
-          38,38,37,37,36,
-        ],
+          // 40,39,39,39,38,
+          // 38,38,37,37,36,
+        ].map(n=>n*.4),
       },
       {
         name: 'Positivity',
@@ -194,8 +196,8 @@ class Dashboard extends Component {
         data: [
           2, 3, 3, 5, 6,
           9, 11,14,17,21,
-          25,26,29,36,43,
-          53,59,65,67,73,
+          // 25,26,29,36,43,
+          // 53,59,65,67,73,
         ].reverse(),
       },
       {
@@ -205,9 +207,9 @@ class Dashboard extends Component {
         data: dataHelper([
           2, 3, 3, 5, 6,
           9, 11,14,17,21,
-          25,26,29,36,43,
-          53,59,65,67,73,
-        ], 8, 5).reverse(),
+          // 25,26,29,36,43,
+          // 53,59,65,67,73,
+        ], 4, 6).reverse(),
       },
       {
         name: 'Treatment Adjusted Prevalence',
@@ -216,8 +218,8 @@ class Dashboard extends Component {
         data: dataHelper([
           2, 3, 3, 5, 6,
           9, 11,14,17,21,
-          25,26,29,36,43,
-          53,59,65,67,73,
+          // 25,26,29,36,43,
+          // 53,59,65,67,73,
         ], 6, 8).reverse(),
       },
     ]
@@ -274,7 +276,7 @@ class Dashboard extends Component {
         ],
       },
       {
-        name: 'Diagnosed HIV positive but not on ART',
+        name: 'Diagnosed HIV+ but not on ART',
         color: colors[2]+'97',
         data: [
           38,40,41,44,45,
@@ -344,20 +346,16 @@ class Dashboard extends Component {
     const series = [
       {
         name: 'Number of tests conducted (in 1000s)',
-        data: [
-          ['Women', 234],
-          ['Men', 238],
-        ],
+        data: [234, 203]
       },
       {
         name: 'Positivity (%)',
-        data: [
-          ['Women', 2.234322],
-          ['Men', 30.234328],
-        ],
+        type: 'line',
+        data: [2, 30]
       }
     ]
-    return _.merge({}, getColumn({title, series}))
+    const categories = ['Women', 'Men']
+    return _.merge({}, getColumn({title, series, categories}))
   }
 
   getCommunity() {
@@ -365,22 +363,16 @@ class Dashboard extends Component {
     const series = [
       {
         name: 'Number of tests conducted (in 1000s)',
-        data: [
-          ['Mobile Testing', 234],
-          ['VCT', 238],
-          ['Other', 2],
-        ],
+        data: [234, 238, 214],
       },
       {
         name: 'Positivity (%)',
-        data: [
-          ['Mobile Testing', 2.234322],
-          ['VCT', 30.234328],
-          ['Other', 30.2343],
-        ],
+        type: 'line',
+        data: [12, 24, 30],
       }
     ]
-    return _.merge({}, getColumn({title, series}))
+    const categories = ['Mobile Testing', 'VCT', 'Other']
+    return _.merge({}, getColumn({title, series, categories}))
   }
 
   getFacility() {
@@ -388,26 +380,17 @@ class Dashboard extends Component {
     const series = [
       {
         name: 'Number of tests conducted (in 1000s)',
-        data: [
-          ['PITC', 234],
-          ['ANC', 238],
-          ['VCT', 223],
-          ['Family Planning Clinic', 243],
-          ['Other', 122],
-        ],
+        data: [234, 238, 223, 243, 122],
       },
       {
         name: 'Positivity (%)',
-        data: [
-          ['PITC', 2.234322],
-          ['ANC', 30.234328],
-          ['VCT', 35.2343],
-          ['Family Planning Clinic', 20.2343],
-          ['Other', 10.2343],
-        ],
+        type: 'line',
+        data: [22, 30, 35, 19, 11],
       }
     ]
-    return _.merge({}, getColumn({title, series}))
+    const categories = ['PICT', 'ANC', 'VCT', 'Family Planning Clinic', 'Other']
+    // const options = { xAxis: { categories: ['Community', 'Facility']} }
+    return _.merge({}, getColumn({title, categories, series}))
   }
 
   getIndex() {
@@ -415,20 +398,16 @@ class Dashboard extends Component {
     const series = [
       {
         name: 'Number of tests conducted (in 1000s)',
-        data: [
-          ['Community', 123],
-          ['Facility', 232],
-        ],
+        data: [132, 232],
       },
       {
         name: 'Positivity (%)',
-        data: [
-          ['Community', 21.34],
-          ['Facility', 34],
-        ],
+        type: 'line',
+        data: [21, 30]
       }
     ]
-    return _.merge({}, getColumn({title, series}))
+    const categories = ['Community', 'Facility']
+    return _.merge({}, getColumn({title, categories, series}))
   }
   
   render() {

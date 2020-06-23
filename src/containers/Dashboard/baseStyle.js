@@ -2,7 +2,7 @@ import colors, { subtleWheat } from "./colors";
 
 export default {
   "plotOptions": { 
-    "scatter": { "marker": { "radius": 5 }},
+    // "scatter": { "marker": { "radius": 5 }},
     "area": { "marker": { "radius": 3 }},
     "line": { "marker": { "radius": 3 }},
     "column": { "pointWidth": 30 },
@@ -11,6 +11,7 @@ export default {
     // "series": { "yAxis": { "stackLabels": { enabled: true } } },
   },
   "chart": {
+    // "alignTicks": true,
     // "height": 400,
     "backgroundColor": "#FFFFFF",
     "plotBackgroundColor": "#F8F8F8",

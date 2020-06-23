@@ -11,6 +11,20 @@ const column = {
     text: '$TITLE',
   },
   // subtitle: { text },
+  plotOptions: {
+    line: {
+      lineWidth: 0,
+      states: { hover: { lineWidthPlus: 0 } },
+      marker: { radius: 5 }
+    },
+    column: {
+      states: { hover: { 
+        // brightness: .5,
+        // color: '#a4edba',
+        borderColor: 'black'
+      } },
+    }
+  },
   xAxis: {
     type: 'category',
     labels: {
@@ -20,15 +34,25 @@ const column = {
       }
     }
   },
+  tooltip: {
+    // formatter: function(x) {
+      //   console.log(x)
+      // }
+    shared: true
+  },
   yAxis: [
     {
       min: 0,
+      // tickPixelInterval: 50,
+      tickAmount: 5,
       title: {
         text: '$L-TITLE'
       }
     },
     {
       min: 0,
+      // tickPixelInterval: 50,
+      tickAmount: 5,
       title: {
         text: '$R-TITLE',
         style: { color: colors[1] } // pull from baseStyle
@@ -46,10 +70,9 @@ const column = {
     {
       name: '$R-TITLE',
         color: colors[1],
-      tooltip: {
-        pointFormat: '<b>{point.y:.1f}%</b>',
-      },
-      type: 'scatter',
+      // tooltip: {
+      //   pointFormat: '<b>{point.y:.1f}%</b>',
+      // },
       yAxis: 1
     },
   ]
@@ -84,11 +107,7 @@ const area = {
     }
   },
   legend: {
-    symbolHeight: 11,
-    symbolWidth: 11,
     symbolRadius: 0,
-    symbolHeight: 12,
-    marker: { symbolHeight: 12 }
   },
   tooltip: {
     // split: true,
@@ -101,14 +120,16 @@ const area = {
   marker : {symbol : 'square',radius : 12 }
 }
 
-const getColumn = ({title, series}) => {
+const getColumn = ({title, categories, series, options}) => {
   const specifics = {
     title: { text: title },
+    // tooltip: { slpit: true },
     legend: { enabled: false },
+    xAxis: { categories },
     yAxis: [{ title: { text: series[0].name }}, { title: { text: series[1].name }}],
     series: series
   }
-  return _.merge({}, column, specifics)
+  return _.merge({}, column, specifics, options)
 }
 
 const getLine = ({title, series, categories, spline=false, options={}}) => {
