@@ -256,7 +256,7 @@ class Dashboard extends Component {
   }
 
   getCascade() {
-    const title = 'Treatment Cascade'
+    const title = 'PLHIV Diagnosed and on ART'
     const categories = _.range(2010,2020)
     const options = { 
       yAxis: { labels: { format: '{value}%' } },
@@ -343,7 +343,7 @@ class Dashboard extends Component {
     const title = 'Adults'
     const series = [
       {
-        name: 'Total Tests',
+        name: 'Number of tests conducted (in 1000s)',
         data: [
           ['Women', 234],
           ['Men', 238],
@@ -364,7 +364,7 @@ class Dashboard extends Component {
     const title = 'Community Testing Modalities'
     const series = [
       {
-        name: 'Total Tests',
+        name: 'Number of tests conducted (in 1000s)',
         data: [
           ['Mobile Testing', 234],
           ['VCT', 238],
@@ -387,7 +387,7 @@ class Dashboard extends Component {
     const title = 'Facility Testing Modalities'
     const series = [
       {
-        name: 'Total Tests',
+        name: 'Number of tests conducted (in 1000s)',
         data: [
           ['PITC', 234],
           ['ANC', 238],
@@ -414,7 +414,7 @@ class Dashboard extends Component {
     const title = 'Index'
     const series = [
       {
-        name: 'Total Tests',
+        name: 'Number of tests conducted (in 1000s)',
         data: [
           ['Community', 123],
           ['Facility', 232],
