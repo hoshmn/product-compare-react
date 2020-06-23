@@ -86,11 +86,11 @@ class Dashboard extends Component {
   }
 
   getPLHIVWomen() {
-    const title = 'Women'
+    const title = 'Percent of PLHIV Who Know Status - Women'
     const categories = _.range(2000,2020)
     // const options = { plotOptions: { series: { pointStart: 2000 }}}
     const options = {
-      legend: { layout: 'proximate', symbolWidth: 40 },
+      legend: { symbolWidth: 40 },
     }
     const baseSeries = [
       2, 3, 6,
@@ -128,11 +128,11 @@ class Dashboard extends Component {
   }
 
   getPLHIVMen() {
-    const title = 'Men'
+    const title = 'Percent of PLHIV Who Know Status - Men'
     const categories = _.range(2010,2020)
     // const options = { plotOptions: { series: { pointStart: 2000 }}}
     const options = {
-      legend: { layout: 'proximate', symbolWidth: 40 },
+      legend: { symbolWidth: 40 },
     }
     const baseSeries = [
       2, 3, 6,
@@ -498,6 +498,7 @@ class Dashboard extends Component {
           </div>
 
           <div className='row no-gutters'>
+            <h5 className='bar-section-intro col-xl-12 text-center'>HIV tests conducted and positivity in the past year</h5>
             <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configAdults}/></div>
             <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configCommunity}/></div>
             <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configFacility}/></div>
