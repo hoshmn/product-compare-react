@@ -17,6 +17,10 @@ ReactHighcharts.Highcharts.setOptions(ReactHighcharts.Highcharts.theme)
 ReactHighcharts.Highcharts.seriesTypes.area.prototype.drawLegendSymbol = 
   ReactHighcharts.Highcharts.seriesTypes.line.prototype.drawLegendSymbol
 
+
+// percentage marks on axis instead of yaxis label
+// women men gap?
+
 const URLBase = 'https://status.y-x.ch/query?'
 
 const fields = ['indicator',
@@ -280,7 +284,7 @@ class Dashboard extends Component {
     const title = 'Treatment Cascade'
     const categories = _.range(2010,2020)
     const options = { 
-      yAxis: { title: { text: 'Adults 15+ (millions)' } },
+      yAxis: { labels: { format: '{value}%' } },
       tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
       // yAxis: { max: 58*2 },
      }
@@ -492,7 +496,6 @@ class Dashboard extends Component {
           <div className='row no-gutters'>
 
             <div className='col-xl-4 col-md-6 col-sm-12'>
-              {/* MAKE AN APPEARING GRAPHIC ON HOVER. EXPERIMENT WITH data-tooltip FOR SIMPLER TEXT / HOVER */}
               <Tooltip> 
                 <span className='text-center'>
                   <p>[ boxes ]</p>

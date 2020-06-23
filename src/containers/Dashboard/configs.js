@@ -57,7 +57,7 @@ const column = {
 
 const line = {
   chart: { type: 'line' },
-  yAxis: { title: { text: null } },
+  yAxis: { title: { text: null }, labels: { format: '{value}%' } },
   plotOptions: {
       series: {
           label: {
@@ -91,7 +91,7 @@ const getLine = ({title, series, categories, spline=false, options={}}) => {
     chart: { type: spline ? 'spline' : 'line' },
     title: { text: title },
     xAxis: { categories },
-    yAxis: { title: { text: 'Percent' }},
+    // yAxis: { title: { text: 'Percent' }},
     series
   }
   return _.merge({}, line, specifics, options)
