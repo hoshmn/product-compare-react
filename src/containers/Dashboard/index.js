@@ -419,6 +419,76 @@ class Dashboard extends Component {
     return _.merge({}, getColumn({title, series, options, categories}))
   }
 
+  getComp() {
+    const title = 'Custom Comparison'
+    const color = colors[8]
+    const series = [
+      {
+        name: 'Indicator One (millions)',
+        data: [
+          { pointPlacement: -.5, y: 1, color: colors[4]+'20' }, 
+          { pointPlacement: -.4, y: 2, color: colors[4]+'40' }, 
+          { pointPlacement: -.3, y: 4, color: colors[4]+'80' }, 
+          { pointPlacement: -.2, y: 8, color: colors[4] },  
+          { pointPlacement: .2, y: 4, color: colors[1]+'20' }, 
+          { pointPlacement: .3, y: 2, color: colors[1]+'40' }, 
+          { pointPlacement: .4, y: 2, color: colors[1]+'80' }, 
+          { pointPlacement: .5, y: 3, color: colors[1] }
+        ],
+        // color: ['red','red','red','red','blue','blue','blue','blue',]
+      },
+      {
+        name: 'Indicator Two (%)',
+        type: 'line',
+        data: [21, 30, 43, 11,  41, 12, 15, 22],
+        color
+      }
+    ]
+    const options = {
+      plotOptions: { column: { grouping: false }},
+      yAxis: [
+        {}, 
+        {
+          title: { style: { color } },
+          labels: { style: { color } },
+      }]
+    }
+    const categories = [
+      '15 - 24','25 - 34','35 - 49','50+',
+      '15 - 24','25 - 34','35 - 49','50+',
+    ]
+    return _.merge({}, getColumnScat({title, categories, series, options}))
+  }  
+  //   const title = 'People Receiving Pre-Exposure Prophylaxis (PrEP)'
+  //   const series = [
+  //     {
+  //       name: 'Women',
+  //       color: colors[1],
+  //       data: [11000, 13000, 25000],
+  //     },
+  //     {
+  //       name: 'Men',
+  //       color: colors[4],
+  //       data: [14000, 15000, 29000],
+  //     },
+  //     {
+  //       name: 'Trans',
+  //       color: colors[8],
+  //       data: [1200, 2100, 3900],
+  //     },
+  //     {
+  //       name: 'TOTAL',
+  //       color: colors[0],
+  //       data: [26200, 30100, 57900]
+  //     },
+  //   ]
+  //   const categories = ['2017', '2018', '2019']
+  //   const options = {
+  //     // plotOptions: { column: { stacking: 'normal' } }
+  //   }
+  //   return _.merge({}, getColumnScat({title, series, options, categories}))
+  // }
+
   getPrepStacked() {
     const title = 'People Receiving Pre-Exposure Prophylaxis (PrEP) [STACKED]'
     const series = [
@@ -532,6 +602,7 @@ class Dashboard extends Component {
     const configPrevalence = this.getPrevalence()
     const configPrep = this.getPrep()
     const configPrepStacked = this.getPrepStacked()
+    const configComp = this.getComp()
 
     const configAdults = this.getAdults()
     const configCommunity = this.getCommunity()
@@ -587,6 +658,7 @@ class Dashboard extends Component {
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrevalence}/></div>
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrep}/></div>
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrepStacked}/></div>
+            <div className='col-xl-6 col-md-6 col-sm-12'><ReactHighcharts config={configComp}/></div>
           </div>
 
           <div className='row no-gutters'>
