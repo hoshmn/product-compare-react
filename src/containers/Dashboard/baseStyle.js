@@ -3,10 +3,12 @@ import colors, { subtleWheat } from "./colors";
 export default {
   "plotOptions": { 
     // "scatter": { "marker": { "radius": 5 }},
-    "area": { "marker": { "radius": 3 }},
-    "line": { "marker": { "radius": 3 }},
-    "column": { "pointWidth": 30 },
-    "series": { "stickyTracking": false },
+    // "series": { "stickyTracking": true },
+    "scatter": { "stickyTracking": false },
+    "area": { "marker": { "radius": 3 }, "stickyTracking": true },
+    "spline": { "stickyTracking": false },
+    "line": { "marker": { "radius": 3 }, "stickyTracking": false },
+    "column": { "pointWidth": 30, "stickyTracking": false },
     // "column": { "maxPointWidth": 40 },
     // "series": { "yAxis": { "stackLabels": { enabled: true } } },
   },

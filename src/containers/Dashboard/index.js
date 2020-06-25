@@ -8,7 +8,10 @@ import './styles.css'
 import { getArea, getColumn, getLine } from './configs'
 import colors from './colors'
 import Tooltip from '../../components/Tooltip'
-const ReactHighcharts = require('react-highcharts')
+const HighchartsMore = require('highcharts/highcharts-more')
+const Highcharts = require('highcharts')
+const ReactHighcharts = require('react-highcharts').withHighcharts(Highcharts)
+HighchartsMore(ReactHighcharts.Highcharts)
 
 ReactHighcharts.Highcharts.theme = baseStyle
 ReactHighcharts.Highcharts.setOptions(ReactHighcharts.Highcharts.theme)
@@ -174,7 +177,9 @@ class Dashboard extends Component {
   getPrevalence() {
     const title = 'Prevalence, Positivity & Diagnosis Yield'
     const categories = _.range(2010,2020)
-    const options = { plotOptions: { series: { marker: { radius: 3 }}}}
+    const options = {
+      plotOptions: { series: { marker: { radius: 3 }}},
+    }
     const series = [
       {
         name: 'HIV Prevalence',
@@ -193,12 +198,29 @@ class Dashboard extends Component {
         name: 'Positivity',
         // color: colors[4]+'97',
         // dashStyle: 'ShortDot',
+        zIndex: 1,
         data: [
           2, 3, 3, 5, 6,
           9, 11,14,17,21,
           // 25,26,29,36,43,
           // 53,59,65,67,73,
         ].reverse(),
+      }, {
+        name: 'Positivity Range',
+        data: [
+          [1,4],[2,6],[2,5],[3,7],[5,8],
+          [8,9],[8,12],[13,15],[14,19],[16,23],
+        ].reverse(),
+        type: 'arearange',
+        enableMouseTracking: false, // tooltip formatter: find these values to add to + TT
+        lineWidth: 0,
+        linkedTo: ':previous',
+        color: colors[1],
+        fillOpacity: 0.2,
+        zIndex: 0,
+        marker: {
+            enabled: false
+        }
       },
       {
         name: 'Diagnostic Yield',
