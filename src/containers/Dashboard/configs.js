@@ -111,7 +111,7 @@ const area = {
   },
   tooltip: {
     // split: true,
-    valueSuffix: ' million'
+    // valueSuffix: ' million'
   },
   xAxis: {
       categories: '$[CATEGORIES]'

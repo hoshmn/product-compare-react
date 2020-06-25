@@ -89,7 +89,7 @@ class Dashboard extends Component {
 
   getPLHIVWomen() {
     const title = 'Percent of PLHIV Who Know Status - Women'
-    const categories = _.range(2000,2020)
+    const categories = _.range(2010,2020)
     // const options = { plotOptions: { series: { pointStart: 2000 }}}
     const options = {
       legend: { symbolWidth: 40 },
@@ -120,7 +120,7 @@ class Dashboard extends Component {
         data: dataHelper(baseSeries, 6, 8),
       },
       {
-        name: '50 - 99',
+        name: '50+',
         color: colors[8],
         dashStyle: 'Solid',
         data: dataHelper(baseSeries, 4, 12),
@@ -162,7 +162,7 @@ class Dashboard extends Component {
         data: dataHelper(baseSeries, 6, 8),
       },
       {
-        name: '50 - 99',
+        name: '50+',
         color: colors[8],
         dashStyle: 'Solid',
         data: dataHelper(baseSeries, 4, 12),
@@ -226,43 +226,76 @@ class Dashboard extends Component {
     return _.merge({}, getLine({series, categories, options, title, spline:true}))
   }
 
-  getConducted() {
-    const title = 'HIV Tests Conducted'
-    const categories = _.range(2000,2020)
+  getNegative() {
+    const title = 'Distribution of HIV- Tests by First-Time & Repeat Testers'
+    const categories = _.range(2010,2020)
     const series = [
       {
-        name: 'HIV Negative',
+        name: 'Repeat Testers',
         color: colors[4]+'97',
         data: [
           123,132,149,153,163,
           178,191,199,201,212,
-          214,223,231,238,244,
-          251,255,257,258,258
+          // 214,223,231,238,244,
+          // 251,255,257,258,258
         ],
       },
       {
-        name: 'HIV Positive',
+        name: 'First-Time Testers',
         color: colors[9]+'90',
         data: [
-          29,31,31,32,33,
-          33,33,34,34,35,
+          // 29,31,31,32,33,
+          // 33,33,34,34,35,
           36,36,36,37,37,
           38,38,39,39,39
         ],
       },
     ]
     const options = {
-      yAxis: { title: { text: 'Adults 15+ (millions)' } },
+      yAxis: { title: { text: 'HIV- Tests (thousands)' } },
+      tooltip: { valueSuffix: ' thousand' },
     }
     return _.merge({}, getArea({title, categories, series, options}))
   }
+  
+  // getConducted() {
+  //   const title = 'HIV Tests Conducted'
+  //   const categories = _.range(2000,2020)
+  //   const series = [
+  //     {
+  //       name: 'HIV Negative',
+  //       color: colors[4]+'97',
+  //       data: [
+  //         123,132,149,153,163,
+  //         178,191,199,201,212,
+  //         214,223,231,238,244,
+  //         251,255,257,258,258
+  //       ],
+  //     },
+  //     {
+  //       name: 'HIV Positive',
+  //       color: colors[9]+'90',
+  //       data: [
+  //         29,31,31,32,33,
+  //         33,33,34,34,35,
+  //         36,36,36,37,37,
+  //         38,38,39,39,39
+  //       ],
+  //     },
+  //   ]
+  //   const options = {
+  //     yAxis: { title: { text: 'Adults 15+ (millions)' } },
+  //   }
+  //   return _.merge({}, getArea({title, categories, series, options}))
+  // }
 
   getCascade() {
     const title = 'PLHIV Diagnosed and on ART'
     const categories = _.range(2010,2020)
     const options = { 
-      yAxis: { labels: { format: '{value}%' } },
-      tooltip: { valueSuffix: '%' },
+      // yAxis: { labels: { format: '{value}%' } },
+      tooltip: { valueSuffix: ' million' },
+      yAxis: { title: { text: 'Adults 15+ (millions)' } },
       // tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
       // yAxis: { max: 58*2 },
      }
@@ -276,7 +309,7 @@ class Dashboard extends Component {
         ],
       },
       {
-        name: 'Diagnosed HIV+ but not on ART',
+        name: 'PLHIV Who Know Status',
         color: colors[2]+'97',
         data: [
           38,40,41,44,45,
@@ -297,19 +330,20 @@ class Dashboard extends Component {
 
   getDistribution() {
     const title = 'Distribution of HIV+ Tests by Awareness & ART Status'
-    const categories = _.range(2000,2020)
+    const categories = _.range(2010,2020)
     const options = { 
-      yAxis: { title: { text: 'Adults 15+ (millions)' } },
-      tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
+      yAxis: { title: { text: 'HIV+ tests (thousands)' } },
+      // tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
       // yAxis: { max: 58*2 },
+      tooltip: { valueSuffix: ',000' },
      }
     const series = [
       {
         name: 'Retests - PLHIV on ART',
         color: colors[1]+'97',
         data: [
-          1,2,4,10,16,
-          31,39,46,64,78,
+          // 1,2,4,10,16,
+          // 31,39,46,64,78,
           84,81,80,89,94,
           // 84,86,82,83,84,
           77,72,68,61,54
@@ -319,8 +353,8 @@ class Dashboard extends Component {
         name: 'Retests - Aware but not on ART',
         color: colors[2]+'97',
         data: [
-          1,2,4,9,15,
-          26,37,42,59,69,
+          // 1,2,4,9,15,
+          // 26,37,42,59,69,
           62,65,64,54,53,
           // 43,36,33,31,20,
           18,15,9,11,8,
@@ -330,8 +364,8 @@ class Dashboard extends Component {
         name: 'New Diagnoses',
         color: colors[0]+'97',
         data: [
-          1,2,4,5,5,
-          6,7,7,9,9,
+          // 1,2,4,5,5,
+          // 6,7,7,9,9,
           12,15,14,14,13,
           // 13,12,13,11,10,
           10,11,9,9,8,
@@ -345,7 +379,7 @@ class Dashboard extends Component {
     const title = 'Adults'
     const series = [
       {
-        name: 'Number of tests conducted (in 1000s)',
+        name: 'Number of tests conducted (thousands)',
         data: [234, 203]
       },
       {
@@ -362,7 +396,7 @@ class Dashboard extends Component {
     const title = 'Community Testing Modalities'
     const series = [
       {
-        name: 'Number of tests conducted (in 1000s)',
+        name: 'Number of tests conducted (thousands)',
         data: [234, 238, 214],
       },
       {
@@ -379,7 +413,7 @@ class Dashboard extends Component {
     const title = 'Facility Testing Modalities'
     const series = [
       {
-        name: 'Number of tests conducted (in 1000s)',
+        name: 'Number of tests conducted (thousands)',
         data: [234, 238, 223, 243, 122],
       },
       {
@@ -397,7 +431,7 @@ class Dashboard extends Component {
     const title = 'Index'
     const series = [
       {
-        name: 'Number of tests conducted (in 1000s)',
+        name: 'Number of tests conducted (thousands)',
         data: [132, 232],
       },
       {
@@ -416,12 +450,13 @@ class Dashboard extends Component {
       return <label key={f}>{f}<input data-field={f} onChange={this.updateField}></input></label>
     })
 
+    const configCascade = this.getCascade()
     const configPLHIVWomen = this.getPLHIVWomen()
     const configPLHIVMen = this.getPLHIVMen()
-    const configPrevalence = this.getPrevalence()
-    const configConducted = this.getConducted()
-    const configCascade = this.getCascade()
+    // const configConducted = this.getConducted()
+    const configNegative = this.getNegative()
     const configDistribution = this.getDistribution()
+    const configPrevalence = this.getPrevalence()
     const configAdults = this.getAdults()
     const configCommunity = this.getCommunity()
     const configFacility = this.getFacility()
@@ -462,7 +497,7 @@ class Dashboard extends Component {
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVWomen}/></div>
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVMen}/></div>
 
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configConducted}/></div>
+            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configNegative}/></div>
             <div className='col-xl-4 col-md-6 col-sm-12'>
               <Tooltip> 
                 <div>
