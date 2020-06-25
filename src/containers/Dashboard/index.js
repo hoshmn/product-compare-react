@@ -5,7 +5,7 @@ import baseStyle from './baseStyle'
 import {connect} from 'react-redux'
 import _ from 'lodash'
 import './styles.css'
-import { getArea, getColumn, getLine } from './configs'
+import { getArea, getColumn, getLine, getColumnScat } from './configs'
 import colors from './colors'
 import Tooltip from '../../components/Tooltip'
 const HighchartsMore = require('highcharts/highcharts-more')
@@ -90,6 +90,45 @@ class Dashboard extends Component {
     console.log(this.configs)
   }
 
+  getCascade() {
+    const title = 'PLHIV Diagnosed and on ART'
+    const categories = _.range(2010,2020)
+    const options = { 
+      // yAxis: { labels: { format: '{value}%' } },
+      tooltip: { valueSuffix: ' million' },
+      yAxis: { title: { text: 'Adults 15+ (millions)' } },
+      // tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
+      // yAxis: { max: 58*2 },
+     }
+    const series = [
+      {
+        name: 'Undiagnosed PLHIV',
+        color: colors[1]+'97',
+        data: [
+          14,13,13,12,12,
+          12,11,10, 9, 9
+        ],
+      },
+      {
+        name: 'PLHIV Who Know Status',
+        color: colors[2]+'97',
+        data: [
+          38,40,41,44,45,
+          45,48,50,53,55
+        ].map(n => n-10),
+      },
+      {
+        name: 'On ART',
+        color: colors[0]+'97',
+        data: [
+          16,19,22,24,27,
+          32,35,39,42,44
+        ].map(n => n-6),
+      },
+    ]
+    return _.merge({}, getArea({title, categories, series, options}))
+  }
+
   getPLHIVWomen() {
     const title = 'Percent of PLHIV Who Know Status - Women'
     const categories = _.range(2010,2020)
@@ -106,19 +145,16 @@ class Dashboard extends Component {
     const series = [
       {
         name: '15 - 24',
-        // color: colors[4]+'97',
         dashStyle: 'ShortDot',
         data: baseSeries,
       },
       {
         name: '25 - 34',
-        // color: colors[4]+'97',
         dashStyle: 'DashDot',
         data: dataHelper(baseSeries, 8, 5),
       },
       {
         name: '35 - 49',
-        // color: colors[4]+'97',
         dashStyle: 'LongDash',
         data: dataHelper(baseSeries, 6, 8),
       },
@@ -148,19 +184,16 @@ class Dashboard extends Component {
     const series = [
       {
         name: '15 - 24',
-        // color: colors[4]+'97',
         dashStyle: 'ShortDot',
         data: baseSeries,
       },
       {
         name: '25 - 34',
-        // color: colors[4]+'97',
         dashStyle: 'DashDot',
         data: dataHelper(baseSeries, 8, 5),
       },
       {
         name: '35 - 49',
-        // color: colors[4]+'97',
         dashStyle: 'LongDash',
         data: dataHelper(baseSeries, 6, 8),
       },
@@ -172,80 +205,6 @@ class Dashboard extends Component {
       },
     ]
     return _.merge({}, getLine({title, series, categories, options}))
-  }
-
-  getPrevalence() {
-    const title = 'Prevalence, Positivity & Diagnosis Yield'
-    const categories = _.range(2010,2020)
-    const options = {
-      plotOptions: { series: { marker: { radius: 3 }}},
-    }
-    const series = [
-      {
-        name: 'HIV Prevalence',
-        // color: colors[4]+'97',
-        dashStyle: 'ShortDot',
-        marker: { radius: 0 },
-        lineType: 'line',
-        data: [
-          43,43,42,42,42,
-          41,41,41,41,40,
-          // 40,39,39,39,38,
-          // 38,38,37,37,36,
-        ].map(n=>n*.4),
-      },
-      {
-        name: 'Positivity',
-        // color: colors[4]+'97',
-        // dashStyle: 'ShortDot',
-        zIndex: 1,
-        data: [
-          2, 3, 3, 5, 6,
-          9, 11,14,17,21,
-          // 25,26,29,36,43,
-          // 53,59,65,67,73,
-        ].reverse(),
-      }, {
-        name: 'Positivity Range',
-        data: [
-          [1,4],[2,6],[2,5],[3,7],[5,8],
-          [8,9],[8,12],[13,15],[14,19],[16,23],
-        ].reverse(),
-        type: 'arearange',
-        enableMouseTracking: false, // tooltip formatter: find these values to add to + TT
-        lineWidth: 0,
-        linkedTo: ':previous',
-        color: colors[1],
-        fillOpacity: 0.2,
-        zIndex: 0,
-        marker: {
-            enabled: false
-        }
-      },
-      {
-        name: 'Diagnostic Yield',
-        // color: colors[4]+'97',
-        // dashStyle: 'DashDot',
-        data: dataHelper([
-          2, 3, 3, 5, 6,
-          9, 11,14,17,21,
-          // 25,26,29,36,43,
-          // 53,59,65,67,73,
-        ], 4, 6).reverse(),
-      },
-      {
-        name: 'Treatment Adjusted Prevalence',
-        color: colors[9],
-        // dashStyle: 'LongDash',
-        data: dataHelper([
-          2, 3, 3, 5, 6,
-          9, 11,14,17,21,
-          // 25,26,29,36,43,
-          // 53,59,65,67,73,
-        ], 6, 8).reverse(),
-      },
-    ]
-    return _.merge({}, getLine({series, categories, options, title, spline:true}))
   }
 
   getNegative() {
@@ -311,45 +270,6 @@ class Dashboard extends Component {
   //   return _.merge({}, getArea({title, categories, series, options}))
   // }
 
-  getCascade() {
-    const title = 'PLHIV Diagnosed and on ART'
-    const categories = _.range(2010,2020)
-    const options = { 
-      // yAxis: { labels: { format: '{value}%' } },
-      tooltip: { valueSuffix: ' million' },
-      yAxis: { title: { text: 'Adults 15+ (millions)' } },
-      // tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
-      // yAxis: { max: 58*2 },
-     }
-    const series = [
-      {
-        name: 'Undiagnosed PLHIV',
-        color: colors[1]+'97',
-        data: [
-          14,13,13,12,12,
-          12,11,10, 9, 9
-        ],
-      },
-      {
-        name: 'PLHIV Who Know Status',
-        color: colors[2]+'97',
-        data: [
-          38,40,41,44,45,
-          45,48,50,53,55
-        ].map(n => n-10),
-      },
-      {
-        name: 'On ART',
-        color: colors[0]+'97',
-        data: [
-          16,19,22,24,27,
-          32,35,39,42,44
-        ].map(n => n-6),
-      },
-    ]
-    return _.merge({}, getArea({title, categories, series, options}))
-  }
-
   getDistribution() {
     const title = 'Distribution of HIV+ Tests by Awareness & ART Status'
     const categories = _.range(2010,2020)
@@ -397,6 +317,137 @@ class Dashboard extends Component {
     return _.merge({}, getArea({title, categories, series, options}))
   }
 
+  getPrevalence() {
+    const title = 'Prevalence, Positivity & Diagnosis Yield'
+    const categories = _.range(2010,2020)
+    const options = {
+      plotOptions: { series: { marker: { radius: 3 }}},
+    }
+    const series = [
+      {
+        name: 'HIV Prevalence',
+        dashStyle: 'ShortDot',
+        marker: { radius: 0 },
+        lineType: 'line',
+        data: [
+          43,43,42,42,42,
+          41,41,41,41,40,
+          // 40,39,39,39,38,
+          // 38,38,37,37,36,
+        ].map(n=>n*.4),
+      },
+      {
+        name: 'Positivity',
+        // dashStyle: 'ShortDot',
+        zIndex: 1,
+        data: [
+          2, 3, 3, 5, 6,
+          9, 11,14,17,21,
+          // 25,26,29,36,43,
+          // 53,59,65,67,73,
+        ].reverse(),
+      }, {
+        name: 'Positivity Range',
+        data: [
+          [1,4],[2,6],[2,5],[3,7],[5,8],
+          [8,9],[8,12],[13,15],[14,19],[16,23],
+        ].reverse(),
+        type: 'arearange',
+        enableMouseTracking: false, // tooltip formatter: find these values to add to + TT
+        lineWidth: 0,
+        linkedTo: ':previous',
+        color: colors[1],
+        fillOpacity: 0.2,
+        zIndex: 0,
+        marker: {
+            enabled: false
+        }
+      },
+      {
+        name: 'Diagnostic Yield',
+        // dashStyle: 'DashDot',
+        data: dataHelper([
+          2, 3, 3, 5, 6,
+          9, 11,14,17,21,
+          // 25,26,29,36,43,
+          // 53,59,65,67,73,
+        ], 4, 6).reverse(),
+      },
+      {
+        name: 'Treatment Adjusted Prevalence',
+        color: colors[9],
+        // dashStyle: 'LongDash',
+        data: dataHelper([
+          2, 3, 3, 5, 6,
+          9, 11,14,17,21,
+          // 25,26,29,36,43,
+          // 53,59,65,67,73,
+        ], 6, 8).reverse(),
+      },
+    ]
+    return _.merge({}, getLine({series, categories, options, title, spline:true}))
+  }
+
+  getPrep() {
+    const title = 'People Receiving Pre-Exposure Prophylaxis (PrEP)'
+    const series = [
+      {
+        name: 'Women',
+        color: colors[1],
+        data: [11000, 13000, 25000],
+      },
+      {
+        name: 'Men',
+        color: colors[4],
+        data: [14000, 15000, 29000],
+      },
+      {
+        name: 'Trans',
+        color: colors[8],
+        data: [1200, 2100, 3900],
+      },
+      {
+        name: 'TOTAL',
+        color: colors[0],
+        data: [26200, 30100, 57900]
+      },
+    ]
+    const categories = ['2017', '2018', '2019']
+    const options = {
+      // plotOptions: { column: { stacking: 'normal' } }
+    }
+    return _.merge({}, getColumn({title, series, options, categories}))
+  }
+
+  getPrepStacked() {
+    const title = 'People Receiving Pre-Exposure Prophylaxis (PrEP) [STACKED]'
+    const series = [
+      {
+        name: 'Women',
+        color: colors[1],
+        data: [11000, 13000, 25000],
+        stack: 'total'
+      },
+      {
+        name: 'Men',
+        color: colors[4],
+        data: [14000, 15000, 29000],
+        stack: 'total'
+      },
+      {
+        name: 'Trans',
+        color: colors[8],
+        data: [1200, 2100, 3900],
+        stack: 'total'
+      },
+    ]
+    const categories = ['2017', '2018', '2019']
+    const options = {
+      plotOptions: { column: { stacking: 'normal' } }
+    }
+    return _.merge({}, getColumn({title, series, options, categories}))
+  }
+
   getAdults() {
     const title = 'Adults'
     const series = [
@@ -411,7 +462,7 @@ class Dashboard extends Component {
       }
     ]
     const categories = ['Women', 'Men']
-    return _.merge({}, getColumn({title, series, categories}))
+    return _.merge({}, getColumnScat({title, series, categories}))
   }
 
   getCommunity() {
@@ -428,7 +479,7 @@ class Dashboard extends Component {
       }
     ]
     const categories = ['Mobile Testing', 'VCT', 'Other']
-    return _.merge({}, getColumn({title, series, categories}))
+    return _.merge({}, getColumnScat({title, series, categories}))
   }
 
   getFacility() {
@@ -446,7 +497,7 @@ class Dashboard extends Component {
     ]
     const categories = ['PICT', 'ANC', 'VCT', 'Family Planning Clinic', 'Other']
     // const options = { xAxis: { categories: ['Community', 'Facility']} }
-    return _.merge({}, getColumn({title, categories, series}))
+    return _.merge({}, getColumnScat({title, categories, series}))
   }
 
   getIndex() {
@@ -463,7 +514,7 @@ class Dashboard extends Component {
       }
     ]
     const categories = ['Community', 'Facility']
-    return _.merge({}, getColumn({title, categories, series}))
+    return _.merge({}, getColumnScat({title, categories, series}))
   }
   
   render() {
@@ -479,6 +530,9 @@ class Dashboard extends Component {
     const configNegative = this.getNegative()
     const configDistribution = this.getDistribution()
     const configPrevalence = this.getPrevalence()
+    const configPrep = this.getPrep()
+    const configPrepStacked = this.getPrepStacked()
+
     const configAdults = this.getAdults()
     const configCommunity = this.getCommunity()
     const configFacility = this.getFacility()
@@ -531,6 +585,8 @@ class Dashboard extends Component {
               <ReactHighcharts config={configDistribution}/>
             </div>
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrevalence}/></div>
+            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrep}/></div>
+            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrepStacked}/></div>
           </div>
 
           <div className='row no-gutters'>

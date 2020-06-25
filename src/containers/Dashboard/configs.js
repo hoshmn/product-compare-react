@@ -5,7 +5,7 @@ import _ from 'lodash'
 // responsive rules https://jsfiddle.net/alphalpha/rxvjh8y3/
 // legend mouseover event https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-events-legenditemclick/
 
-const column = {
+const columnScat = {
   chart: { type: 'column' },
   title: {
     text: '$TITLE',
@@ -78,6 +78,49 @@ const column = {
   ]
 }
 
+const column = {
+  chart: { type: 'column' },
+  title: {
+    text: '$TITLE',
+  },
+
+  plotOptions: {
+    column: {
+      states: { hover: { 
+        borderColor: 'black'
+      } },
+    }
+  },
+  xAxis: {
+    type: 'category',
+    labels: {
+      rotation: 0,
+      style: {
+        fontSize: '10px',
+      }
+    }
+  },
+
+  yAxis: {
+    min: 0,
+  },
+
+  // series: [
+  //   {
+  //     name: '$L-TITLE',
+  //     color: colors[0]+'98',
+  //   },
+  //   {
+  //     name: '$R-TITLE',
+  //       color: colors[1],
+  //     // tooltip: {
+  //     //   pointFormat: '<b>{point.y:.1f}%</b>',
+  //     // },
+  //     yAxis: 1
+  //   },
+  // ]
+}
+
 const line = {
   chart: { type: 'line' },
   yAxis: { title: { text: null }, labels: { format: '{value}%' } },
@@ -120,13 +163,24 @@ const area = {
   marker : {symbol : 'square',radius : 12 }
 }
 
-const getColumn = ({title, categories, series, options}) => {
+const getColumnScat = ({title, categories, series, options}) => {
   const specifics = {
     title: { text: title },
     // tooltip: { slpit: true },
     legend: { enabled: false },
     xAxis: { categories },
     yAxis: [{ title: { text: series[0].name }}, { title: { text: series[1].name }}],
+    series: series
+  }
+  return _.merge({}, columnScat, specifics, options)
+}
+
+const getColumn = ({title, categories, series, options}) => {
+  const specifics = {
+    title: { text: title },
+    // legend: { enabled: false },
+    xAxis: { categories },
+    yAxis: { title: null }, 
     series: series
   }
   return _.merge({}, column, specifics, options)
@@ -156,5 +210,6 @@ const getArea = ({title, categories, series, options={}}) => {
 export {
   getArea,
   getColumn,
+  getColumnScat,
   getLine
 }
