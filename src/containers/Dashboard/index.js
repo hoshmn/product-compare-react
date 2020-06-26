@@ -323,10 +323,18 @@ class Dashboard extends Component {
     const categories = _.range(2010,2020)
     const options = {
       plotOptions: { series: { marker: { radius: 3 }}},
+      legend: {
+        useHTML: true,
+        labelFormatter: function() {
+          console.log(this.name, this)
+          return `<span title='${this.userOptions.description}'>${this.name}</span>`
+        }
+      },
     }
     const series = [
       {
         name: 'HIV Prevalence',
+        description: 'A helpful description about HIV Prevalence',
         dashStyle: 'ShortDot',
         marker: { radius: 0 },
         lineType: 'line',
@@ -339,6 +347,7 @@ class Dashboard extends Component {
       },
       {
         name: 'Positivity',
+        description: 'A helpful description about Positivity',
         // dashStyle: 'ShortDot',
         zIndex: 1,
         data: [
@@ -349,6 +358,7 @@ class Dashboard extends Component {
         ].reverse(),
       }, {
         name: 'Positivity Range',
+        description: 'A helpful description about Positivity Range',
         data: [
           [1,4],[2,6],[2,5],[3,7],[5,8],
           [8,9],[8,12],[13,15],[14,19],[16,23],
@@ -366,6 +376,7 @@ class Dashboard extends Component {
       },
       {
         name: 'Diagnostic Yield',
+        description: 'A helpful description about Diagnostic Yield',
         // dashStyle: 'DashDot',
         data: dataHelper([
           2, 3, 3, 5, 6,
@@ -376,6 +387,7 @@ class Dashboard extends Component {
       },
       {
         name: 'Treatment Adjusted Prevalence',
+        description: 'A helpful description about Treatment Adjusted Prevalence',
         color: colors[9],
         // dashStyle: 'LongDash',
         data: dataHelper([
