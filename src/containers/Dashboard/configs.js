@@ -37,10 +37,13 @@ const columnScat = {
   xAxis: {
     type: 'category',
     labels: {
-      enabled: false,
-      // rotation: 0,
+      enabled: true,
+      rotation: 0,
       style: {
         fontSize: '10px',
+        whiteSpace: 'pre',
+        textOverflow: 'overflow',
+        width: 100,
       }
     }
   },

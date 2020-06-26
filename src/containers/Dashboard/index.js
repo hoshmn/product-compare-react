@@ -596,6 +596,7 @@ class Dashboard extends Component {
         ],
       }
     ]
+
     const categories = ['PICT', 'ANC', 'VCT', 'Family Planning Clinic', 'Other']
     // const options = { xAxis: { categories: ['Community', 'Facility']} }
     return _.merge({}, getColumnScat({title, categories, series}))
