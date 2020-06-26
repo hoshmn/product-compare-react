@@ -208,7 +208,7 @@ class Dashboard extends Component {
   }
 
   getNegative() {
-    const title = 'Distribution of HIV- Tests by First-Time & Repeat Testers'
+    const title = 'Distribution of HIV Negative Tests by First-Time & Repeat Testers'
     const categories = _.range(2010,2020)
     const series = [
       {
@@ -219,7 +219,8 @@ class Dashboard extends Component {
           178,191,199,201,212,
           // 214,223,231,238,244,
           // 251,255,257,258,258
-        ],
+        ].map(n => n*1000),
+
       },
       {
         name: 'First-Time Testers',
@@ -229,12 +230,12 @@ class Dashboard extends Component {
           // 33,33,34,34,35,
           36,36,36,37,37,
           38,38,39,39,39
-        ],
+        ].map(n => n*1000),
       },
     ]
     const options = {
-      yAxis: { title: { text: 'HIV- Tests (thousands)' } },
-      tooltip: { valueSuffix: ' thousand' },
+      yAxis: { title: { text: 'HIV Negative Tests (thousands)' } },
+      // tooltip: { valueSuffix: ' thousand' },
     }
     return _.merge({}, getArea({title, categories, series, options}))
   }
@@ -271,13 +272,13 @@ class Dashboard extends Component {
   // }
 
   getDistribution() {
-    const title = 'Distribution of HIV+ Tests by Awareness & ART Status'
+    const title = 'Distribution of HIV Positive Tests by Awareness & ART Status'
     const categories = _.range(2010,2020)
     const options = { 
-      yAxis: { title: { text: 'HIV+ tests (thousands)' } },
+      yAxis: { title: { text: 'HIV Positive tests (thousands)' } },
       // tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
       // yAxis: { max: 58*2 },
-      tooltip: { valueSuffix: ',000' },
+      // tooltip: { valueSuffix: ',000' },
      }
     const series = [
       {
@@ -289,7 +290,7 @@ class Dashboard extends Component {
           84,81,80,89,94,
           // 84,86,82,83,84,
           77,72,68,61,54
-        ],
+        ].map(n => n*1000),
       },
       {
         name: 'Retests - Aware but not on ART',
@@ -300,7 +301,7 @@ class Dashboard extends Component {
           62,65,64,54,53,
           // 43,36,33,31,20,
           18,15,9,11,8,
-        ],
+        ].map(n => n*1000),
       },
       {
         name: 'New Diagnoses',
@@ -311,7 +312,7 @@ class Dashboard extends Component {
           12,15,14,14,13,
           // 13,12,13,11,10,
           10,11,9,9,8,
-        ],
+        ].map(n => n*1000),
       },
     ]
     return _.merge({}, getArea({title, categories, series, options}))

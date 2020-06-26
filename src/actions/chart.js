@@ -52,7 +52,9 @@ const baseUrl = 'https://status.y-x.ch/query?'
 
 export const getChartData = (country) =>
   dispatch => {
-    console.log('GETCHARTDATA DISPATCH')
+    console.log('GETCHARTDATA DISPATCH (shortcircuit here)')
+    // until we care about the data, avoid errors
+    return
     const allChartQueryPs = chartNames.map(chartName => {
       let url = baseUrl
       let char = ''
