@@ -24,9 +24,9 @@ const columnScat = {
       dataLabels: {
         enabled: true,
         inside: true,
+        // crop: false,
         // align: 'left',
         format: '{point.category}',
-        // padding: 3,
         rotation: -90,
         style: { fontSize: '12px' },
         x: 5,

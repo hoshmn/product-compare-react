@@ -547,7 +547,7 @@ class Dashboard extends Component {
     const series = [
       {
         name: 'Number of tests conducted (thousands)',
-        data: [234, 238, 214],
+        data: [234, 238, 244],
       },
       {
         name: 'Positivity (%)',
@@ -564,12 +564,36 @@ class Dashboard extends Component {
     const series = [
       {
         name: 'Number of tests conducted (thousands)',
-        data: [234, 238, 223, 243, 122],
+        tooltip: {
+          // todo: delete if can be handled below (or in legend hover)
+          // pointFormat:`<span style="color:{point.color}">●</span>
+          //   {series.name}: <b>{point.y}</b><br/>
+          //   Uncertainty range: <b>{point.l}% - {point.u}%</b><br/>
+          //   Source: UNAIDS`,
+        },
+        data: [
+          { y: 234 },
+          { y: 238 },
+          { y: 223 },
+          { y: 243 },
+          { y: 132 }
+        ],
       },
       {
         name: 'Positivity (%)',
+        tooltip: {
+          pointFormat:`<span style="color:{point.color}">●</span>
+          {series.name}: <b>{point.y}</b><br/>
+          {point.tooltipAddition}`
+        },
         type: 'line',
-        data: [22, 30, 35, 19, 11],
+        data: [
+          { y: 22 },
+          { y: 30 },
+          { y: 35 },
+          { y: 19 },
+          { y: 11, tooltipAddition: 'Description: something you should know about Other' }
+        ],
       }
     ]
     const categories = ['PICT', 'ANC', 'VCT', 'Family Planning Clinic', 'Other']
@@ -578,11 +602,25 @@ class Dashboard extends Component {
   }
 
   getIndex() {
+    // TODO: delete? probably not worth conditionally adjusting render position of dataLabel...
+    // const x = null
+    // const dataLabels = { 
+    //   nullFormat: '{point.category}',
+    //   nullFormatter: function(e) {
+    //     console.log(e)
+    //     debugger
+    //   }
+    // }
+    // if (!x) {
+    //   dataLabels.align = 'left'
+    //   dataLabels.inside = false
+    // }
     const title = 'Index'
     const series = [
       {
         name: 'Number of tests conducted (thousands)',
         data: [132, 232],
+        // dataLabels,
       },
       {
         name: 'Positivity (%)',
