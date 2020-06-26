@@ -350,15 +350,21 @@ class Dashboard extends Component {
         description: 'A helpful description about Positivity',
         // dashStyle: 'ShortDot',
         zIndex: 1,
-        data: [
-          2, 3, 3, 5, 6,
-          9, 11,14,17,21,
+        tooltip: {
+          pointFormat: `<span style="color:{point.color}">●</span>
+            {series.name}: <b>{point.y}</b><br/>
+            Uncertainty range: <b>{point.l}% - {point.u}%</b><br/>
+            Source: UNAIDS`
+        },
+        data: [ // todo: on import, format l&u into string (as to deal with missing data pre-pointFormat)
+          {y: 2, l:1, u: 4}, {y: 3, l:2, u:6}, {y: 3, l:2, u:5}, {y: 5, l:3, u:7}, {y: 6, l:5, u:8},
+          {y: 9, l:8, u:9}, {y: 11, l:8, u:12}, {y: 14, l:13, u:15}, {y: 17, l:14, u:19}, {y: 21, l:16, u:23},
           // 25,26,29,36,43,
           // 53,59,65,67,73,
         ].reverse(),
       }, {
         name: 'Positivity Range',
-        description: 'A helpful description about Positivity Range',
+        // description: 'A helpful description about Positivity Range',
         data: [
           [1,4],[2,6],[2,5],[3,7],[5,8],
           [8,9],[8,12],[13,15],[14,19],[16,23],
