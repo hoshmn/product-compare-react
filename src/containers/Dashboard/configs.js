@@ -11,21 +11,34 @@ const columnScat = {
     line: {
       lineWidth: 0,
       states: { hover: { lineWidthPlus: 0 } },
-      marker: { radius: 5 }
+      marker: { 
+        radius: 8,
+        lineColor: '#FFFFFF',
+        lineWidth: 1,
+      }
     },
     column: {
       states: { hover: { 
-        // brightness: .5,
-        // color: '#a4edba',
         borderColor: 'black'
       } },
+      dataLabels: {
+        enabled: true,
+        inside: true,
+        // align: 'left',
+        format: '{point.category}',
+        // padding: 3,
+        rotation: -90,
+        style: { fontSize: '12px' },
+        x: 5,
+      },
     }
   },
   legend: { enabled: false },
   xAxis: {
     type: 'category',
     labels: {
-      rotation: 0,
+      enabled: false,
+      // rotation: 0,
       style: {
         fontSize: '10px',
       }
@@ -37,19 +50,12 @@ const columnScat = {
   yAxis: [
     {
       min: 0,
-      // tickPixelInterval: 50,
       tickAmount: 5,
-      title: {
-        text: '$L-TITLE'
-      }
     },
     {
       min: 0,
-      // tickPixelInterval: 50,
       tickAmount: 5,
-      title: {
-        style: { color: colors[1] } // pull from baseStyle
-      },
+      title: { style: { color: colors[1] } },
       labels: { style: { color: colors[1] } },
       opposite: true
     }
@@ -61,6 +67,7 @@ const columnScat = {
     },
     {
       color: colors[1],
+      zIndex: 10,
       yAxis: 1
     },
   ]
@@ -70,14 +77,10 @@ const columnLine = {
   chart: { type: 'column' },
   plotOptions: {
     line: {
-      // lineWidth: 0,
-      // states: { hover: { lineWidthPlus: 0 } },
       marker: { radius: 5 }
     },
     column: {
       states: { hover: { 
-        // brightness: .5,
-        // color: '#a4edba',
         borderColor: 'black'
       } },
     }
@@ -108,9 +111,6 @@ const columnLine = {
 
 const column = {
   chart: { type: 'column' },
-  title: {
-    text: '$TITLE',
-  },
 
   plotOptions: {
     column: {
@@ -132,21 +132,6 @@ const column = {
   yAxis: {
     min: 0,
   },
-
-  // series: [
-  //   {
-  //     name: '$L-TITLE',
-  //     color: colors[0]+'98',
-  //   },
-  //   {
-  //     name: '$R-TITLE',
-  //       color: colors[1],
-  //     // tooltip: {
-  //     //   pointFormat: '<b>{point.y:.1f}%</b>',
-  //     // },
-  //     yAxis: 1
-  //   },
-  // ]
 }
 
 const line = {
@@ -168,27 +153,16 @@ const area = {
   plotOptions: {
     area: {
       stacking: 'normal',
-      // lineColor: '#666666',
-      // lineWidth: 1,
       marker: {
-        // lineWidth: 1,
         enabled: false
-        // lineColor: '#666666'
       }
     }
   },
   legend: {
     symbolRadius: 0,
   },
-  tooltip: {
-    // split: true,
-    // valueSuffix: ' million'
-  },
-  xAxis: {
-      categories: '$[CATEGORIES]'
-  },
-  yAxis: { title: { text: null } }, //, labels: { enabled: false } },
-  marker : {symbol : 'square',radius : 12 }
+  yAxis: { title: { text: null } },
+  marker : {symbol : 'square', radius : 12 }
 }
 
 const getColumnScat = ({title, categories, series, options}) => {
@@ -214,7 +188,6 @@ const getColumnLine = ({title, categories, series, options}) => {
 const getColumn = ({title, categories, series, options}) => {
   const specifics = {
     title: { text: title },
-    // legend: { enabled: false },
     xAxis: { categories },
     yAxis: { title: null }, 
     series: series
@@ -227,7 +200,6 @@ const getLine = ({title, series, categories, spline=false, options={}}) => {
     chart: { type: spline ? 'spline' : 'line' },
     title: { text: title },
     xAxis: { categories },
-    // yAxis: { title: { text: 'Percent' }},
     series
   }
   return _.merge({}, line, specifics, options)
@@ -237,7 +209,6 @@ const getArea = ({title, categories, series, options={}}) => {
   const specifics = {
     title: { text: title },
     xAxis: { categories },
-    // yAxis: [{ title: { text: series[0].name }}, { title: { text: series[1].name }}],
     series
   }
   return _.merge({}, area, specifics, options)
