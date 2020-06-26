@@ -12,8 +12,9 @@ const olive = '#A3A500'
 const torquoise = '#00BF7D'
 const cerulean = '#00B0F6'
 const heliotrope = '#E76BF3' // pink
+const purple = '#995cb8'
 
-export default [scorpion, whoBrown, whoBlu, accentBlue, accentBlueDark, accentBlueXDark, cerulean, torquoise, olive, froly, heliotrope, subtleWheat]
+export default [scorpion, whoBrown, whoBlu, accentBlue, accentBlueDark, accentBlueXDark, cerulean, torquoise, olive, froly, heliotrope, subtleWheat, purple]
 export {
   scorpion,
   froly,

@@ -5,7 +5,7 @@ import baseStyle from './baseStyle'
 import {connect} from 'react-redux'
 import _ from 'lodash'
 import './styles.css'
-import { getArea, getColumn, getLine, getColumnScat } from './configs'
+import { getArea, getColumn, getLine, getColumnScat, getColumnLine } from './configs'
 import colors from './colors'
 import Tooltip from '../../components/Tooltip'
 const HighchartsMore = require('highcharts/highcharts-more')
@@ -354,7 +354,7 @@ class Dashboard extends Component {
           pointFormat: `<span style="color:{point.color}">●</span>
             {series.name}: <b>{point.y}</b><br/>
             Uncertainty range: <b>{point.l}% - {point.u}%</b><br/>
-            Source: UNAIDS`
+            Source: UNAIDS` // todo: fill in actual source on point
         },
         data: [ // todo: on import, format l&u into string (as to deal with missing data pre-pointFormat)
           {y: 2, l:1, u: 4}, {y: 3, l:2, u:6}, {y: 3, l:2, u:5}, {y: 5, l:3, u:7}, {y: 6, l:5, u:8},
@@ -438,6 +438,52 @@ class Dashboard extends Component {
     return _.merge({}, getColumn({title, series, options, categories}))
   }
 
+  getPrepStacked() {
+    const title = 'People Receiving Pre-Exposure Prophylaxis (PrEP) [STACKED]'
+    const series = [
+      {
+        name: 'Women',
+        color: colors[1],
+        data: [11000, 13000, 25000],
+        stack: 'total'
+      },
+      {
+        name: 'Men',
+        color: colors[4],
+        data: [14000, 15000, 29000],
+        stack: 'total'
+      },
+      {
+        name: 'Trans',
+        color: colors[8],
+        data: [1200, 2100, 3900],
+        stack: 'total'
+      },
+    ]
+    const categories = ['2017', '2018', '2019']
+    const options = {
+      plotOptions: { column: { stacking: 'normal' } }
+    }
+    return _.merge({}, getColumn({title, series, options, categories}))
+  }
+
+  getForecast() {
+    const title = 'HIVST Demand Forecast & Achieving Goals HIVST Need Estimate'
+    const series = [
+      {
+        name: 'Demand',
+        data: [9012, 51023, 114389, 218324, 321092, 425203, 534324]
+      },
+      {
+        name: 'Need',
+        type: 'line',
+        data: [3234932, 3123038, 3023432, 3132423, 3292382, 3323430, 3252329]
+      }
+    ]
+    const categories = _.range(2019, 2026)
+    return _.merge({}, getColumnLine({title, series, categories}))
+  }
+
   getComp() {
     const title = 'Custom Comparison'
     const color = colors[8]
@@ -478,64 +524,6 @@ class Dashboard extends Component {
     ]
     return _.merge({}, getColumnScat({title, categories, series, options}))
   }  
-  //   const title = 'People Receiving Pre-Exposure Prophylaxis (PrEP)'
-  //   const series = [
-  //     {
-  //       name: 'Women',
-  //       color: colors[1],
-  //       data: [11000, 13000, 25000],
-  //     },
-  //     {
-  //       name: 'Men',
-  //       color: colors[4],
-  //       data: [14000, 15000, 29000],
-  //     },
-  //     {
-  //       name: 'Trans',
-  //       color: colors[8],
-  //       data: [1200, 2100, 3900],
-  //     },
-  //     {
-  //       name: 'TOTAL',
-  //       color: colors[0],
-  //       data: [26200, 30100, 57900]
-  //     },
-  //   ]
-  //   const categories = ['2017', '2018', '2019']
-  //   const options = {
-  //     // plotOptions: { column: { stacking: 'normal' } }
-  //   }
-  //   return _.merge({}, getColumnScat({title, series, options, categories}))
-  // }
-
-  getPrepStacked() {
-    const title = 'People Receiving Pre-Exposure Prophylaxis (PrEP) [STACKED]'
-    const series = [
-      {
-        name: 'Women',
-        color: colors[1],
-        data: [11000, 13000, 25000],
-        stack: 'total'
-      },
-      {
-        name: 'Men',
-        color: colors[4],
-        data: [14000, 15000, 29000],
-        stack: 'total'
-      },
-      {
-        name: 'Trans',
-        color: colors[8],
-        data: [1200, 2100, 3900],
-        stack: 'total'
-      },
-    ]
-    const categories = ['2017', '2018', '2019']
-    const options = {
-      plotOptions: { column: { stacking: 'normal' } }
-    }
-    return _.merge({}, getColumn({title, series, options, categories}))
-  }
 
   getAdults() {
     const title = 'Adults'
@@ -621,6 +609,8 @@ class Dashboard extends Component {
     const configPrevalence = this.getPrevalence()
     const configPrep = this.getPrep()
     const configPrepStacked = this.getPrepStacked()
+    const configForecast = this.getForecast()
+    
     const configComp = this.getComp()
 
     const configAdults = this.getAdults()
@@ -677,6 +667,7 @@ class Dashboard extends Component {
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrevalence}/></div>
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrep}/></div>
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrepStacked}/></div>
+            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configForecast}/></div>
             <div className='col-xl-6 col-md-6 col-sm-12'><ReactHighcharts config={configComp}/></div>
           </div>
 
@@ -694,7 +685,7 @@ class Dashboard extends Component {
           <h5 className='text-center'>~ FOR DEVELOPMENT ~</h5>
           <h5>Color Palette</h5>
           {colors.map((c, i) => {
-            return <span style={{background: c, width: '100px', height: '80px', color: 'white', display: 'inline-block'}}>{i+1}</span>
+            return <span key={c} style={{background: c, width: '100px', height: '80px', color: 'white', display: 'inline-block'}}>{i}</span>
           })}
           <h5>Query API, results -> devTools console</h5>
           {inputs}
