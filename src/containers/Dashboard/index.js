@@ -8,6 +8,7 @@ import './styles.css'
 import { getArea, getColumn, getLine, getColumnScat, getColumnLine } from './configs'
 import colors from './colors'
 import Tooltip from '../../components/Tooltip'
+import NestedBoxes from '../../components/NestedBoxes'
 const HighchartsMore = require('highcharts/highcharts-more')
 const Highcharts = require('highcharts')
 const ReactHighcharts = require('react-highcharts').withHighcharts(Highcharts)
@@ -681,11 +682,18 @@ class Dashboard extends Component {
           <div className='row no-gutters'>
 
             <div className='col-xl-4 col-md-6 col-sm-12'>
-              <Tooltip> 
-                <span className='text-center'>
-                  <p>[ boxes ]</p>
-                  <em>visual demonstrating nesting percentages</em>
-                </span>
+              <Tooltip className='plhiv'> 
+                <NestedBoxes
+                  side={110}
+                  ratios={[.85,.79,.87]}
+                  // colors={[colors[1]+'97', colors[2]+'97', colors[0]+'97', colors[0]+'40']}
+                  colors={['#c38f72', '#85adca', '#999999', colors[0]+'50']}
+                  content={[
+                    {inner: '85%', below: 'of people living with HIV know their status'},
+                    {inner: '79%', below: 'of people living with HIV who know their status are on treatment'},
+                    {inner: '87%', below: 'of people on treatment are virally suppressed'},
+                  ]}
+                />
               </Tooltip>
               <ReactHighcharts config={configCascade}/>
             </div>

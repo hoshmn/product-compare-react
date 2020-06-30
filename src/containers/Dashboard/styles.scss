@@ -45,10 +45,15 @@ $nav-height: 70px;
   }
 
   .charts {
+    .plhiv.tooltip-container.open {
+      width: 80%;
+      height: 250px;
+    }
     .tooltip-container {
       position: absolute;
       left: 0px;
       top: 0px;
+      margin: 5px;
       margin: 5px;
       padding: 5px;
       z-index: 1;

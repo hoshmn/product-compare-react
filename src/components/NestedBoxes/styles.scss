@@ -1,0 +1,39 @@
+@import '../../styles/_variables.scss';
+
+.nested-boxes {
+  * { 
+    box-sizing: border-box;
+    position: relative;
+  }
+  
+  .box {
+    position: absolute;
+    right: 0;
+  }
+  .box.box-0{
+    position: relative;
+    /* border = p1-p2/2 */
+  }
+  .bridge {
+    height: 100%;
+    background: transparent;
+    border: 1px solid;
+  }
+  
+  .inner-content {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+    font-size: 11px;
+  }
+  
+  .below-content {
+    position: absolute;
+    top: 100%;
+  }
+}
