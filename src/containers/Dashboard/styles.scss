@@ -47,7 +47,11 @@ $nav-height: 70px;
   .charts {
     .plhiv.tooltip-container.open {
       width: 80%;
-      height: 250px;
+      height: 220px;
+
+      .nested-boxes .box-2 .below-content {
+        width: 90px;
+      }
     }
     .tooltip-container {
       position: absolute;
