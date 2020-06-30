@@ -717,6 +717,19 @@ class Dashboard extends Component {
             <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configFacility}/></div>
             <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configIndex}/></div>
           </div>
+
+          <div className='row no-gutters mt-4'>
+            <h3>Links to other sources</h3>
+            <a className='col-xl-12' target='_blank' rel='noopener noreferrer' href='https://journals.lww.com/aidsonline/fulltext/2019/12153/national_hiv_testing_and_diagnosis_coverage_in.7.aspx'>
+              Shiny 90 Modelling Methodology
+            </a>
+            <a className='col-xl-12' target='_blank' rel='noopener noreferrer' href='http://lawsandpolicies.unaids.org'>
+              UNAIDS - Laws and Policies
+            </a>
+            <a className='col-xl-12' target='_blank' rel='noopener noreferrer' href='https://journals.lww.com/aidsonline/fulltext/2019/12153/national_hiv_testing_and_diagnosis_coverage_in.7.aspx'>
+              WHO Paediatric HIV Testing
+            </a>
+          </div>
           <br />
           <br />
           <br />
