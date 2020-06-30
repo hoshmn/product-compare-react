@@ -11,6 +11,7 @@ import Tooltip from '../../components/Tooltip'
 import NestedBoxes from '../../components/NestedBoxes'
 import KPTable from '../../components/KPTable'
 import PolicyTable from '../../components/PolicyTable'
+import DemographicsTable from '../../components/DemographicsTable'
 const HighchartsMore = require('highcharts/highcharts-more')
 const Highcharts = require('highcharts')
 const ReactHighcharts = require('react-highcharts').withHighcharts(Highcharts)
@@ -721,18 +722,19 @@ class Dashboard extends Component {
           </div>
 
           <div className='row no-gutters'>
-            <h5 className='bar-section-intro col-xl-12 text-center'>HIV tests conducted and positivity in the past year</h5>
+            <h5 className='col-xl-12 text-center mt-4 mb-2'>HIV tests conducted and positivity in the past year</h5>
             <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configAdults}/></div>
             <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configCommunity}/></div>
             <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configFacility}/></div>
             <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configIndex}/></div>
           </div>
-          <div className='row no-gutters'>
-            <KPTable classes='col-7 p-4' />
-            <PolicyTable classes='col-5 p-4' />
+          <div className='row mt-5'>
+            <KPTable classes='col-7 p-3' />
+            <PolicyTable classes='col-5 p-3' />
+            <DemographicsTable classes='p-3' />
           </div>
 
-          <div className='row no-gutters mt-4'>
+          <div className='row no-gutters mt-5'>
             <h3>Links to other sources</h3>
             <a className='col-xl-12' target='_blank' rel='noopener noreferrer' href='https://journals.lww.com/aidsonline/fulltext/2019/12153/national_hiv_testing_and_diagnosis_coverage_in.7.aspx'>
               Shiny 90 Modelling Methodology
