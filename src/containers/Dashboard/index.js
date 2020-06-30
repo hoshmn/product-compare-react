@@ -9,6 +9,8 @@ import { getArea, getColumn, getLine, getColumnScat, getColumnLine } from './con
 import colors from './colors'
 import Tooltip from '../../components/Tooltip'
 import NestedBoxes from '../../components/NestedBoxes'
+import KPTable from '../../components/KPTable'
+import PolicyTable from '../../components/PolicyTable'
 const HighchartsMore = require('highcharts/highcharts-more')
 const Highcharts = require('highcharts')
 const ReactHighcharts = require('react-highcharts').withHighcharts(Highcharts)
@@ -724,6 +726,10 @@ class Dashboard extends Component {
             <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configCommunity}/></div>
             <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configFacility}/></div>
             <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configIndex}/></div>
+          </div>
+          <div className='row no-gutters'>
+            <KPTable classes='col-7 p-4' />
+            <PolicyTable classes='col-5 p-4' />
           </div>
 
           <div className='row no-gutters mt-4'>
