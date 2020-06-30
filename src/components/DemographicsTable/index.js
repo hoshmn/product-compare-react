@@ -31,104 +31,104 @@ class DemographicsTable extends Component {
           <tbody>
             <tr>
               <th scope='row'>Women (15+)</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>910 000</td>
+              <td>54 600</td>
+              <td>94%</td>
+              <td>6.1%</td>
+              <td>24 000</td>
+              <td>7.4 million</td>
+              <td>13.7 million</td>
             </tr>
             <tr>
               <th scope='row'>Women (15-24)</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>910 000</td>
+              <td>54 600</td>
+              <td>94%</td>
+              <td>6.1%</td>
+              <td>24 000</td>
+              <td>7.4 million</td>
+              <td>13.7 million</td>
             </tr>
             <tr>
               <th scope='row'>Women (25-34)</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>910 000</td>
+              <td>54 600</td>
+              <td>94%</td>
+              <td>6.1%</td>
+              <td>24 000</td>
+              <td>7.4 million</td>
+              <td>13.7 million</td>
             </tr>
             <tr>
               <th scope='row'>Women (35-49)</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>910 000</td>
+              <td>54 600</td>
+              <td>94%</td>
+              <td>6.1%</td>
+              <td>24 000</td>
+              <td>7.4 million</td>
+              <td>13.7 million</td>
             </tr>
             <tr>
               <th scope='row'>Women (50+)</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>910 000</td>
+              <td>54 600</td>
+              <td>94%</td>
+              <td>6.1%</td>
+              <td>24 000</td>
+              <td>7.4 million</td>
+              <td>13.7 million</td>
             </tr>
 
             <tr>
               <th scope='row'>Men (15+)</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>530 000</td>
+              <td>63 600</td>
+              <td>88%</td>
+              <td>3.4%</td>
+              <td>14 000</td>
+              <td>3.9 million</td>
+              <td>11.5 million</td>
             </tr>
             <tr>
               <th scope='row'>Men (15-24)</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>530 000</td>
+              <td>63 600</td>
+              <td>88%</td>
+              <td>3.4%</td>
+              <td>14 000</td>
+              <td>3.9 million</td>
+              <td>11.5 million</td>
             </tr>
             <tr>
               <th scope='row'>Men (25-34)</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>530 000</td>
+              <td>63 600</td>
+              <td>88%</td>
+              <td>3.4%</td>
+              <td>14 000</td>
+              <td>3.9 million</td>
+              <td>11.5 million</td>
             </tr>
             <tr>
               <th scope='row'>Men (35-49)</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>530 000</td>
+              <td>63 600</td>
+              <td>88%</td>
+              <td>3.4%</td>
+              <td>14 000</td>
+              <td>3.9 million</td>
+              <td>11.5 million</td>
             </tr>
             <tr>
               <th scope='row'>Men (50+)</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>530 000</td>
+              <td>63 600</td>
+              <td>88%</td>
+              <td>3.4%</td>
+              <td>14 000</td>
+              <td>3.9 million</td>
+              <td>11.5 million</td>
             </tr>
           </tbody>
         </table>
