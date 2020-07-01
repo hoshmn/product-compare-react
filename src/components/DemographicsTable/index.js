@@ -57,7 +57,7 @@ class DemographicsTable extends Component {
     if (!visibleGroups.length) {
       return (
         <div className='empty-table text-center'>
-          All rows are hidden. Select a group or individual rows to display.
+          All rows are hidden. Select individual rows or a group below to display the table.
         </div>
       )
     }
@@ -85,7 +85,7 @@ class DemographicsTable extends Component {
               <td>{g.display.startsWith('Women') ? '6.1%' : '3.4%'}</td>
               <td>{g.display.startsWith('Women') ? '24 000' : '14 000'}</td>
               <td>{g.display.startsWith('Women') ? '7.4 million' : '3.9 million'}</td>
-              <td>{g.display.startsWith('Women') ? '13.7 million' : '11.5 million'}</td>
+              <td>{g.display.startsWith('Women') ? '28%' : '19%'}</td>
             </tr>
           ))}
         </tbody>
@@ -147,8 +147,8 @@ class DemographicsTable extends Component {
         <i> (click a row to hide)</i>
         {this.getTable()}
         <div className='row-control'>
-          {this.getGroupToggles()}
           {this.getHiddenRows()}
+          {this.getGroupToggles()}
         </div>
       </div>
     )
