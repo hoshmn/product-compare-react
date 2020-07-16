@@ -14,7 +14,7 @@ class KPTable extends Component {
     }
     return (
       <div className={classes}>
-        <h2>Key Populations</h2>
+        <h2>Key Population Table</h2>
         <table className='table table-striped'>
           <thead>
             <tr>

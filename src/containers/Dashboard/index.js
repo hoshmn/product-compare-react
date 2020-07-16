@@ -20,6 +20,8 @@ HighchartsMore(ReactHighcharts.Highcharts)
 ReactHighcharts.Highcharts.theme = baseStyle
 ReactHighcharts.Highcharts.setOptions(ReactHighcharts.Highcharts.theme)
 
+const DEV = window.location.hostname === 'localhost';
+
 // fix legend markers
 // ReactHighcharts.Highcharts.seriesTypes.area.prototype.drawLegendSymbol = 
   // ReactHighcharts.Highcharts.seriesTypes.line.prototype.drawLegendSymbol
@@ -29,6 +31,8 @@ ReactHighcharts.Highcharts.setOptions(ReactHighcharts.Highcharts.theme)
 
 // percentage marks on axis instead of yaxis label
 // women men gap?
+
+
 
 const URLBase = 'https://status.y-x.ch/query?'
 
@@ -287,7 +291,7 @@ class Dashboard extends Component {
     const series = [
       {
         name: 'Retests - PLHIV on ART',
-        color: colors[1]+'97',
+        color: colors[0]+'97',
         data: [
           // 1,2,4,10,16,
           // 31,39,46,64,78,
@@ -309,7 +313,7 @@ class Dashboard extends Component {
       },
       {
         name: 'New Diagnoses',
-        color: colors[0]+'97',
+        color: colors[1]+'97',
         data: [
           // 1,2,4,5,5,
           // 6,7,7,9,9,
@@ -638,10 +642,6 @@ class Dashboard extends Component {
   }
   
   render() {
-    // console.log('NNNNNNN',this.props.chartData)
-    const inputs = fields.map(f => {
-      return <label key={f}>{f}<input data-field={f} onChange={this.updateField}></input></label>
-    })
 
     const configCascade = this.getCascade()
     const configPLHIVWomen = this.getPLHIVWomen()
@@ -650,8 +650,8 @@ class Dashboard extends Component {
     const configNegative = this.getNegative()
     const configDistribution = this.getDistribution()
     const configPrevalence = this.getPrevalence()
-    const configPrep = this.getPrep()
-    const configPrepStacked = this.getPrepStacked()
+    // const configPrep = this.getPrep()
+    // const configPrepStacked = this.getPrepStacked()
     const configForecast = this.getForecast()
     
     const configComp = this.getComp()
@@ -715,8 +715,8 @@ class Dashboard extends Component {
               <ReactHighcharts config={configDistribution}/>
             </div>
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrevalence}/></div>
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrep}/></div>
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrepStacked}/></div>
+            {/* <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrep}/></div>
+            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrepStacked}/></div> */}
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configForecast}/></div>
             <div className='col-xl-6 col-md-6 col-sm-12'><ReactHighcharts config={configComp}/></div>
           </div>
@@ -745,30 +745,49 @@ class Dashboard extends Component {
             <a className='col-xl-12' target='_blank' rel='noopener noreferrer' href='https://journals.lww.com/aidsonline/fulltext/2019/12153/national_hiv_testing_and_diagnosis_coverage_in.7.aspx'>
               WHO Paediatric HIV Testing
             </a>
+            <a className='col-xl-12' target='_blank' rel='noopener noreferrer' href='https://www.who.int/hiv/prep/global-prep-coalition/en/'>
+              Global PrEP Coalition
+            </a>
+            <a className='col-xl-12' target='_blank' rel='noopener noreferrer' href='https://cfs.hivci.org/'>
+              WHO HIV Country Profiles
+            </a>
           </div>
           <br />
           <br />
           <br />
         
-          <h5 className='text-center'>~ FOR DEVELOPMENT ~</h5>
-          <h5>Color Palette</h5>
-          {colors.map((c, i) => {
-            return <span key={c} style={{background: c, width: '100px', height: '80px', color: 'white', display: 'inline-block'}}>{i}</span>
-          })}
-          <h5>Query API, results -> devTools console</h5>
-          {inputs}
-          <button onClick={this.submit} action='#'>go fetch</button>
-          <button onClick={this.submit.bind(this, true)} action='#'>dbug</button>
-          <br />
-          <span>{URLBase}indicator=</span><input id='direct-query'></input>
-          <button onClick={this.submitDQ} action='#'>direct query</button>
-          <button onClick={this.submitDQ.bind(this, true)} action='#'>dbug</button>
+          {this.getDevSection()}
         </div>
       </div>
     )
   }
 
   // dev form
+
+  getDevSection() {
+    if (!DEV) return;
+    const inputs = fields.map(f => {
+      return <label key={f}>{f}<input data-field={f} onChange={this.updateField}></input></label>
+    })
+
+    return (
+      <div>
+        <h5 className='text-center'>~ FOR DEVELOPMENT ~</h5>
+        <h5>Color Palette</h5>
+        {colors.map((c, i) => {
+          return <span key={c} style={{background: c, width: '100px', height: '80px', color: 'white', display: 'inline-block'}}>{i}</span>
+        })}
+        <h5>Query API, results -> devTools console</h5>
+        {inputs}
+        <button onClick={this.submit} action='#'>go fetch</button>
+        <button onClick={this.submit.bind(this, true)} action='#'>dbug</button>
+        <br />
+        <span>{URLBase}indicator=</span><input id='direct-query'></input>
+        <button onClick={this.submitDQ} action='#'>direct query</button>
+        <button onClick={this.submitDQ.bind(this, true)} action='#'>dbug</button>
+      </div>
+    )
+  }
   updateField(e) {
     this.setState({ [e.target.dataset.field]: e.target.value })
   }
