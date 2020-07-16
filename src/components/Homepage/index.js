@@ -12,8 +12,7 @@ const Homepage = ({setCountry}) =>
           <select onChange={e => setCountry(e.target.value)} className='custom-select'>
             <option selected>Select Country</option>
             <option value='Kenya'>Kenya</option>
-            <option value='Uganda'>Uganda</option>
-            <option value='Nigeria'>Nigeria</option>
+            <option value='Thailand'>Thailand</option>
           </select>
         </div>
       </div>

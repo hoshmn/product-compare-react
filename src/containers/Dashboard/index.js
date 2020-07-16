@@ -32,7 +32,10 @@ const DEV = window.location.hostname === 'localhost';
 // percentage marks on axis instead of yaxis label
 // women men gap?
 
-
+const countryMap = {
+  Kenya: { population: '51.4 million', incomeClass: 'Low income', shiny: true },
+  Thailand: { population: '69.4 million', incomeClass: 'Upper-middle income', shiny: false },
+}
 
 const URLBase = 'https://status.y-x.ch/query?'
 
@@ -678,8 +681,8 @@ class Dashboard extends Component {
             <h1> {this.props.country}</h1>
           </div>
           <div className='country-details pb-3'>
-            <div><span>Population:</span><span> 51.4 million</span></div>
-            <div><span>World Bank classification:</span><span> Low income</span></div>
+            <div><span>Population:</span><span> {countryMap[this.props.country].population}</span></div>
+            <div><span>World Bank classification:</span><span> {countryMap[this.props.country].incomeClass}</span></div>
           </div>
 
           <div className='row no-gutters'>
@@ -700,11 +703,11 @@ class Dashboard extends Component {
               </Tooltip>
               <ReactHighcharts config={configCascade}/>
             </div>
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVWomen}/></div>
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVMen}/></div>
+            {!countryMap[this.props.country].shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVWomen}/></div>}
+            {!countryMap[this.props.country].shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVMen}/></div>}
 
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configNegative}/></div>
-            <div className='col-xl-4 col-md-6 col-sm-12'>
+            {!countryMap[this.props.country].shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configNegative}/></div>}
+            {!countryMap[this.props.country].shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'>
               <Tooltip> 
                 <div>
                   <div><b>Retests - PLHIV on ART:</b><span> Number of positive tests conducted in PLHIV already on ART. This is calculated by… Potential reasons for this type of testing include…</span></div>
@@ -713,7 +716,7 @@ class Dashboard extends Component {
                 </div>
               </Tooltip>
               <ReactHighcharts config={configDistribution}/>
-            </div>
+            </div>}
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrevalence}/></div>
             {/* <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrep}/></div>
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrepStacked}/></div> */}

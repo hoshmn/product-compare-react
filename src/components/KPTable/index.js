@@ -14,13 +14,13 @@ class KPTable extends Component {
     }
     return (
       <div className={classes}>
-        <h2>Key Population Table</h2>
+        <h2>Key Populations</h2>
         <table className='table table-striped'>
           <thead>
             <tr>
               <th scope='col'></th>
               <th scope="col">HIV prevalence</th>
-              <th scope="col">Knowledge of Status</th>
+              <th scope="col">HIV testing and status awareness</th>
               <th scope="col">Tested in past year</th>
             </tr>
           </thead>
