@@ -23,6 +23,9 @@ export default {
       // "fontFamily": "Verdana, sans-serif"
     }
   },
+  "title": { "align": "left", "x": 40 },
+  "subtitle": { "align": "left", "x": 40 },
+  // "subtitle": { "align": "left" },
   "legend": { "enabled": true },
   "credits": { "enabled": false },
   "colors": colors,
