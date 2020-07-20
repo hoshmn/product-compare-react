@@ -211,6 +211,7 @@ const getLine = ({title, series, categories, spline=false, options={}}) => {
 const getArea = ({title, categories, series, options={}}) => {
   const specifics = {
     title: { text: title },
+    subtitle: { text: title },
     xAxis: { categories },
     series
   }

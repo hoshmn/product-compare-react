@@ -102,7 +102,7 @@ class Dashboard extends Component {
   }
 
   getCascade() {
-    const title = 'PLHIV Diagnosed and on ART'
+    const title = 'Estimated Numbers of Undiagnosed, Untreated, and PLHIV on ART'
     const categories = _.range(2010,2020)
     const options = { 
       // yAxis: { labels: { format: '{value}%' } },
@@ -219,7 +219,7 @@ class Dashboard extends Component {
   }
 
   getNegative() {
-    const title = 'Distribution of HIV Negative Tests by First-Time & Repeat Testers'
+    const title = 'Estimated Distribution of Annual HIV Negative Tests By Previous HIV Testing Status'
     const categories = _.range(2010,2020)
     const series = [
       {
@@ -283,7 +283,7 @@ class Dashboard extends Component {
   // }
 
   getDistribution() {
-    const title = 'Distribution of HIV Positive Tests by Awareness & ART Status'
+    const title = 'Estimated Distribution of Annual HIV Reactive Tests by Awareness & Treatment Status'
     const categories = _.range(2010,2020)
     const options = { 
       yAxis: { title: { text: 'HIV Positive tests (thousands)' } },
@@ -330,7 +330,7 @@ class Dashboard extends Component {
   }
 
   getPrevalence(shiny) {
-    const title = 'Prevalence, Positivity & Diagnosis Yield'
+    const title = 'Estimated HIV Prevalence, Prevalence of Untreated HIV, HIV Testing Services Positivity, & Yield of New HIV Diagnosis'
     const categories = _.range(2010,2020)
     const options = {
       plotOptions: { series: { marker: { radius: 3 }}},
@@ -347,8 +347,9 @@ class Dashboard extends Component {
         name: 'HIV Prevalence',
         shinyInclude: true,
         description: 'A helpful description about HIV Prevalence',
+        zIndex: 1,
         dashStyle: 'ShortDot',
-        marker: { radius: 0 },
+        marker: { radius: 1 },
         lineType: 'line',
         data: [
           43,43,42,42,42,
