@@ -329,7 +329,7 @@ class Dashboard extends Component {
     return _.merge({}, getArea({title, categories, series, options}))
   }
 
-  getPrevalence() {
+  getPrevalence(shiny) {
     const title = 'Prevalence, Positivity & Diagnosis Yield'
     const categories = _.range(2010,2020)
     const options = {
@@ -342,9 +342,10 @@ class Dashboard extends Component {
         }
       },
     }
-    const series = [
+    let series = [
       {
         name: 'HIV Prevalence',
+        shinyInclude: true,
         description: 'A helpful description about HIV Prevalence',
         dashStyle: 'ShortDot',
         marker: { radius: 0 },
@@ -355,6 +356,26 @@ class Dashboard extends Component {
           // 40,39,39,39,38,
           // 38,38,37,37,36,
         ].map(n=>n*.4),
+      }, {
+        name: 'Prevalence Range',
+        shinyInclude: true,
+        // description: 'A helpful description about Positivity Range',
+        data: [
+          // [1,4],[2,6],[2,5],[3,7],[5,8],
+          // [8,9],[8,12],[13,15],[14,19],[16,23],
+          [39, 46],[39, 44],[38,43],[38,43],[37,42],
+          [37,42],[37,42],[37,42],[36,42],[36,41],
+        ].map(p => p.map(n => n*.4)),
+        type: 'arearange',
+        enableMouseTracking: false, // tooltip formatter: find these values to add to + TT
+        lineWidth: 0,
+        linkedTo: ':previous',
+        color: colors[0],
+        fillOpacity: 0.2,
+        zIndex: 0,
+        marker: {
+            enabled: false
+        }
       },
       {
         name: 'Positivity',
@@ -415,6 +436,9 @@ class Dashboard extends Component {
         ], 6, 8).reverse(),
       },
     ]
+    if (!shiny) {
+      series = series.filter(s => s.shinyInclude)
+    }
     return _.merge({}, getLine({series, categories, options, title, spline:true}))
   }
 
@@ -645,6 +669,7 @@ class Dashboard extends Component {
   }
   
   render() {
+    const shiny = countryMap[this.props.country].shiny
 
     const configCascade = this.getCascade()
     const configPLHIVWomen = this.getPLHIVWomen()
@@ -652,7 +677,7 @@ class Dashboard extends Component {
     // const configConducted = this.getConducted()
     const configNegative = this.getNegative()
     const configDistribution = this.getDistribution()
-    const configPrevalence = this.getPrevalence()
+    const configPrevalence = this.getPrevalence(shiny)
     // const configPrep = this.getPrep()
     // const configPrepStacked = this.getPrepStacked()
     const configForecast = this.getForecast()
@@ -663,7 +688,7 @@ class Dashboard extends Component {
     const configCommunity = this.getCommunity()
     const configFacility = this.getFacility()
     const configIndex = this.getIndex()
-    
+
     return (
       <div className='dashboard'>
 
@@ -703,11 +728,11 @@ class Dashboard extends Component {
               </Tooltip>
               <ReactHighcharts config={configCascade}/>
             </div>
-            {!countryMap[this.props.country].shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVWomen}/></div>}
-            {!countryMap[this.props.country].shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVMen}/></div>}
+            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVWomen}/></div>}
+            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVMen}/></div>}
 
-            {!countryMap[this.props.country].shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configNegative}/></div>}
-            {!countryMap[this.props.country].shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'>
+            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configNegative}/></div>}
+            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'>
               <Tooltip> 
                 <div>
                   <div><b>Retests - PLHIV on ART:</b><span> Number of positive tests conducted in PLHIV already on ART. This is calculated by… Potential reasons for this type of testing include…</span></div>
@@ -721,7 +746,7 @@ class Dashboard extends Component {
             {/* <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrep}/></div>
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrepStacked}/></div> */}
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configForecast}/></div>
-            <div className='col-xl-6 col-md-6 col-sm-12'><ReactHighcharts config={configComp}/></div>
+            {!shiny ? null : <div className='col-xl-6 col-md-6 col-sm-12'><ReactHighcharts config={configComp}/></div>}
           </div>
 
           <div className='row no-gutters'>
@@ -734,7 +759,7 @@ class Dashboard extends Component {
           <div className='row mt-5'>
             <KPTable classes='col-7 p-3' />
             <PolicyTable classes='col-5 p-3' />
-            <DemographicsTable classes='p-3' />
+            <DemographicsTable shiny={shiny} classes='p-3' />
           </div>
 
           <div className='row no-gutters mt-5'>

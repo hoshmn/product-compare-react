@@ -53,7 +53,8 @@ class DemographicsTable extends Component {
   }
 
   getTable() {
-    const visibleGroups = groups.filter(g => !this.state[g.id])
+    const relevantGroups = this.props.shiny ? groups : [women, women15, men, men15]
+    const visibleGroups = relevantGroups.filter(g => !this.state[g.id])
     if (!visibleGroups.length) {
       return (
         <div className='empty-table text-center'>
@@ -94,7 +95,8 @@ class DemographicsTable extends Component {
   }
 
   getHiddenRows() {
-    const hiddenGroups = groups.filter(g => this.state[g.id])
+    const relevantGroups = this.props.shiny ? groups : [women, women15, men, men15]
+    const hiddenGroups = relevantGroups.filter(g => this.state[g.id])
     if (!hiddenGroups.length) {
       return null
       // return (
