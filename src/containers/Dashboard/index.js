@@ -348,15 +348,21 @@ class Dashboard extends Component {
         shinyInclude: true,
         description: 'A helpful description about HIV Prevalence',
         zIndex: 1,
+        tooltip: {
+          pointFormat: `<span style="color:{point.color}">●</span>
+            {series.name}: <b>{point.y}</b><br/>
+            Uncertainty range: <b>{point.l}% - {point.u}%</b><br/>
+            Source: UNAIDS` // todo: fill in actual source on point
+        },
         dashStyle: 'ShortDot',
         marker: { radius: 1 },
         lineType: 'line',
         data: [
-          43,43,42,42,42,
-          41,41,41,41,40,
+          {y:43, l:39, u: 46},{y:43, l:39, u: 44},{y:42, l:38, u:43},{y:42, l:38, u:43},{y:42, l:37, u:42},
+          {y:41, l:37, u:42},{y:41, l:37, u:42},{y:41, l:37, u:42},{y:41, l:36, u:42},{y:40, l:36, u:41},
           // 40,39,39,39,38,
           // 38,38,37,37,36,
-        ].map(n=>n*.4),
+        ].map(o => _.each(o, (v,k) => o[k]*=.4)),
       }, {
         name: 'Prevalence Range',
         shinyInclude: true,
@@ -668,6 +674,16 @@ class Dashboard extends Component {
     const categories = ['Community', 'Facility']
     return _.merge({}, getColumnScat({title, categories, series}))
   }
+
+  getModeledIcon() {
+
+    return (
+      <div className="modeled-icon" title="modeled data">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64">
+        <path d="m32 2c-16.568 0-30 13.432-30 30s13.432 30 30 30 30-13.432 30-30-13.432-30-30-30m14.035 44.508h-5.65v-19.626c0-.564.008-1.355.02-2.372.014-1.018.02-1.802.02-2.353l-5.498 24.351h-5.893l-5.459-24.351c0 .551.006 1.335.02 2.353.014 1.017.02 1.808.02 2.372v19.626h-5.65v-29.016h8.824l5.281 22.814 5.242-22.814h8.725v29.016z" fill={colors[1]}/></svg>
+    </div>
+    )
+  }
   
   render() {
     const shiny = countryMap[this.props.country].shiny
@@ -689,6 +705,8 @@ class Dashboard extends Component {
     const configCommunity = this.getCommunity()
     const configFacility = this.getFacility()
     const configIndex = this.getIndex()
+
+    const mIcon = this.getModeledIcon()
 
     return (
       <div className='dashboard'>
@@ -728,11 +746,12 @@ class Dashboard extends Component {
                 />
               </Tooltip>
               <ReactHighcharts config={configCascade}/>
+              {mIcon}
             </div>
-            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVWomen}/></div>}
-            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVMen}/></div>}
+            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVWomen}/>{mIcon}</div>}
+            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVMen}/>{mIcon}</div>}
 
-            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configNegative}/></div>}
+            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configNegative}/>{mIcon}</div>}
             {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'>
               <Tooltip> 
                 <div>
@@ -742,12 +761,13 @@ class Dashboard extends Component {
                 </div>
               </Tooltip>
               <ReactHighcharts config={configDistribution}/>
+              {mIcon}
             </div>}
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrevalence}/></div>
+            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrevalence}/>{mIcon}</div>
             {/* <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrep}/></div>
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrepStacked}/></div> */}
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configForecast}/></div>
-            {!shiny ? null : <div className='col-xl-6 col-md-6 col-sm-12'><ReactHighcharts config={configComp}/></div>}
+            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configForecast}/>{mIcon}</div>
+            {!shiny ? null : <div className='col-xl-6 col-md-6 col-sm-12'><ReactHighcharts config={configComp}/>{mIcon}</div>}
           </div>
 
           <div className='row no-gutters'>

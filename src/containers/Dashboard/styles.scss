@@ -53,6 +53,16 @@ $nav-height: 70px;
         width: 90px;
       }
     }
+
+    .modeled-icon {
+      position: absolute;
+      right: 10px;
+      top: 13px;
+      width: 24px;
+      z-index: 1;
+    }
+    
+    
     .tooltip-container {
       position: absolute;
       left: 0px;
