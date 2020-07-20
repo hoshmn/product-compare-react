@@ -140,8 +140,8 @@ class Dashboard extends Component {
     return _.merge({}, getArea({title, categories, series, options}))
   }
 
-  getPLHIVWomen() {
-    const title = 'Percent of PLHIV Who Know Status - Women'
+  getPLHIVAge() {
+    const title = 'Percent of PLHIV Who Know Status - By Age'
     const categories = _.range(2010,2020)
     // const options = { plotOptions: { series: { pointStart: 2000 }}}
     const options = {
@@ -179,8 +179,8 @@ class Dashboard extends Component {
     return _.merge({}, getLine({title, series, categories, options}))
   }
 
-  getPLHIVMen() {
-    const title = 'Percent of PLHIV Who Know Status - Men'
+  getPLHIVSex() {
+    const title = 'Percent of PLHIV Who Know Status - By Gender'
     const categories = _.range(2010,2020)
     // const options = { plotOptions: { series: { pointStart: 2000 }}}
     const options = {
@@ -194,23 +194,24 @@ class Dashboard extends Component {
     ]
     const series = [
       {
-        name: '15 - 24',
-        dashStyle: 'ShortDot',
+        name: 'Men',
+        color: colors[4],
+        dashStyle: 'solid',
         data: baseSeries,
       },
+      // {
+      //   name: '25 - 34',
+      //   dashStyle: 'DashDot',
+      //   data: dataHelper(baseSeries, 8, 5),
+      // },
+      // {
+      //   name: '35 - 49',
+      //   dashStyle: 'LongDash',
+      //   data: dataHelper(baseSeries, 6, 8),
+      // },
       {
-        name: '25 - 34',
-        dashStyle: 'DashDot',
-        data: dataHelper(baseSeries, 8, 5),
-      },
-      {
-        name: '35 - 49',
-        dashStyle: 'LongDash',
-        data: dataHelper(baseSeries, 6, 8),
-      },
-      {
-        name: '50+',
-        color: colors[8],
+        name: 'Women',
+        color: colors[1],
         dashStyle: 'Solid',
         data: dataHelper(baseSeries, 4, 12),
       },
@@ -689,8 +690,8 @@ class Dashboard extends Component {
     const shiny = countryMap[this.props.country].shiny
 
     const configCascade = this.getCascade()
-    const configPLHIVWomen = this.getPLHIVWomen()
-    const configPLHIVMen = this.getPLHIVMen()
+    const configPLHIVAge = this.getPLHIVAge()
+    const configPLHIVSex = this.getPLHIVSex()
     // const configConducted = this.getConducted()
     const configNegative = this.getNegative()
     const configDistribution = this.getDistribution()
@@ -748,8 +749,8 @@ class Dashboard extends Component {
               <ReactHighcharts config={configCascade}/>
               {mIcon}
             </div>
-            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVWomen}/>{mIcon}</div>}
-            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVMen}/>{mIcon}</div>}
+            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVSex}/>{mIcon}</div>}
+            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVAge}/>{mIcon}</div>}
 
             {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configNegative}/>{mIcon}</div>}
             {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'>
