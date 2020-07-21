@@ -22,7 +22,7 @@ const columnScat = {
         borderColor: 'black'
       } },
       dataLabels: {
-        enabled: true,
+        // enabled: true,
         inside: true,
         // crop: false,
         // align: 'left',

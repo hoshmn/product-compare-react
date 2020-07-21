@@ -62,6 +62,14 @@ const fields = ['indicator',
 
 const chartNames = ['chart1', 'chart2']
 
+const addAvg = arr => {
+  if (_.isNumber(arr[0])) {
+    return [...arr, _.mean(arr)]
+  }
+
+  return [...arr, { y: _.mean(_.map(arr, 'y')) }]
+}
+
 const dataHelper = (baseArray, variance=10, shift=0) => {
   return baseArray.map(n => n + shift + Math.floor(Math.random()*variance)-5)
 }
@@ -180,7 +188,7 @@ class Dashboard extends Component {
   }
 
   getPLHIVSex() {
-    const title = 'Percent of PLHIV Who Know Status - By Gender'
+    const title = 'Percent of PLHIV Who Know Status - By Sex'
     const categories = _.range(2010,2020)
     // const options = { plotOptions: { series: { pointStart: 2000 }}}
     const options = {
@@ -573,15 +581,15 @@ class Dashboard extends Component {
     const series = [
       {
         name: 'Number of tests conducted (thousands)',
-        data: [234, 203]
+        data: addAvg([234, 203])
       },
       {
         name: 'Positivity (%)',
         type: 'line',
-        data: [2, 30]
+        data: addAvg([2, 30])
       }
     ]
-    const categories = ['Women', 'Men']
+    const categories = ['Women', 'Men', 'TOTAL']
     return _.merge({}, getColumnScat({title, series, categories}))
   }
 
@@ -590,15 +598,15 @@ class Dashboard extends Component {
     const series = [
       {
         name: 'Number of tests conducted (thousands)',
-        data: [234, 238, 244],
+        data: addAvg([234, 238, 244])
       },
       {
         name: 'Positivity (%)',
         type: 'line',
-        data: [12, 24, 30],
+        data: addAvg([12, 24, 30])
       }
     ]
-    const categories = ['Mobile Testing', 'VCT', 'Other']
+    const categories = ['Mobile Testing', 'VCT', 'Other', 'TOTAL']
     return _.merge({}, getColumnScat({title, series, categories}))
   }
 
@@ -614,13 +622,13 @@ class Dashboard extends Component {
           //   Uncertainty range: <b>{point.l}% - {point.u}%</b><br/>
           //   Source: UNAIDS`,
         },
-        data: [
+        data: addAvg([
           { y: 234 },
           { y: 238 },
           { y: 223 },
           { y: 243 },
           { y: 132 }
-        ],
+        ]),
       },
       {
         name: 'Positivity (%)',
@@ -630,17 +638,17 @@ class Dashboard extends Component {
           {point.tooltipAddition}`
         },
         type: 'line',
-        data: [
+        data: addAvg([
           { y: 22 },
           { y: 30 },
           { y: 35 },
           { y: 19 },
           { y: 11, tooltipAddition: 'Description: something you should know about Other' }
-        ],
+        ]),
       }
     ]
 
-    const categories = ['PITC', 'ANC', 'VCT', 'Family Planning Clinic', 'Other']
+    const categories = ['PITC', 'ANC', 'VCT', 'Family Planning Clinic', 'Other', 'TOTAL']
     // const options = { xAxis: { categories: ['Community', 'Facility']} }
     return _.merge({}, getColumnScat({title, categories, series}))
   }
@@ -663,17 +671,34 @@ class Dashboard extends Component {
     const series = [
       {
         name: 'Number of tests conducted (thousands)',
-        data: [132, 232],
+        data: addAvg([132, 232])
         // dataLabels,
       },
       {
         name: 'Positivity (%)',
         type: 'line',
-        data: [21, 30]
+        data: addAvg([21, 30])
       }
     ]
-    const categories = ['Community', 'Facility']
+    const categories = ['Community', 'Facility', 'TOTAL']
     return _.merge({}, getColumnScat({title, categories, series}))
+  }
+
+  getSelf() {
+    const title = 'HIV self-tests distributed'
+    const series = [
+      {
+        name: 'number',
+        color: colors[5],
+        data: [67000],
+      },
+    ]
+    const categories = ['HIV self-tests distributed']
+    const options = {
+      // plotOptions: { column: { stacking: 'normal' } }
+      legend: { enabled: false }
+    }
+    return _.merge({}, getColumn({title, series, options, categories}))
   }
 
   getModeledIcon() {
@@ -706,6 +731,8 @@ class Dashboard extends Component {
     const configCommunity = this.getCommunity()
     const configFacility = this.getFacility()
     const configIndex = this.getIndex()
+
+    const configSelf = this.getSelf()
 
     const mIcon = this.getModeledIcon()
 
@@ -773,10 +800,11 @@ class Dashboard extends Component {
 
           <div className='row no-gutters'>
             <h5 className='col-xl-12 text-center mt-4 mb-2'>HIV tests conducted and positivity in the past year</h5>
-            <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configAdults}/></div>
-            <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configCommunity}/></div>
-            <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configFacility}/></div>
-            <div className='col-xl-3 col-lg-6 col-sm-12'><ReactHighcharts config={configIndex}/></div>
+            <div className='col-xl-4 col-lg-6 col-sm-12'><ReactHighcharts config={configAdults}/></div>
+            <div className='col-xl-4 col-lg-6 col-sm-12'><ReactHighcharts config={configCommunity}/></div>
+            <div className='col-xl-4 col-lg-6 col-sm-12'><ReactHighcharts config={configFacility}/></div>
+            <div className='col-xl-4 col-lg-6 col-sm-12'><ReactHighcharts config={configIndex}/></div>
+            <div className='col-xl-4 col-lg-6 col-sm-12'><ReactHighcharts config={configSelf}/></div>
           </div>
           <div className='row mt-5'>
             <KPTable classes='col-7 p-3' />
