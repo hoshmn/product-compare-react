@@ -581,16 +581,19 @@ class Dashboard extends Component {
     const series = [
       {
         name: 'Number of tests conducted (thousands)',
-        data: addAvg([234, 203])
+        data: [234, 203]
       },
       {
         name: 'Positivity (%)',
         type: 'line',
-        data: addAvg([2, 30])
+        data: [2, 30]
       }
     ]
     const categories = ['Women', 'Men', 'TOTAL']
-    return _.merge({}, getColumnScat({title, series, categories}))
+    const options = {
+      subtitle: { text: `Total tests: ${_.mean([234, 203])}k, Average positivity: ${_.mean([2, 30])}%` }
+    }
+    return _.merge({}, getColumnScat({title, series, options, categories}))
   }
 
   getCommunity() {
@@ -598,16 +601,20 @@ class Dashboard extends Component {
     const series = [
       {
         name: 'Number of tests conducted (thousands)',
-        data: addAvg([234, 238, 244])
+        data: [234, 238, 246]
       },
       {
         name: 'Positivity (%)',
         type: 'line',
-        data: addAvg([12, 24, 30])
+        data: [12, 24, 30]
       }
     ]
+
+    const options = {
+      subtitle: { text: `Total tests: ${_.mean([234, 238, 245])}k, Average positivity: ${_.mean([12, 24, 30])}%` }
+    } 
     const categories = ['Mobile Testing', 'VCT', 'Other', 'TOTAL']
-    return _.merge({}, getColumnScat({title, series, categories}))
+    return _.merge({}, getColumnScat({title, series, options, categories}))
   }
 
   getFacility() {
@@ -622,13 +629,13 @@ class Dashboard extends Component {
           //   Uncertainty range: <b>{point.l}% - {point.u}%</b><br/>
           //   Source: UNAIDS`,
         },
-        data: addAvg([
+        data: [
           { y: 234 },
           { y: 238 },
           { y: 223 },
           { y: 243 },
           { y: 132 }
-        ]),
+        ],
       },
       {
         name: 'Positivity (%)',
@@ -638,19 +645,35 @@ class Dashboard extends Component {
           {point.tooltipAddition}`
         },
         type: 'line',
-        data: addAvg([
+        data: [
           { y: 22 },
           { y: 30 },
           { y: 35 },
           { y: 19 },
           { y: 11, tooltipAddition: 'Description: something you should know about Other' }
-        ]),
+        ],
       }
     ]
 
+
+    const options = {
+      subtitle: { text: `Total tests: ${_.meanBy([
+          { y: 234 },
+          { y: 238 },
+          { y: 223 },
+          { y: 243 },
+          { y: 132 }
+        ], 'y')}k, Average positivity: ${_.meanBy([
+          { y: 22 },
+          { y: 30 },
+          { y: 35 },
+          { y: 19 },
+          { y: 11, tooltipAddition: 'Description: something you should know about Other' }
+        ], 'y')}%` }
+    }
     const categories = ['PITC', 'ANC', 'VCT', 'Family Planning Clinic', 'Other', 'TOTAL']
     // const options = { xAxis: { categories: ['Community', 'Facility']} }
-    return _.merge({}, getColumnScat({title, categories, series}))
+    return _.merge({}, getColumnScat({title, options, categories, series}))
   }
 
   getIndex() {
@@ -671,17 +694,20 @@ class Dashboard extends Component {
     const series = [
       {
         name: 'Number of tests conducted (thousands)',
-        data: addAvg([132, 232])
+        data: [132, 232]
         // dataLabels,
       },
       {
         name: 'Positivity (%)',
         type: 'line',
-        data: addAvg([21, 30])
+        data: [21, 30]
       }
     ]
+    const options = {
+      subtitle: { text: `Total tests: ${_.mean([132, 232])}k, Average positivity: ${_.mean([21, 30])}%` }
+    }
     const categories = ['Community', 'Facility', 'TOTAL']
-    return _.merge({}, getColumnScat({title, categories, series}))
+    return _.merge({}, getColumnScat({title, options, categories, series}))
   }
 
   getSelf() {
