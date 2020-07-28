@@ -26,7 +26,13 @@ export default {
   "title": { "align": "left", "x": 40 },
   "subtitle": { "align": "left", "x": 40 },
   // "subtitle": { "align": "left" },
-  "legend": { "enabled": true },
+  "legend": {
+    "enabled": true,
+    "useHTML": true,
+    "labelFormatter": function () {
+      return `<span title='${this.userOptions.description || ""}'>${this.name}</span>`
+    }
+  },
   "credits": { "enabled": false },
   "colors": colors,
   "xAxis": {

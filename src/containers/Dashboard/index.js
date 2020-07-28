@@ -12,6 +12,7 @@ import NestedBoxes from '../../components/NestedBoxes'
 import KPTable from '../../components/KPTable'
 import PolicyTable from '../../components/PolicyTable'
 import DemographicsTable from '../../components/DemographicsTable'
+import { TERM_MAP } from '../../constants/glossary'
 const HighchartsMore = require('highcharts/highcharts-more')
 const Highcharts = require('highcharts')
 const ReactHighcharts = require('react-highcharts').withHighcharts(Highcharts)
@@ -110,10 +111,11 @@ class Dashboard extends Component {
   }
 
   getCascade() {
-    const title = 'Estimated Numbers of Undiagnosed, Untreated, and PLHIV on ART'
+    const title = 'PLHIV by diagnosis and treatment status'
     const categories = _.range(2010,2020)
     const options = { 
       // yAxis: { labels: { format: '{value}%' } },
+      subtitle: { text: 'Spectrum model estimates (UNAIDS, 2020)' },
       tooltip: { valueSuffix: ' million' },
       yAxis: { title: { text: 'Adults 15+ (millions)' } },
       // tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
@@ -122,6 +124,7 @@ class Dashboard extends Component {
     const series = [
       {
         name: 'Undiagnosed PLHIV',
+        description: TERM_MAP.undiagnosedPlhiv.definition,
         color: colors[1]+'97',
         data: [
           14,13,13,12,12,
@@ -129,7 +132,8 @@ class Dashboard extends Component {
         ],
       },
       {
-        name: 'PLHIV Who Know Status',
+        name: 'PLHIV know status not on ART',
+        description: TERM_MAP.plhivWhoKnowStatusNotOnArt.definition,
         color: colors[2]+'97',
         data: [
           38,40,41,44,45,
@@ -137,7 +141,8 @@ class Dashboard extends Component {
         ].map(n => n-10),
       },
       {
-        name: 'On ART',
+        name: 'PLHIV know status on ART',
+        description: TERM_MAP.plhivKnowStatusOnArt.definition,
         color: colors[0]+'97',
         data: [
           16,19,22,24,27,
@@ -149,11 +154,12 @@ class Dashboard extends Component {
   }
 
   getPLHIVAge() {
-    const title = 'Percent of PLHIV Who Know Status - By Age'
+    const title = 'PLHIV who know status - by age'
     const categories = _.range(2010,2020)
     // const options = { plotOptions: { series: { pointStart: 2000 }}}
     const options = {
       legend: { symbolWidth: 40 },
+      subtitle: { text: 'Spectrum/Shiny90 model estimates (UNAIDS, 2020)' },
     }
     const baseSeries = [
       2, 3, 6,
@@ -188,11 +194,12 @@ class Dashboard extends Component {
   }
 
   getPLHIVSex() {
-    const title = 'Percent of PLHIV Who Know Status - By Sex'
+    const title = 'PLHIV who know status - by sex'
     const categories = _.range(2010,2020)
     // const options = { plotOptions: { series: { pointStart: 2000 }}}
     const options = {
       legend: { symbolWidth: 40 },
+      subtitle: { text: 'Spectrum/Shiny90 model estimates (UNAIDS, 2020)' },
     }
     const baseSeries = [
       2, 3, 6,
@@ -228,11 +235,12 @@ class Dashboard extends Component {
   }
 
   getNegative() {
-    const title = 'Estimated Distribution of Annual HIV Negative Tests By Previous HIV Testing Status'
+    const title = 'HIV-negative tests - first-time testers and repeat testers'
     const categories = _.range(2010,2020)
     const series = [
       {
-        name: 'Repeat Testers',
+        name: 'Retest',
+        description: TERM_MAP.retest.definition,
         color: colors[4]+'97',
         data: [
           123,132,149,153,163,
@@ -243,7 +251,8 @@ class Dashboard extends Component {
 
       },
       {
-        name: 'First-Time Testers',
+        name: 'First test',
+        description: TERM_MAP.firstTest.definition,
         color: colors[9]+'90',
         data: [
           // 29,31,31,32,33,
@@ -255,6 +264,7 @@ class Dashboard extends Component {
     ]
     const options = {
       yAxis: { title: { text: 'HIV Negative Tests (thousands)' } },
+      subtitle: { text: 'Spectrum/Shiny90 model estimates (UNAIDS, 2020)' },
       // tooltip: { valueSuffix: ' thousand' },
     }
     return _.merge({}, getArea({title, categories, series, options}))
@@ -292,17 +302,19 @@ class Dashboard extends Component {
   // }
 
   getDistribution() {
-    const title = 'Estimated Distribution of Annual HIV Reactive Tests by Awareness & Treatment Status'
+    const title = 'HIV-positive tests - new diagnoses and retests'
     const categories = _.range(2010,2020)
     const options = { 
       yAxis: { title: { text: 'HIV Positive tests (thousands)' } },
+      subtitle: { text: 'Spectrum/Shiny90 model estimates (UNAIDS, 2020)' },
       // tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
       // yAxis: { max: 58*2 },
       // tooltip: { valueSuffix: ',000' },
      }
     const series = [
       {
-        name: 'Retests - PLHIV on ART',
+        name: 'Retest - know status on ART',
+        description: TERM_MAP.retest.definition,
         color: colors[0]+'97',
         data: [
           // 1,2,4,10,16,
@@ -313,7 +325,8 @@ class Dashboard extends Component {
         ].map(n => n*1000),
       },
       {
-        name: 'Retests - Aware but not on ART',
+        name: 'Retest - know status not on ART',
+        description: TERM_MAP.retest.definition,
         color: colors[2]+'97',
         data: [
           // 1,2,4,9,15,
@@ -324,7 +337,8 @@ class Dashboard extends Component {
         ].map(n => n*1000),
       },
       {
-        name: 'New Diagnoses',
+        name: 'New diagnos',
+        description: TERM_MAP.newDiagnosis.definition,
         color: colors[1]+'97',
         data: [
           // 1,2,4,5,5,
@@ -339,23 +353,24 @@ class Dashboard extends Component {
   }
 
   getPrevalence(shiny) {
-    const title = 'Estimated HIV Prevalence, Prevalence of Untreated HIV, HIV Testing Services Positivity, & Yield of New HIV Diagnosis'
+    const title = 'Prevalence and positivity'
     const categories = _.range(2010,2020)
     const options = {
       plotOptions: { series: { marker: { radius: 3 }}},
-      legend: {
-        useHTML: true,
-        labelFormatter: function() {
-          console.log(this.name, this)
-          return `<span title='${this.userOptions.description}'>${this.name}</span>`
-        }
-      },
+      subtitle: { text: 'Spectrum/Shiny90 model estimates (UNAIDS, 2020)' },
+      // legend: {
+      //   useHTML: true,
+      //   labelFormatter: function() {
+      //     console.log(this.name, this)
+      //     return `<span title='${this.userOptions.description}'>${this.name}</span>`
+      //   }
+      // },
     }
     let series = [
       {
-        name: 'HIV Prevalence',
+        name: 'HIV prevalence',
         shinyInclude: true,
-        description: 'A helpful description about HIV Prevalence',
+        description: TERM_MAP.hivPrevalence.definition,
         zIndex: 1,
         tooltip: {
           pointFormat: `<span style="color:{point.color}">●</span>
@@ -395,7 +410,7 @@ class Dashboard extends Component {
       },
       {
         name: 'Positivity',
-        description: 'A helpful description about Positivity',
+        description: TERM_MAP.positivity.definition,
         // dashStyle: 'ShortDot',
         zIndex: 1,
         tooltip: {
@@ -429,8 +444,8 @@ class Dashboard extends Component {
         }
       },
       {
-        name: 'Diagnostic Yield',
-        description: 'A helpful description about Diagnostic Yield',
+        name: 'Diagnostic yield',
+        description: TERM_MAP.diagnosticYield.definition,
         // dashStyle: 'DashDot',
         data: dataHelper([
           2, 3, 3, 5, 6,
@@ -440,8 +455,8 @@ class Dashboard extends Component {
         ], 4, 6).reverse(),
       },
       {
-        name: 'Treatment Adjusted Prevalence',
-        description: 'A helpful description about Treatment Adjusted Prevalence',
+        name: 'Treatment adjusted prevalence',
+        description: TERM_MAP.treatmentAdjustedPrevalence.definition,
         color: colors[9],
         // dashStyle: 'LongDash',
         data: dataHelper([
@@ -519,20 +534,23 @@ class Dashboard extends Component {
   }
 
   getForecast() {
-    const title = 'HIVST Demand Forecast & Achieving Goals HIVST Need Estimate'
+    const title = 'HIVST Forecast'
+    const options = {
+      subtitle: { text: 'WHO model estimates, 2020' },
+    }
     const series = [
       {
-        name: 'Demand',
+        name: 'HIVST demand',
         data: [9012, 51023, 114389, 218324, 321092, 425203, 534324]
       },
       {
-        name: 'Need',
+        name: 'HIVST need',
         type: 'line',
         data: [3234932, 3123038, 3023432, 3132423, 3292382, 3323430, 3252329]
       }
     ]
     const categories = _.range(2019, 2026)
-    return _.merge({}, getColumnLine({title, series, categories}))
+    return _.merge({}, getColumnLine({title, series, categories, options}))
   }
 
   getComp() {
@@ -590,6 +608,8 @@ class Dashboard extends Component {
       }
     ]
     const categories = ['Women', 'Men', 'TOTAL']
+
+    // TODO should be weighted avg of %
     const options = {
       subtitle: { text: `Total tests: ${_.mean([234, 203])}k, Average positivity: ${_.mean([2, 30])}%` }
     }
@@ -601,7 +621,7 @@ class Dashboard extends Component {
     const series = [
       {
         name: 'Number of tests conducted (thousands)',
-        data: [234, 238, 246]
+        data: [234, 238, 245]
       },
       {
         name: 'Positivity (%)',
@@ -727,15 +747,15 @@ class Dashboard extends Component {
     return _.merge({}, getColumn({title, series, options, categories}))
   }
 
-  getModeledIcon() {
+  // getModeledIcon() {
 
-    return (
-      <div className="modeled-icon" title="this chart uses modeled data">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64">
-        <path d="m32 2c-16.568 0-30 13.432-30 30s13.432 30 30 30 30-13.432 30-30-13.432-30-30-30m14.035 44.508h-5.65v-19.626c0-.564.008-1.355.02-2.372.014-1.018.02-1.802.02-2.353l-5.498 24.351h-5.893l-5.459-24.351c0 .551.006 1.335.02 2.353.014 1.017.02 1.808.02 2.372v19.626h-5.65v-29.016h8.824l5.281 22.814 5.242-22.814h8.725v29.016z" fill={colors[0]}/></svg>
-    </div>
-    )
-  }
+  //   return (
+  //     <div className="modeled-icon" title="this chart uses modeled data">
+  //       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" enable-background="new 0 0 64 64">
+  //       <path d="m32 2c-16.568 0-30 13.432-30 30s13.432 30 30 30 30-13.432 30-30-13.432-30-30-30m14.035 44.508h-5.65v-19.626c0-.564.008-1.355.02-2.372.014-1.018.02-1.802.02-2.353l-5.498 24.351h-5.893l-5.459-24.351c0 .551.006 1.335.02 2.353.014 1.017.02 1.808.02 2.372v19.626h-5.65v-29.016h8.824l5.281 22.814 5.242-22.814h8.725v29.016z" fill={colors[0]}/></svg>
+  //   </div>
+  //   )
+  // }
   
   render() {
     const shiny = countryMap[this.props.country].shiny
@@ -751,7 +771,7 @@ class Dashboard extends Component {
     // const configPrepStacked = this.getPrepStacked()
     const configForecast = this.getForecast()
     
-    const configComp = this.getComp()
+    // const configComp = this.getComp()
 
     const configAdults = this.getAdults()
     const configCommunity = this.getCommunity()
@@ -760,7 +780,7 @@ class Dashboard extends Component {
 
     const configSelf = this.getSelf()
 
-    const mIcon = this.getModeledIcon()
+    // const mIcon = this.getModeledIcon()
 
     return (
       <div className='dashboard'>
@@ -800,12 +820,11 @@ class Dashboard extends Component {
                 />
               </Tooltip>
               <ReactHighcharts config={configCascade}/>
-              {mIcon}
             </div>
-            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVSex}/>{mIcon}</div>}
-            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVAge}/>{mIcon}</div>}
+            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVSex}/></div>}
+            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVAge}/></div>}
 
-            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configNegative}/>{mIcon}</div>}
+            {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configNegative}/></div>}
             {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'>
               <Tooltip> 
                 <div>
@@ -815,13 +834,11 @@ class Dashboard extends Component {
                 </div>
               </Tooltip>
               <ReactHighcharts config={configDistribution}/>
-              {mIcon}
             </div>}
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrevalence}/>{mIcon}</div>
+            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrevalence}/></div>
             {/* <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrep}/></div>
             <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPrepStacked}/></div> */}
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configForecast}/>{mIcon}</div>
-            {!shiny ? null : <div className='col-xl-6 col-md-6 col-sm-12'><ReactHighcharts config={configComp}/>{mIcon}</div>}
+            {/* {!shiny ? null : <div className='col-xl-6 col-md-6 col-sm-12'><ReactHighcharts config={configComp}/></div>} */}
           </div>
 
           <div className='row no-gutters'>
@@ -831,6 +848,7 @@ class Dashboard extends Component {
             <div className='col-xl-4 col-lg-6 col-sm-12'><ReactHighcharts config={configFacility}/></div>
             <div className='col-xl-4 col-lg-6 col-sm-12'><ReactHighcharts config={configIndex}/></div>
             <div className='col-xl-4 col-lg-6 col-sm-12'><ReactHighcharts config={configSelf}/></div>
+            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configForecast} /></div>
           </div>
           <div className='row mt-5'>
             <KPTable classes='col-7 p-3' />
