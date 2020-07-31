@@ -168,30 +168,30 @@ const area = {
   marker : {symbol : 'square', radius : 12 }
 }
 
-const getColumnScat = ({title, series, options}) => {
+const getColumnScat = ({title, series, categories, options}) => {
   const specifics = {
     title: { text: title },
-    // xAxis: { categories },
+    xAxis: { categories },
     yAxis: [{ title: { text: series[0].name }}, { title: { text: series[1].name }}],
     series: series
   }
   return _.merge({}, columnScat, specifics, options)
 }
 
-const getColumnLine = ({title, series, options}) => {
+const getColumnLine = ({title, series, categories, options}) => {
   const specifics = {
     title: { text: title },
-    // xAxis: { categories },
+    xAxis: { categories },
     yAxis: [{ title: { text: null }}],
     series: series
   }
   return _.merge({}, columnLine, specifics, options)
 }
 
-const getColumn = ({title, series, options}) => {
+const getColumn = ({title, series, categories, options}) => {
   const specifics = {
     title: { text: title },
-    // xAxis: { categories },
+    xAxis: { categories },
     yAxis: { title: null }, 
     series: series
   }

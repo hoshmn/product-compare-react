@@ -12,7 +12,7 @@ import NestedBoxes from '../../components/NestedBoxes'
 import KPTable from '../../components/KPTable'
 import PolicyTable from '../../components/PolicyTable'
 import DemographicsTable from '../../components/DemographicsTable'
-import { TERM_MAP } from '../../constants/glossary'
+import { TERM_MAP, TERMS } from '../../constants/glossary'
 const HighchartsMore = require('highcharts/highcharts-more')
 const Highcharts = require('highcharts')
 const ReactHighcharts = require('react-highcharts').withHighcharts(Highcharts)
@@ -918,11 +918,29 @@ class Dashboard extends Component {
               WHO HIV Country Profiles
             </a>
           </div>
+          {this.getGlossary()}
           <br />
           <br />
           <br />
         
           {this.getDevSection()}
+        </div>
+      </div>
+    )
+  }
+
+  getGlossary() {
+    return(
+      <div className='row no-gutters mt-5 glossary'>
+        <div className='col-12'>
+          <h3>Glossary</h3>
+        </div>
+        <div className='terms'>
+          {TERMS.map(t => {
+            return (
+              <div className='term py-1'><strong>{t.term}</strong>: <span>{t.definition}</span></div>
+            )
+          })}
         </div>
       </div>
     )
