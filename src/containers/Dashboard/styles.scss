@@ -44,6 +44,24 @@ $nav-height: 70px;
     }
   }
 
+  .prog-95 {
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+
+    p {
+      font-size: 15px;
+      font-weight: lighter;
+      transform: rotate(-90deg);
+      white-space: pre;
+      text-decoration: underline;
+      text-underline-offset: 7px;
+    }
+  }
+  .nested-boxes {
+    margin-left: 20px;
+  }
+
   .charts {
     .plhiv.tooltip-container.open {
       width: 340px;

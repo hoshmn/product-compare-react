@@ -103,9 +103,20 @@ class NestedBoxes extends Component {
   
   render() {
     const boxes = this.getBoxes(this.props.side, 0)
+
+    let width = this.props.side
+    let sideLength = this.props.side
+    this.props.ratios.forEach((r,i) => {
+      if (i === this.props.ratios.length-1) {
+        return
+      }
+
+      sideLength *= r
+      width += 9/8 * sideLength // include bridge width
+    })
     
     const style = {
-      width: (this.props.side * this.props.ratios.length) + 'px',
+      width: width + 'px',
       height: (this.props.side + 70) + 'px',
     }
     

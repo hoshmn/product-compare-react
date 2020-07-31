@@ -807,17 +807,27 @@ class Dashboard extends Component {
               </div>
             </div>
             <div className='col-xl-4 col-md-6 col-sm-12'>
-              <NestedBoxes
-                side={110}
-                ratios={[.85, .79, .87]}
-                // colors={[colors[1]+'97', colors[2]+'97', colors[0]+'97', colors[0]+'40']}
-                colors={['#c38f72', '#85adca', '#999999', colors[0] + '50']}
-                content={[
-                  { inner: '85%', below: 'of people living with HIV know their status' },
-                  { inner: '79%', below: 'of people living with HIV who know their status are on treatment' },
-                  { inner: '87%', below: 'of people on treatment are virally suppressed' },
-                ]}
-              />
+              <div className='row no-gutters'>
+
+              <div className='col-1 prog-95'>
+                <p>Progress towards 95-95-95</p>
+              </div>
+              <div className='col'>
+                <NestedBoxes
+                  side={110}
+                  ratios={[.85, .79, .87]}
+                  // colors={[colors[1]+'97', colors[2]+'97', colors[0]+'97', colors[0]+'40']}
+                  colors={['#c38f72', '#85adca', '#999999', colors[0] + '50']}
+                  content={[
+                    { inner: '85%', below: 'of people living with HIV know their status' },
+                    { inner: '79%', below: 'of people living with HIV who know their status are on treatment' },
+                    { inner: '87%', below: 'of people on treatment are virally suppressed' },
+                  ]}
+                />
+              </div>
+
+              </div>
+
             </div>
           </div>
 
