@@ -797,7 +797,7 @@ class Dashboard extends Component {
         <div className='charts container-fluid mt-4'>
 
           <div className='row no-gutters mb-4'>
-            <div className='col-xl-4 col-md-6 col-sm-12'>
+            <div className='col-xl-4 col-md-6 col-xs-12'>
               <div className='country-name'>
                 <h1> {this.props.country}</h1>
               </div>
@@ -806,13 +806,9 @@ class Dashboard extends Component {
                 <div><span>World Bank classification:</span><span> {countryMap[this.props.country].incomeClass}</span></div>
               </div>
             </div>
-            <div className='col-xl-4 col-md-6 col-sm-12'>
-              <div className='row no-gutters'>
-
-              <div className='col-1 prog-95'>
+            <div className='col-xl-4 col-md-6 col-xs-12 prog-95'>
+              <div className='content'>
                 <p>Progress towards 95-95-95</p>
-              </div>
-              <div className='col'>
                 <NestedBoxes
                   side={110}
                   ratios={[.85, .79, .87]}
@@ -823,11 +819,8 @@ class Dashboard extends Component {
                     { inner: '79%', below: 'of people living with HIV who know their status are on treatment' },
                     { inner: '87%', below: 'of people on treatment are virally suppressed' },
                   ]}
-                />
+                  />
               </div>
-
-              </div>
-
             </div>
           </div>
 
