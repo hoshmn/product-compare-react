@@ -129,7 +129,8 @@ $nav-height: 70px;
       word-break: break-word;
 
       .term {
-        
+        // so definition doesn't split between columns
+        display: inline-block;
       }
     }
   }

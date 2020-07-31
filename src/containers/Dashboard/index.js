@@ -933,7 +933,7 @@ class Dashboard extends Component {
     return(
       <div className='row no-gutters mt-5 glossary'>
         <div className='col-12'>
-          <h3>Glossary</h3>
+          <h2>Glossary</h2>
         </div>
         <div className='terms'>
           {TERMS.map(t => {

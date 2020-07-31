@@ -26,7 +26,7 @@ const hivstNeed = {
 
 const newDiagnosis = {
   term: 'New diagnosis',
-  definition: 'The first positive / reactive test for an individual(i.e., the first time they become aware they are living with HIV).This can be either a first test or a retest.'
+  definition: 'The first positive / reactive test for an individual (i.e., the first time they become aware they are living with HIV). This can be either a first test or a retest.'
 }
 
 const plhivWhoKnowStatus = {
@@ -63,7 +63,7 @@ const shiny90 = {
 
 const treatmentAdjustedPrevalence = {
   term: 'Treatment - adjusted prevalence',
-  definition: 'National HIV prevalence that is adjusted to exclude PLHIV on ART from the numerator and the denominator.Treatment - adjusted prevalence includes people with HIV who are undiagnosed, people with HIV who know their status but have not initiated treatment, and people with HIV who previously initiated treatment but have disengaged from care.'
+  definition: 'National HIV prevalence that is adjusted to exclude PLHIV on ART from the numerator and the denominator. Treatment - adjusted prevalence includes people with HIV who are undiagnosed, people with HIV who know their status but have not initiated treatment, and people with HIV who previously initiated treatment but have disengaged from care.'
 }
 
 const undiagnosedPlhiv = {
