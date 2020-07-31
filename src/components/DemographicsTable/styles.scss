@@ -1,7 +1,12 @@
 @import '../../styles/_variables.scss';
 
 .demographics-table {
+  position: relative;
   background-color: white;
+
+  h2 {
+    padding-left: 35px;
+  }
 
   .table-title {
     display: inline-block;

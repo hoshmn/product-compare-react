@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import './styles.css'
+import Tooltip from '../Tooltip'
 
 const women = { display: 'Women (15+)', id: 'women', group: 'women' }
 const women15 = { display: 'Women (15-24)', id: 'women15', group: 'women' }
@@ -145,8 +146,13 @@ class DemographicsTable extends Component {
     }
     return (
       <div className={classes}>
+        <Tooltip className='table-tooltip'>
+          <div>
+            Data from multiple sources and time periods. Hover a data value for more information.
+            Click a row to hide that row, or use filters below the table to tailor your view.
+          </div>
+        </Tooltip>
         <h2 className='table-title'>Population Groups </h2>
-        <i> (click a row to hide)</i>
         {this.getTable()}
         <div className='row-control'>
           {this.getHiddenRows()}

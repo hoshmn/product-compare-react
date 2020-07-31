@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import './styles.css'
+import Tooltip from '../Tooltip'
 
 class KPTable extends Component {
   constructor(props) {
@@ -15,6 +16,11 @@ class KPTable extends Component {
     return (
       <div className={classes}>
         <h2>Key Populations</h2>
+        <Tooltip className='table-tooltip'>
+          <div>
+            Data from multiple sources and time periods. Hover a data value for more information.
+          </div>
+        </Tooltip>
         <table className='table table-striped'>
           <thead>
             <tr>
