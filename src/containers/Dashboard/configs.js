@@ -168,50 +168,50 @@ const area = {
   marker : {symbol : 'square', radius : 12 }
 }
 
-const getColumnScat = ({title, categories, series, options}) => {
+const getColumnScat = ({title, series, options}) => {
   const specifics = {
     title: { text: title },
-    xAxis: { categories },
+    // xAxis: { categories },
     yAxis: [{ title: { text: series[0].name }}, { title: { text: series[1].name }}],
     series: series
   }
   return _.merge({}, columnScat, specifics, options)
 }
 
-const getColumnLine = ({title, categories, series, options}) => {
+const getColumnLine = ({title, series, options}) => {
   const specifics = {
     title: { text: title },
-    xAxis: { categories },
+    // xAxis: { categories },
     yAxis: [{ title: { text: null }}],
     series: series
   }
   return _.merge({}, columnLine, specifics, options)
 }
 
-const getColumn = ({title, categories, series, options}) => {
+const getColumn = ({title, series, options}) => {
   const specifics = {
     title: { text: title },
-    xAxis: { categories },
+    // xAxis: { categories },
     yAxis: { title: null }, 
     series: series
   }
   return _.merge({}, column, specifics, options)
 }
 
-const getLine = ({title, series, categories, spline=false, options={}}) => {
+const getLine = ({title, series, spline=false, options={}}) => {
   const specifics = {
     chart: { type: spline ? 'spline' : 'line' },
     title: { text: title },
-    xAxis: { categories },
+    // xAxis: { categories },
     series
   }
   return _.merge({}, line, specifics, options)
 }
 
-const getArea = ({title, categories, series, options={}}) => {
+const getArea = ({title, series, options={}}) => {
   const specifics = {
     title: { text: title },
-    xAxis: { categories },
+    // xAxis: { categories },
     series
   }
   return _.merge({}, area, specifics, options)

@@ -13,7 +13,7 @@ export default {
     // "series": { "yAxis": { "stackLabels": { enabled: true } } },
   },
   "chart": {
-    // "alignTicks": true,
+    "alignTicks": true,
     // "height": 400,
     "backgroundColor": "#FFFFFF",
     "plotBackgroundColor": "#F8F8F8",

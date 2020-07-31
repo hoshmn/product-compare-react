@@ -117,12 +117,12 @@ class Dashboard extends Component {
 
   getCascade() {
     const title = 'PLHIV by diagnosis and treatment status'
-    const categories = _.range(2010,2020)
     const options = { 
       // yAxis: { labels: { format: '{value}%' } },
       subtitle: { text: 'Spectrum model estimates (UNAIDS, 2020)' },
       tooltip: { valueSuffix: ' million' },
       yAxis: { title: { text: 'Adults 15+ (millions)' } },
+      plotOptions: { series: { pointStart: 2010 } }
       // tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
       // yAxis: { max: 58*2 },
      }
@@ -155,16 +155,16 @@ class Dashboard extends Component {
         ].map(n => n-6),
       },
     ]
-    return _.merge({}, getArea({title, categories, series, options}))
+    return _.merge({}, getArea({title, series, options}))
   }
 
   getPLHIVAge() {
     const title = 'PLHIV who know status - by age'
-    const categories = _.range(2010,2020)
     // const options = { plotOptions: { series: { pointStart: 2000 }}}
     const options = {
       legend: { symbolWidth: 40 },
       subtitle: { text: 'Spectrum/Shiny90 model estimates (UNAIDS, 2020)' },
+      plotOptions: { series: { pointStart: 2010 } }
     }
     const baseSeries = [
       2, 3, 6,
@@ -195,16 +195,15 @@ class Dashboard extends Component {
         data: dataHelper(baseSeries, 4, 12),
       },
     ]
-    return _.merge({}, getLine({title, series, categories, options}))
+    return _.merge({}, getLine({title, series, options}))
   }
 
   getPLHIVSex() {
     const title = 'PLHIV who know status - by sex'
-    const categories = _.range(2010,2020)
-    // const options = { plotOptions: { series: { pointStart: 2000 }}}
     const options = {
       legend: { symbolWidth: 40 },
       subtitle: { text: 'Spectrum/Shiny90 model estimates (UNAIDS, 2020)' },
+      plotOptions: { series: { pointStart: 2010 } }
     }
     const baseSeries = [
       2, 3, 6,
@@ -212,6 +211,7 @@ class Dashboard extends Component {
       25,29,36,
       53,
     ]
+    
     const series = [
       {
         name: 'Men',
@@ -236,12 +236,11 @@ class Dashboard extends Component {
         data: dataHelper(baseSeries, 4, 12),
       },
     ]
-    return _.merge({}, getLine({title, series, categories, options}))
+    return _.merge({}, getLine({title, series, options}))
   }
 
   getNegative() {
     const title = '<span class="hivn-title">HIV-negative</span> tests - first-time testers and repeat testers'
-    const categories = _.range(2010,2020)
     const series = [
       {
         name: 'Retest',
@@ -271,9 +270,10 @@ class Dashboard extends Component {
       title: { useHTML: true },
       yAxis: { title: { text: 'HIV Negative Tests (thousands)' } },
       subtitle: { text: 'Spectrum/Shiny90 model estimates (UNAIDS, 2020)' },
+      plotOptions: { series: { pointStart: 2010 } }
       // tooltip: { valueSuffix: ' thousand' },
     }
-    return _.merge({}, getArea({title, categories, series, options}))
+    return _.merge({}, getArea({title, series, options}))
   }
   
   // getConducted() {
@@ -309,11 +309,11 @@ class Dashboard extends Component {
 
   getDistribution() {
     const title = '<span class="hivp-title">HIV-positive</span> tests - new diagnoses and retests'
-    const categories = _.range(2010,2020)
     const options = { 
       title: { useHTML: true },
       yAxis: { title: { text: 'HIV Positive tests (thousands)' } },
       subtitle: { text: 'Spectrum/Shiny90 model estimates (UNAIDS, 2020)' },
+      plotOptions: { series: { pointStart: 2010 } }
       // tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
       // yAxis: { max: 58*2 },
       // tooltip: { valueSuffix: ',000' },
@@ -356,15 +356,15 @@ class Dashboard extends Component {
         ].map(n => n*1000),
       },
     ]
-    return _.merge({}, getArea({title, categories, series, options}))
+    return _.merge({}, getArea({title, series, options}))
   }
 
   getPrevalence(shiny) {
     const title = 'Prevalence and positivity'
-    const categories = _.range(2010,2020)
     const options = {
       plotOptions: { series: { marker: { radius: 3 }}},
       subtitle: { text: 'Spectrum/Shiny90 model estimates (UNAIDS, 2020)' },
+      plotOptions: { series: { pointStart: 2010 } }
       // legend: {
       //   useHTML: true,
       //   labelFormatter: function() {
@@ -506,7 +506,7 @@ class Dashboard extends Component {
     if (!shiny) {
       series = series.filter(s => s.shinyInclude)
     }
-    return _.merge({}, getLine({series, categories, options, title, spline:false}))
+    return _.merge({}, getLine({series, options, title, spline:false}))
   }
 
   getPrep() {
@@ -573,6 +573,7 @@ class Dashboard extends Component {
     const title = 'HIVST Forecast'
     const options = {
       subtitle: { text: 'WHO model estimates, 2020' },
+      plotOptions: { series: { pointStart: 2019 } }
     }
     const series = [
       {
@@ -585,8 +586,7 @@ class Dashboard extends Component {
         data: [3234932, 3123038, 3023432, 3132423, 3292382, 3323430, 3252329]
       }
     ]
-    const categories = _.range(2019, 2026)
-    return _.merge({}, getColumnLine({title, series, categories, options}))
+    return _.merge({}, getColumnLine({title, series, options}))
   }
 
   getComp() {
@@ -886,18 +886,18 @@ class Dashboard extends Component {
 
           <div className='row no-gutters'>
             <h5 className='col-12 text-center mt-4 mb-2'>HIV tests conducted and positivity in the past year</h5>
-            <div className='col-md-4 col-sm-12'><ReactHighcharts config={configAdults}/></div>
-            <div className='col-md-4 col-sm-12'><ReactHighcharts config={configCommunity}/></div>
-            <div className='col-md-4 col-sm-12'><ReactHighcharts config={configFacility}/></div>
-            <div className='col-md-4 col-sm-12'><ReactHighcharts config={configIndex}/></div>
-            <div className='col-md-4 col-sm-12'><ReactHighcharts config={configSelf}/></div>
-            <div className='col-md-4 col-sm-12'><ReactHighcharts config={configForecast} /></div>
+            <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12'><ReactHighcharts config={configAdults}/></div>
+            <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12'><ReactHighcharts config={configCommunity}/></div>
+            <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12'><ReactHighcharts config={configFacility}/></div>
+            <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12'><ReactHighcharts config={configIndex}/></div>
+            <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12'><ReactHighcharts config={configSelf}/></div>
+            <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12'><ReactHighcharts config={configForecast} /></div>
           </div>
 
           <div className='row no-gutters mt-5'>
-            <KPTable classes='col-sm-12 col-md-7 py-3' />
-            <PolicyTable classes='col-sm-12 col-md-5 py-3' />
-            <DemographicsTable shiny={shiny} classes='py-3' />
+            <KPTable classes='col-sm-12 col-md-7 p-3' />
+            <PolicyTable classes='col-sm-12 col-md-5 p-3' />
+            <DemographicsTable shiny={shiny} classes='p-3' />
           </div>
 
           <div className='row no-gutters mt-5'>
