@@ -21,7 +21,7 @@ HighchartsMore(ReactHighcharts.Highcharts)
 ReactHighcharts.Highcharts.theme = baseStyle
 ReactHighcharts.Highcharts.setOptions(ReactHighcharts.Highcharts.theme)
 
-const DEV = window.location.hostname === 'localhost';
+const DEV = window.location.hostname === 'localhost' && false;
 
 // fix legend markers
 // ReactHighcharts.Highcharts.seriesTypes.area.prototype.drawLegendSymbol = 
@@ -820,7 +820,6 @@ class Dashboard extends Component {
 
     return (
       <div className='dashboard'>
-
         <div className='nav'>
           <a onClick={this.props.setCountry.bind(null, null)} action='#' title='go home'>
             <img className='who-logo' src='images/who_logo.png' alt='WHO logo' />
@@ -830,7 +829,7 @@ class Dashboard extends Component {
           </span>
         </div>
 
-        <div className='charts container-fluid mt-4'>
+        <div className='charts container-fluid mt-4 p-0'>
 
           <div className='row no-gutters mb-4'>
             <div className='col-xl-4 col-md-6 col-xs-12'>
@@ -886,18 +885,19 @@ class Dashboard extends Component {
           </div>
 
           <div className='row no-gutters'>
-            <h5 className='col-xl-12 text-center mt-4 mb-2'>HIV tests conducted and positivity in the past year</h5>
-            <div className='col-xl-4 col-lg-6 col-sm-12'><ReactHighcharts config={configAdults}/></div>
-            <div className='col-xl-4 col-lg-6 col-sm-12'><ReactHighcharts config={configCommunity}/></div>
-            <div className='col-xl-4 col-lg-6 col-sm-12'><ReactHighcharts config={configFacility}/></div>
-            <div className='col-xl-4 col-lg-6 col-sm-12'><ReactHighcharts config={configIndex}/></div>
-            <div className='col-xl-4 col-lg-6 col-sm-12'><ReactHighcharts config={configSelf}/></div>
-            <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configForecast} /></div>
+            <h5 className='col-12 text-center mt-4 mb-2'>HIV tests conducted and positivity in the past year</h5>
+            <div className='col-md-4 col-sm-12'><ReactHighcharts config={configAdults}/></div>
+            <div className='col-md-4 col-sm-12'><ReactHighcharts config={configCommunity}/></div>
+            <div className='col-md-4 col-sm-12'><ReactHighcharts config={configFacility}/></div>
+            <div className='col-md-4 col-sm-12'><ReactHighcharts config={configIndex}/></div>
+            <div className='col-md-4 col-sm-12'><ReactHighcharts config={configSelf}/></div>
+            <div className='col-md-4 col-sm-12'><ReactHighcharts config={configForecast} /></div>
           </div>
-          <div className='row mt-5'>
-            <KPTable classes='col-7 p-3' />
-            <PolicyTable classes='col-5 p-3' />
-            <DemographicsTable shiny={shiny} classes='p-3' />
+
+          <div className='row no-gutters mt-5'>
+            <KPTable classes='col-sm-12 col-md-7 py-3' />
+            <PolicyTable classes='col-sm-12 col-md-5 py-3' />
+            <DemographicsTable shiny={shiny} classes='py-3' />
           </div>
 
           <div className='row no-gutters mt-5'>

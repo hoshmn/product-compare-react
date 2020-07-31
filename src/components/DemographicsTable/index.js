@@ -64,7 +64,7 @@ class DemographicsTable extends Component {
       )
     }
     return (
-      <table className='table table-striped table-hover'>
+      <table className='table table-striped table-hover table-responsive table-responsive-lg'>
         <thead>
           <tr>
             <th scope='col'></th>
@@ -99,7 +99,7 @@ class DemographicsTable extends Component {
     const relevantGroups = this.props.shiny ? groups : [women, women15, men, men15]
     const hiddenGroups = relevantGroups.filter(g => this.state[g.id])
     if (!hiddenGroups.length) {
-      return null
+      // return null
       // return (
       //   <div className='hidden-rows'>
       //     <b>No rows hidden </b>
@@ -108,12 +108,22 @@ class DemographicsTable extends Component {
       // )
     }
 
+    const title = hiddenGroups.length ? 
+      (
+      <div className='title'>
+        <b>Hidden rows:</b>
+        <i>(click to unhide)</i>
+      </div>
+      ) : (
+        <div className='title all-visible'>
+          <b>No hidden rows</b>
+          <i>(click a row to hide)</i>
+        </div>
+      )
+
     return(
       <div className='hidden-rows mt-3'>
-        <div className='title'>
-          <b>Hidden rows:</b>
-          <i>(click to unhide)</i>
-        </div>
+        {title}
         <div className='rows'>
           {hiddenGroups.map(g => (
             <span
