@@ -102,10 +102,15 @@ class NestedBoxes extends Component {
   }
   
   render() {
-  	const boxes = this.getBoxes(this.props.side, 0)
+    const boxes = this.getBoxes(this.props.side, 0)
+    
+    const style = {
+      width: (this.props.side * this.props.ratios.length) + 'px',
+      height: (this.props.side + 70) + 'px',
+    }
     
     return (
-      <div className='nested-boxes'>
+      <div className='nested-boxes' style={style}>
        {boxes}
       </div>
     )

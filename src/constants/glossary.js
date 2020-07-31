@@ -1,6 +1,7 @@
 const diagnosticYield = {
   term: 'Diagnostic yield',
-  definition: 'Proportion of all tests conducted in which a new HIV diagnosis was identified. [Note: Question from stakeholder on how this is determined so more detail may be needed.]'
+  // Note: Question from stakeholder on how this is determined so more detail may be needed.
+  definition: 'Proportion of all tests conducted in which a new HIV diagnosis was identified.'
 }
 
 const firstTest = {

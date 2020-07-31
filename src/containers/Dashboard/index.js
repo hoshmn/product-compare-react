@@ -795,30 +795,35 @@ class Dashboard extends Component {
         </div>
 
         <div className='charts container-fluid mt-4'>
-          <div className='country-name'>
-            <h1> {this.props.country}</h1>
-          </div>
-          <div className='country-details pb-3'>
-            <div><span>Population:</span><span> {countryMap[this.props.country].population}</span></div>
-            <div><span>World Bank classification:</span><span> {countryMap[this.props.country].incomeClass}</span></div>
+
+          <div className='row no-gutters mb-4'>
+            <div className='col-xl-4 col-md-6 col-sm-12'>
+              <div className='country-name'>
+                <h1> {this.props.country}</h1>
+              </div>
+              <div className='country-details pb-3'>
+                <div><span>Population:</span><span> {countryMap[this.props.country].population}</span></div>
+                <div><span>World Bank classification:</span><span> {countryMap[this.props.country].incomeClass}</span></div>
+              </div>
+            </div>
+            <div className='col-xl-4 col-md-6 col-sm-12'>
+              <NestedBoxes
+                side={110}
+                ratios={[.85, .79, .87]}
+                // colors={[colors[1]+'97', colors[2]+'97', colors[0]+'97', colors[0]+'40']}
+                colors={['#c38f72', '#85adca', '#999999', colors[0] + '50']}
+                content={[
+                  { inner: '85%', below: 'of people living with HIV know their status' },
+                  { inner: '79%', below: 'of people living with HIV who know their status are on treatment' },
+                  { inner: '87%', below: 'of people on treatment are virally suppressed' },
+                ]}
+              />
+            </div>
           </div>
 
           <div className='row no-gutters'>
 
             <div className='col-xl-4 col-md-6 col-sm-12'>
-              <Tooltip className='plhiv'> 
-                <NestedBoxes
-                  side={110}
-                  ratios={[.85,.79,.87]}
-                  // colors={[colors[1]+'97', colors[2]+'97', colors[0]+'97', colors[0]+'40']}
-                  colors={['#c38f72', '#85adca', '#999999', colors[0]+'50']}
-                  content={[
-                    {inner: '85%', below: 'of people living with HIV know their status'},
-                    {inner: '79%', below: 'of people living with HIV who know their status are on treatment'},
-                    {inner: '87%', below: 'of people on treatment are virally suppressed'},
-                  ]}
-                />
-              </Tooltip>
               <ReactHighcharts config={configCascade}/>
             </div>
             {!shiny ? null : <div className='col-xl-4 col-md-6 col-sm-12'><ReactHighcharts config={configPLHIVSex}/></div>}
