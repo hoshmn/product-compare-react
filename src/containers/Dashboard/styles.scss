@@ -70,14 +70,19 @@ $nav-height: 70px;
       }
     }
 
-    .modeled-icon {
-      position: absolute;
-      right: 10px;
-      top: 12px;
-      width: 18px;
-      z-index: 1;
+    // .modeled-icon {
+    //   position: absolute;
+    //   right: 10px;
+    //   top: 12px;
+    //   width: 18px;
+    //   z-index: 1;
+    // }
+    .hivp-title {
+      color: $froly;
     }
-    
+    .hivn-title {
+      color: $cerulean;
+    }
     
     .tooltip-container {
       position: absolute;

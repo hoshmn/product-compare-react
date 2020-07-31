@@ -235,7 +235,7 @@ class Dashboard extends Component {
   }
 
   getNegative() {
-    const title = 'HIV-negative tests - first-time testers and repeat testers'
+    const title = '<span class="hivn-title">HIV-negative</span> tests - first-time testers and repeat testers'
     const categories = _.range(2010,2020)
     const series = [
       {
@@ -263,6 +263,7 @@ class Dashboard extends Component {
       },
     ]
     const options = {
+      title: { useHTML: true },
       yAxis: { title: { text: 'HIV Negative Tests (thousands)' } },
       subtitle: { text: 'Spectrum/Shiny90 model estimates (UNAIDS, 2020)' },
       // tooltip: { valueSuffix: ' thousand' },
@@ -302,9 +303,10 @@ class Dashboard extends Component {
   // }
 
   getDistribution() {
-    const title = 'HIV-positive tests - new diagnoses and retests'
+    const title = '<span class="hivp-title">HIV-positive</span> tests - new diagnoses and retests'
     const categories = _.range(2010,2020)
     const options = { 
+      title: { useHTML: true },
       yAxis: { title: { text: 'HIV Positive tests (thousands)' } },
       subtitle: { text: 'Spectrum/Shiny90 model estimates (UNAIDS, 2020)' },
       // tooltip: { pointFormat: '{series.name}: <b>{point.y:.0f} million</b>' },
@@ -337,7 +339,7 @@ class Dashboard extends Component {
         ].map(n => n*1000),
       },
       {
-        name: 'New diagnos',
+        name: 'New diagnosis',
         description: TERM_MAP.newDiagnosis.definition,
         color: colors[1]+'97',
         data: [
