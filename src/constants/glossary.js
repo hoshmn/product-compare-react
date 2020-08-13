@@ -21,7 +21,7 @@ const hivstDemand = {
 
 const hivstNeed = {
   term: 'HIVST need',
-  definition: 'Estimated volume of HIV self - tests required to support the testing needs of the national program'
+  definition: 'Estimated volume of HIV self - tests required based on target population groups epidemiological characteristics, WHO testing guidance and scale-up of testing services to meet global goals.'
 }
 
 const newDiagnosis = {
