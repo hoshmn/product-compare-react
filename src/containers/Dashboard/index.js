@@ -917,6 +917,9 @@ class Dashboard extends Component {
             <a className='col-xl-12' target='_blank' rel='noopener noreferrer' href='https://cfs.hivci.org/'>
               WHO HIV Country Profiles
             </a>
+            <a className='col-xl-12' target='_blank' rel='noopener noreferrer' href='https://master.d3hbl3m8yhsiqb.amplifyapp.com/Kenya'>
+              *OFFICIAL* DASHBOARD (work in progress)
+            </a>
           </div>
           {this.getGlossary()}
           <br />
