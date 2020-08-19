@@ -573,20 +573,40 @@ class Dashboard extends Component {
     const title = 'HIVST Forecast'
     const options = {
       subtitle: { text: 'WHO model estimates, 2020' },
-      plotOptions: { series: { pointStart: 2019 } }
+      // plotOptions: { series: { pointStart: 2019 } }
     }
     const series = [
       {
-        name: 'HIVST demand',
-        data: [9012, 51023, 114389, 218324, 321092, 425203, 534324]
+        name: 'HIVSTs distributed',
+        data: [
+          { x: 2018, y: 8340 },
+          { x: 2019, y: 9012 },
+        ]
       },
       {
-        name: 'HIVST need',
+        name: 'HIVST forecast demand',
+        data: [
+          { x: 2020, y: 51023 },
+          { x: 2021, y: 114389 },
+          { x: 2022, y: 218324 },
+          { x: 2023, y: 321092 },
+          { x: 2024, y: 425203 },
+          { x: 2025, y: 534324 }
+        ]
+      },
+      {
+        name: 'HIVST forecast need',
         type: 'line',
-        data: [3234932, 3123038, 3023432, 3132423, 3292382, 3323430, 3252329]
+        data: [
+          { x: 2020, y: 812303 },
+          { x: 2021, y: 802343 },
+          { x: 2022, y: 813242 },
+          { x: 2023, y: 829238 },
+          { x: 2024, y: 832343 },
+          { x: 2025, y: 825232 }]
       }
     ]
-    return _.merge({}, getColumnLine({title, series, options}))
+    return _.merge({}, getColumnLine({ title, series, options }))
   }
 
   getComp() {
@@ -766,22 +786,22 @@ class Dashboard extends Component {
     return _.merge({}, getColumnScat({title, options, categories, series}))
   }
 
-  getSelf() {
-    const title = 'HIV self-tests distributed'
-    const series = [
-      {
-        name: 'number',
-        color: colors[5],
-        data: [67000],
-      },
-    ]
-    const categories = ['HIV self-tests distributed']
-    const options = {
-      // plotOptions: { column: { stacking: 'normal' } }
-      legend: { enabled: false }
-    }
-    return _.merge({}, getColumn({title, series, options, categories}))
-  }
+  // getSelf() {
+  //   const title = 'HIV self-tests distributed'
+  //   const series = [
+  //     {
+  //       name: 'number',
+  //       color: colors[5],
+  //       data: [67000],
+  //     },
+  //   ]
+  //   const categories = ['HIV self-tests distributed']
+  //   const options = {
+  //     // plotOptions: { column: { stacking: 'normal' } }
+  //     legend: { enabled: false }
+  //   }
+  //   return _.merge({}, getColumn({title, series, options, categories}))
+  // }
 
   // getModeledIcon() {
 
@@ -814,7 +834,7 @@ class Dashboard extends Component {
     const configFacility = this.getFacility()
     const configIndex = this.getIndex()
 
-    const configSelf = this.getSelf()
+    // const configSelf = this.getSelf()
 
     // const mIcon = this.getModeledIcon()
 
@@ -890,8 +910,8 @@ class Dashboard extends Component {
             <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12'><ReactHighcharts config={configCommunity}/></div>
             <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12'><ReactHighcharts config={configFacility}/></div>
             <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12'><ReactHighcharts config={configIndex}/></div>
-            <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12'><ReactHighcharts config={configSelf}/></div>
-            <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12'><ReactHighcharts config={configForecast} /></div>
+            {/* <div className='col-xl-3 col-lg-4 col-md-6 col-sm-12'><ReactHighcharts config={configSelf}/></div> */}
+            <div className='col-xl-6 col-lg-6 col-md-6 col-sm-12'><ReactHighcharts config={configForecast} /></div>
           </div>
 
           <div className='row no-gutters mt-5'>
